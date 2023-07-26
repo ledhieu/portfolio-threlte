@@ -17,15 +17,15 @@
 	const setupEffectComposer = (camera) => {
 		composer.addPass(new RenderPass(scene, camera));
 		const bloomEffect = new BloomEffect({
-            intensity: 0.2,
-            luminanceThreshold: 1
+            intensity:1,
+            luminanceThreshold: 0.9
         })
 		composer.addPass(new EffectPass(camera, bloomEffect));
         const noiseEffect = new NoiseEffect({
             blendFunction: BlendFunction.SCREEN,
             premultiply: true
         })
-        composer.addPass(new EffectPass(camera, noiseEffect))
+        // composer.addPass(new EffectPass(camera, noiseEffect))
         const toneMappingEffect = new ToneMappingEffect({
             mode: ToneMappingMode.REINHARD2_ADAPTIVE
         })

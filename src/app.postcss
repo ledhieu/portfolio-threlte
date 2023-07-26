@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+@font-face {
+    font-family: Another;
+    src: url('/font/aAnotherTag.otf');
+    font-weight: bold;
+}
+@font-face {
+    font-family: Akira;
+    src: url('/font/Akira Expanded Demo.otf');
+    font-weight: bold;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: Inconsolata;
+}
+.akira, .akira *{
+    font-family: Akira
+}
+.another, .another *{
+    font-family: Another
+}
+
+.line{
+    height: fit-content;
+}
+.line{
+    width: 0%;
+    position: absolute;
+    top: calc(50% - 1px);
+    height: 1px;
+    background: #555555;
+    transition: 1s;
+    transition-timing-function: cubic-bezier(.8,0,.2,1);
+}
+.loaded .line{
+    width: 100%;
+    transition: 1s;
+    transition-delay: 1s;
+    transition-timing-function: cubic-bezier(.8,0,.2,1);
+}
+.line-container .tip{
+    width: 10px;
+    height: 3px;
+    position: absolute;
+    background: #555555;
+    top: calc(50% - 2px);
+    left: -10px;
+    border-radius: 5px;
+    transition: 1s;
+    transition-timing-function: cubic-bezier(.8,0,.2,1);
+}
+.loaded .tip{
+    left: 100%;
+    transition: 1s;
+    transition-delay: 1s;
+    transition-timing-function: cubic-bezier(.8,0,.2,1);
+}
