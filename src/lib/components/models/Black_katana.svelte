@@ -9,9 +9,10 @@ import { useFrame, useLoader, useThrelte } from '@threlte/core'
 import { Group } from 'three'
 import { T, forwardEventHandlers } from '@threlte/core'
 import { useGltf, useGltfAnimations, useTexture, HTML } from '@threlte/extras'
-import { hipHop, breakDance, idle } from '$lib/character.js'
 import * as THREE from 'three'
 import { loading } from '$lib/loading'
+import { getContext } from 'svelte'
+
 
 export const ref = new Group()
 
@@ -20,8 +21,19 @@ const gltf = useGltf('/models/me_katana6.glb')
 export const { actions, mixer } = useGltfAnimations(gltf, ref)
 
 const component = forwardEventHandlers()
+const pageState = getContext('pageState')
 
 let currentActionKey = 'Happy Idle'
+$: {
+  if($pageState == 'intro'){
+    transitionTo('Happy Idle', 1)
+  } else if ($pageState == 'character'){
+    transitionTo('Fighting Idle', 1)
+  } else {
+    transitionTo('Happy Idle', 1)
+  }
+  
+}
 const { scene, camera, renderer } = useThrelte()
 
 $: console.log($gltf, actions)
@@ -36,20 +48,6 @@ $: {
     }
 }
 
-const unsubIdle = idle.subscribe(() => {
-  console.log('transition to idle')
-  transitionTo('Idle', 0.3)
-})
-
-const unsubHipHop = hipHop.subscribe(() => {
-  console.log('transition to hip hop')
-  transitionTo('Hip Hop Dance', 0.3)
-})
-
-const unsubBreakDance = breakDance.subscribe(() => {
-  console.log('transition to break dance')
-  transitionTo('Break Dance', 0.3)
-})
 
 function transitionTo(nextActionKey, duration = 1) {
   const currentAction = $actions[currentActionKey]

@@ -10,17 +10,19 @@
   // import MeWhite from '$lib/components/models/Me_white.svelte'
   // import MeBlack from '$lib/components/models/Me_black.svelte'
   import BlackKatana from './models/Black_katana.svelte';
-
+  import MeKatana_2ver from './models/Me_katana_2ver.svelte';
   import * as THREE from 'three'
-
-  import { darkMode } from '../character';
+  import PostProcessingRenderer from './PostProcessingRenderer.svelte';
   import CustomRenderer from './CustomRenderer.svelte';
   import { onMount, getContext } from 'svelte';
   import { gsap } from 'gsap'
 
   const pageState = getContext('pageState')
+  const { scene, camera, renderer } = useThrelte();
+  const darkMode = getContext('darkMode')
 
   // Animation section
+  let grid;
   let leftLight, rightLight, pointLight, orbitControls
   $: {
     console.log($pageState)
@@ -46,17 +48,50 @@
       } else if ($pageState == 'character'){
         gsap.to($camera.position, { x: 1.2, y: 1, z: 2.8, duration: 4, ease: 'power4.inOut' })
         gsap.to(orbitControls.target, { x: 1.2, y: 1, z: 0, duration: 4, ease: 'power4.inOut' })
-        gsap.to(leftLight.position, { x: -39, y: 1, z: -19, duration: 4, ease: 'power4.inOut' })
+        gsap.to(leftLight.position, { x: -29, y: 1, z: -19, duration: 4, ease: 'power4.inOut' })
         gsap.to(rightLight.position, { x: 0, y: 1, z: -19, duration: 4, ease: 'power4.inOut' })
         gsap.to(pointLight.position, { x: 0, y: 1.5, z: 1.5, duration: 4, ease: 'power4.inOut' })
         gsap.to(ref.rotation, { y: Math.PI/9, duration: 4, ease: 'power4.inOut' })
         if(hudCircleMesh)
-          gsap.to(hudCircleMesh.rotation, { y: Math.PI/9, duration: 4, ease: 'power4.inOut' })
+          gsap.to(hudCircleMesh.rotation, { y: Math.PI + Math.PI/9, duration: 4, ease: 'power4.inOut' })
       } else {
         target = {x: 0, y: 1.3, z: 0}
       }
     }
+  }
+
+  $: {
+    if(leftLight && rightLight && pointLight && scene ){
+      console.log('gridcolor', gridColor  )
+      if($darkMode){
+        // orange2
+        gsap.to(leftLight.color, { r: 0.7912979403281553, g: 0.057805430183792694, b: 0.007499032040460618, duration: 1, ease: 'power4.inOut'})
+        // purple
+        gsap.to(rightLight.color, { r: 0.15292615198613213, g: 0.010329823026364548, b: 0.5457244613615395, duration: 1, ease: 'power4.inOut'})
+        // purple
+        gsap.to(pointLight.color, { r: 0.15292615198613213, g: 0.010329823026364548, b: 0.5457244613615395, duration: 1, ease: 'power4.inOut'})
+        // 
+        gsap.to(groundColor, { r: 0.0018211619011764706, g: 0, b: 0.008568125615105716, duration: 1, ease: 'power4.inOut'})
+        // 
     
+        gsap.to(gridColor, { r: 0.266666, g: 0.26666, b: 0.266666, duration: 1, ease: 'power4.inOut', onUpdate: () => {
+
+        }})
+      } else {
+        // white
+        gsap.to(leftLight.color, { r: 1, g: 1, b: 1, duration: 1, ease: 'power4.inOut'})
+        // orange2
+        gsap.to(rightLight.color, { r: 0.7912979403281553, g: 0.057805430183792694, b: 0.007499032040460618, duration: 1, ease: 'power4.inOut'})
+        // white
+        gsap.to(pointLight.color, { r: 1, g: 1, b: 1, duration: 1, ease: 'power4.inOut'})
+        //
+        gsap.to(groundColor, { r: 0.6038273388475408, g: 0.6038273388475408, b: 0.6038273388475408, duration: 1, ease: 'power4.inOut'})
+        //
+        gsap.to(gridColor, { r: 1, g: 1, b: 1, duration: 1, ease: 'power4.inOut', onUpdate: () => {
+          // update loop
+        }})
+      }
+    }
   }
 
   let hudCircle, hudCircleMesh, hudCircleMaterial, 
@@ -77,39 +112,41 @@
   const lightTeal = new THREE.Color(0x6AFFE4)
   const orange = new THREE.Color(0xffb577)
   const orange2 = new THREE.Color(0xE64415)
-  const darkModeGround = new THREE.Color(0x111111)
-  const lightModeGround = new THREE.Color(0xdddddd)
+  const darkModeGround = new THREE.Color(0x060017)
+  const lightModeGround = new THREE.Color(0xcccccc)
+  let groundColor = lightModeGround;
+  let gridColor = new THREE.Color(0xffffff)
   // let groundColor = new THREE.Color(0x0000000)
-  $: groundColor = $darkMode ? darkModeGround : lightModeGround
-  $: gridColor = $darkMode ? '#333333' : '#ffffff'
+  // $: groundColor = $darkMode ? darkModeGround : lightModeGround
   $: console.log($darkMode)
-  const { scene, camera, renderer } = useThrelte();
+  
   
   let ref;
-  renderer.toneMapping = THREE.ReinhardToneMapping 
+  renderer.toneMapping = THREE.CineonToneMapping 
     
-  $: {
-    if(ground && !groundMounted){
-      console.log('new', ground)
-      // groundMaterial = new MeshReflectorMaterial(renderer, $camera, scene, ground, {
-      //   resolution: 1024,
-      //   blur: [100, 10],
-      //   mirror: 0,
+  // $: {
+  //   if(ground && !groundMounted){
+  //     console.log('new', ground)
+  //     // groundMaterial = new MeshReflectorMaterial(renderer, $camera, scene, ground, {
+  //     //   resolution: 1024,
+  //     //   blur: [100, 10],
+  //     //   mirror: 0,
         
-      //   mixBlur: 0,
-      //   mixStrength: 1,
-      //   minDepthThreshold: 0.85,
-      //   color: groundColor,
-      //   roughness: 1
-      // });
-      // groundMaterial.color = groundColor
-      scene.background = groundColor
-      console.log('scene', scene)
-      groundMounted = true;
-    }
-  }
+  //     //   mixBlur: 0,
+  //     //   mixStrength: 1,
+  //     //   minDepthThreshold: 0.85,
+  //     //   color: groundColor,
+  //     //   roughness: 1
+  //     // });
+  //     // groundMaterial.color = groundColor
+  //     scene.background = groundColor
+  //     console.log('scene', scene)
+  //     groundMounted = true;
+  //   }
+  // }
   $: {
     if(scene)
+      console.log(scene.background)
       scene.background = groundColor
     if(groundMaterial)
       groundMaterial.color = groundColor
@@ -127,7 +164,12 @@
       // hudTexture.format = THREE.RGBAFormat
     }
   }
-  onMount(async () => {
+  // $: {
+  //   if(renderer){
+  //     renderer.toneMapping = $darkMode ? THREE.ACESFilmicToneMapping : THREE.ReinhardToneMapping
+  //   }
+  // }
+  onMount(() => {
     window.addEventListener('resize', () => {
       resize()
     })
@@ -137,8 +179,12 @@
       renderer.setSize(window.innerWidth, window.innerHeight)
       $camera.aspect = renderer.domElement.clientWidth / renderer.domElement.clientHeight
       $camera.updateProjectionMatrix()
-      renderer.toneMapping = THREE.ReinhardToneMapping 
+      // renderer.toneMapping = THREE.ACESFilmicToneMapping
+      renderer.toneMapping = THREE.ReinhardToneMapping
     }
+  })
+  onMount(async () => {
+    
 
     // holy shit what a hack
     const { LottieLoader } = await import ('three/examples/jsm/loaders/LottieLoader')
@@ -189,10 +235,6 @@
   
   })
   let testRender = () => {}
-  useRender(() => {
-    renderer.render(scene, $camera)
-    // testRender()
-  })
   
 </script>
 
@@ -202,7 +244,7 @@
 </svelte:head>
 
 <!-- <PostProcessingRenderer/> -->
-<!-- <CustomRenderer/> -->
+<CustomRenderer/>
 <!-- <CameraAnimation/> -->
 <T.PerspectiveCamera
   makeDefault
@@ -266,16 +308,16 @@
   <T.MeshStandardMaterial 
     map={hudCircleTexture}
     emissiveMap={hudCircleTexture}
-    emissiveColor={orange2}
-    emissiveIntensity={10.1}
-    blending={THREE.AdditiveBlending}
+    emissiveColor={$darkMode ? white : orange2}
+    emissiveIntensity={1.1}
+    blending={$darkMode ? THREE.NormalBlending : THREE.AdditiveBlending}
     blendEquation={THREE.AddEquation}
-    blendSrc={THREE.SrcColorFactor}
-    blendDst={THREE.DstColorFactor}
+    blendSrc={THREE.OneFactor}
+    blendDst={THREE.DstAlphaFactor}
     alphaMap={hudCircleTexture}
     side={THREE.DoubleSide}
     alphaTest={0.3}
-    color={orange2}
+    color={$darkMode ? white : orange2}
     transparent={true}
     />
 </T.Mesh>
@@ -288,7 +330,6 @@
   intensity={22}
   target={ref}
   penumbra={0}
-  color={$darkMode ? grey : white}
   angle={Math.PI/4}
   decay={5}
   bind:ref={leftLight}
@@ -304,7 +345,6 @@
   penumbra={0}
   angle={Math.PI/4}
   target={ref}
-  color={$darkMode ? teal : orange2}
   decay={5}
   bind:ref={rightLight}
 >
@@ -317,7 +357,7 @@
 <!-- position={[0, 0.5, 3]} -->
 
 <T.PointLight
-intensity={2.5}
+intensity={$darkMode ? 4 : 1.5}
 bind:ref={pointLight}
 >
 <!-- <Editable name="Point Light" transform controls /> -->
@@ -335,6 +375,7 @@ bind:ref={pointLight}
   position.y={-0.001}
   cellColor={gridColor}
   sectionColor={gridColor}
+  bind:ref={grid}
   sectionThickness={0}
   fadeDistance={20}
   cellSize={1}
@@ -347,7 +388,7 @@ bind:ref={pointLight}
   opacity={0.6}
 />
 
-<BlackKatana bind:ref/>
+<MeKatana_2ver bind:ref/>
 <!-- <MeBlack/> -->
 
 <!-- <Environment path="/" files="studio_small_09_1k.hdr" isBackground={false}/> -->

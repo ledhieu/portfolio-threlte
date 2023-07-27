@@ -10,6 +10,8 @@
     let date = new Date()
     const pageState = writable("loading")
     setContext("pageState", pageState)
+    const darkMode = writable(false)
+    setContext("darkMode", darkMode)
 
     let loadedEvent, emitted = false;
     onMount(() => {
@@ -26,6 +28,8 @@
     
 </script>
 
+<div class="contents"
+  class:dark={$darkMode}>
 {#if $loading < 100}
 <div out:fade={{ duration: 1000 }}
 class="loading-screen fixed w-full h-full" style="z-index: 1000000">
@@ -55,6 +59,7 @@ class="loading-screen fixed w-full h-full" style="z-index: 1000000">
 </div>
 {/if}
 <slot />
+</div>
 
 <style>
   .loading-screen{

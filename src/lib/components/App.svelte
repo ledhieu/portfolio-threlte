@@ -1,7 +1,6 @@
 <script>
   import { Canvas } from '@threlte/core'
   import Scene from './Scene.svelte'
-  import { darkMode } from '../character';
   import { writable } from 'svelte/store';
   import { getContext, onMount } from 'svelte';
   import { setContext } from 'svelte';
@@ -15,8 +14,11 @@
   import introState from '$lib/theatre/Intro.theatre-project-state.json'
   import characterState from '$lib/theatre/ToCharacter.theatre-project-state.json'
   import { dev } from '$app/environment';
+  import IntroUI from '$lib/components/UI/IntroUI.svelte'
+  import CharacterUI from './UI/CharacterUI.svelte';
 
   const pageState = getContext('pageState')
+  const darkMode = getContext('darkMode')
   $: {
     $pageState;
     // console.log(sequence)
@@ -64,8 +66,7 @@
 
   // Lottie section
   let mounted = false;
-  const BASE_DELAY = 4000;
-  const DELAY_INTERVAL = 500;
+  
   let sequence, sequence2
   onMount(async () => {
       mounted = true;
@@ -103,7 +104,7 @@ style={`
   width: 100%;
   height: 100%;
 `}>
-<Studio enabled={dev}></Studio>
+<!-- <Studio enabled={dev}></Studio> -->
 
 <Canvas>
   <!-- <Project config={{ state: characterState }} name="Portfolio">
@@ -197,75 +198,12 @@ style={`
           <div class="tip"></div>
     </div>
 
-    <!-- Intro UI Page -->
-    <div class="titles absolute left-0 right-0 top-0 bottom-0 m-auto
-    w-fit h-fit text-center"
-    >
     {#if $loading >= 100 && $pageState == 'intro'}
-      <h2 style="font-family: Another;
-        font-size: 128px;
-        line-height: 98px;
-        top: -90px;
-        "
-        id="hieusportfolio"
-        in:fade={{duration: 1, delay: BASE_DELAY}}
-        out:fade={{ duration: 1, delay: 1000 }}
-        class="text-white uppercase absolute left-0 right-0 m-auto">
-        Hieu's portfolio
-      </h2>
-
-      <h1 style="
-      letter-spacing: -5%;
-      line-height: 98px;
-      font-size: 128px"
-      id="designside"
-      class="absolute uppercase akira"
-      in:fade={{duration: 1, delay: BASE_DELAY + DELAY_INTERVAL}}
-      >
-        <span in:fade={{duration: 1, delay: BASE_DELAY + DELAY_INTERVAL * 2}}>de</span><span in:fade={{duration: 1, delay: BASE_DELAY + DELAY_INTERVAL * 3}}>si<span style="color: #FF6B00; mix-blend-mode:screen">gn</span></span><span in:fade={{duration: 1, delay: BASE_DELAY + DELAY_INTERVAL * 4}}>side</span>
-      </h1>
-
-      <!-- Ghost title to keep the spacing -->
-      <h1 style="font-family: Akira;
-      letter-spacing: -5%;
-      line-height: 98px;
-      font-size: 128px;
-      opacity: 0"
-      >
-        DESIGNSIDE
-      </h1>
-      <div class="flex absolute w-full justify-between">
-          <p use:shuffle={{
-              shufflesBeforeOrdering: 240
-            }}
-            in:fade={{duration: 1, delay: BASE_DELAY + DELAY_INTERVAL * 5}}
-            class="uppercase font-bold"
-            style="font-size: 12px; font-family: Inconsolata">
-              graphics design
-          </p>
-          <p 
-            use:shuffle={{
-              shufflesBeforeOrdering: 240
-            }}
-            in:fade={{duration: 1, delay: BASE_DELAY + DELAY_INTERVAL * 6}}
-            class="uppercase font-bold"
-            style="font-size: 12px; font-family: Inconsolata">
-              ux/ui design
-          </p>
-      </div>
+      <IntroUI/>
     {/if}
-    </div>
-    <!-- End Intro Page -->
-
-    <!-- Character Page -->
-    <div class="w-1/2 h-full absolute right-0 flex flex-col justify-center">
-      <div class="titles" style="padding-right: 200px">
-        <p class="uppercase font-bold mb-3" style="font-size: 20px">LE DUC HIEU // CLASS</p>
-        <p class="another uppercase" style="font-size: 130px; line-height: 130px">3D designer</p>
-        <p style="line-height: 18px; font-size: 15px">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed scelerisque, est non molestie dignissim, libero diam ornare leo, id rhoncus nulla ipsum non erat. Maecenas blandit nisl leo, quis placerat sem convallis a. Sed dapibus iaculis felis ut pulvinar. Vivamus mattis dignissim turpis non sodales. Sed ex dui, elementum ac enim quis, mattis aliquet elit.</p>
-      </div>
-    </div>
-    <!-- End Character Page -->
+    {#if $loading >= 100 && $pageState == 'character'}
+      <CharacterUI/>
+    {/if}
   </div>
 </div>
 
