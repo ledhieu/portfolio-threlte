@@ -29,31 +29,37 @@
     if(leftLight && rightLight && pointLight && $camera){
       if($pageState == 'loading'){gsap.to($camera.position, { x: 0, y: 1.3, z: -1.8, duration: 4, ease: 'power4.inOut' })
         gsap.to($camera.position, { x: 0, y: 121.3, z: -121.8, duration: 4, ease: 'power4.inOut' })  
-        //  fov not working
-        gsap.to($camera, { fov: 2, duration: 4, ease: 'power4.inOut' })
+        //  needs to update projection matrix
+        gsap.to($camera, { fov: 10, duration: 0.11, ease: 'power4.inOut', onUpdate: () => {
+          $camera.updateProjectionMatrix()
+        } })
         gsap.to(orbitControls.target, { x: 0, y: 1.3, z: 0, duration: 4, ease: 'power4.inOut' })
-        gsap.to(leftLight.position, { x: -9, y: 1, z: 19, duration: 4, ease: 'power4.inOut' })
-        gsap.to(rightLight.position, { x: 9, y: 1, z: 19, duration: 4, ease: 'power4.inOut' })
-        gsap.to(pointLight.position, { x: 0, y: 5, z: -2, duration: 4, ease: 'power4.inOut' })
+        gsap.to(leftLight.position, { x: -9, y: 1, z: 19, duration: 0.1, ease: 'power4.inOut' })
+        gsap.to(rightLight.position, { x: 9, y: 1, z: 19, duration: .1, ease: 'power4.inOut' })
+        gsap.to(pointLight.position, { x: 0, y: 5, z: -2, duration: .1, ease: 'power4.inOut' })
       } else if($pageState == 'intro'){
         gsap.to($camera.position, { x: 0, y: 1.3, z: -1.8, duration: 4, ease: 'power4.inOut' })
-        gsap.to($camera, { fov: 35, duration: 4, ease: 'power4.inOut' })
+        gsap.to($camera, { fov: 50, duration: 4, ease: 'power4.inOut', onUpdate: () => {
+          $camera.updateProjectionMatrix()
+        } })
         gsap.to(orbitControls.target, { x: 0, y: 1.3, z: 0, duration: 4, ease: 'power4.inOut' })
-        gsap.to(leftLight.position, { x: -9, y: 1, z: 19, duration: 4, ease: 'power4.inOut' })
-        gsap.to(rightLight.position, { x: 9, y: 1, z: 19, duration: 4, ease: 'power4.inOut' })
-        gsap.to(pointLight.position, { x: 0, y: 5, z: -2, duration: 4, ease: 'power4.inOut' })
+        gsap.to(leftLight.position, { x: -9, y: 1, z: 19, duration: 4, delay: 0.5, ease: 'power4.inOut' })
+        gsap.to(rightLight.position, { x: 9, y: 1, z: 19, duration: 4, delay: 0.5, ease: 'power4.inOut' })
+        gsap.to(pointLight.position, { x: 0, y: 5, z: -2, duration: 4, delay: 0.5, ease: 'power4.inOut' })
         gsap.to(ref.rotation, { y: 0, duration: 4, ease: 'power4.inOut' })
         if(hudCircleMesh)
           gsap.to(hudCircleMesh.rotation, { y: 0, duration: 4, ease: 'power4.inOut' })
       } else if ($pageState == 'character'){
-        gsap.to($camera.position, { x: 1.2, y: 1, z: 2.8, duration: 4, ease: 'power4.inOut' })
-        gsap.to(orbitControls.target, { x: 1.2, y: 1, z: 0, duration: 4, ease: 'power4.inOut' })
-        gsap.to(leftLight.position, { x: -29, y: 1, z: -19, duration: 4, ease: 'power4.inOut' })
-        gsap.to(rightLight.position, { x: 0, y: 1, z: -19, duration: 4, ease: 'power4.inOut' })
-        gsap.to(pointLight.position, { x: 0, y: 1.5, z: 1.5, duration: 4, ease: 'power4.inOut' })
-        gsap.to(ref.rotation, { y: Math.PI/9, duration: 4, ease: 'power4.inOut' })
-        if(hudCircleMesh)
-          gsap.to(hudCircleMesh.rotation, { y: Math.PI + Math.PI/9, duration: 4, ease: 'power4.inOut' })
+        gsap.to($camera, { fov: 20, duration: 4, ease: 'power4.inOut', onUpdate: () => {
+          $camera.updateProjectionMatrix()
+        } })
+        gsap.to($camera.position, { x: 1.2, y: 2, z: 8.8, duration: 4, ease: 'power4.inOut' })
+        gsap.to(orbitControls.target, { x: 1.2, y: 1, z: 0, duration: 3.2, ease: 'power4.inOut' })
+        gsap.to(leftLight.position, { x: -29, y: 1, z: -19, duration: 3.2, delay: 0, ease: 'power4.inOut' })
+        gsap.to(rightLight.position, { x: 9, y: 1, z: -19, duration: 3.2, delay: 0, ease: 'power4.inOut' })
+        gsap.to(pointLight.position, { x: 0, y: 1.5, z: 1.5, duration: 3.2, delay: 0, ease: 'power4.inOut' })
+        gsap.to(ref.rotation, { y: Math.PI/15, duration: 4, ease: 'power4.inOut' })
+  
       } else {
         target = {x: 0, y: 1.3, z: 0}
       }
@@ -74,7 +80,7 @@
         gsap.to(groundColor, { r: 0.0018211619011764706, g: 0, b: 0.008568125615105716, duration: 1, ease: 'power4.inOut'})
         // 
         // gsap.to(gridColor, { r: 0, g: 0, b: 0,  duration: 1, ease: 'power4.inOut'})
-        gsap.to(grid.material.uniforms.uColor1.value, { r: 0.0618211619011764706, g: 0.005, b: 0.068568125615105716,  duration: 1, ease: 'power4.inOut'})
+        gsap.to(grid.material.uniforms.uColor1.value, { r: 0.1418211619011764706, g: 0.015, b: 0.148568125615105716,  duration: 1, ease: 'power4.inOut'})
       } else {
         // white
         gsap.to(leftLight.color, { r: 1, g: 1, b: 1, duration: 1, ease: 'power4.inOut'})
@@ -87,7 +93,7 @@
         gsap.to(groundColor, { r: 0.6038273388475408, g: 0.6038273388475408, b: 0.6038273388475408, duration: 1, ease: 'power4.inOut'})
         //
         // gsap.to(gridColor, { r: 0, g: 0, b: 0,  duration: 1, ease: 'power4.inOut'})
-        gsap.to(grid.material.uniforms.uColor1.value, { r: 0.8, g: 0.8, b: 0.8,  duration: 1, ease: 'power4.inOut'})
+        gsap.to(grid.material.uniforms.uColor1.value, { r: 0.7, g: 0.7, b: 0.7,  duration: 1, ease: 'power4.inOut'})
       }
     }
   }
@@ -137,7 +143,7 @@
   
   
   let ref;
-  renderer.toneMapping = THREE.CineonToneMapping 
+  // renderer.toneMapping = THREE.CineonToneMapping 
     
   // $: {
   //   if(ground && !groundMounted){
@@ -197,6 +203,7 @@
     resize()
 
     function resize() {
+      console.log('resizing')
       renderer.setSize(window.innerWidth, window.innerHeight)
       $camera.aspect = renderer.domElement.clientWidth / renderer.domElement.clientHeight
       $camera.updateProjectionMatrix()
@@ -265,7 +272,7 @@
 </svelte:head>
 
 <!-- <PostProcessingRenderer/> -->
-<CustomRenderer/>
+<!-- <CustomRenderer/> -->
 <!-- <CameraAnimation/> -->
 <T.PerspectiveCamera
   makeDefault
@@ -273,11 +280,12 @@
 <!-- <Editable name="Camera" transform controls fov/> -->
 <OrbitControls
   autoRotate
-  enableRotate={false}
+  enableRotate={true}
   enableZoom={false}
   enablePan={true}
   enableDamping
   autoRotateSpeed={0}
+  fov={10}
   bind:ref={orbitControls}
 />
 </T.PerspectiveCamera>

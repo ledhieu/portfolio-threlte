@@ -195,11 +195,13 @@ style={`
   <!-- <video style="display: none" bind:this={hudGraphElement} autoplay muted loop autoresume>
     <source src="/mp4/hudgraph.mp4">
   </video> -->
-  <video style="display:none" bind:this={hudCircleElement} controls autoplay muted loop autoresume>
-    <source src="/mp4/hudcirclebackdrop_orange.mp4">
+  <!-- Note: mute allows autoplay but will make the video pausable to save power -->
+  <!-- Note2: the video must have audio for it to be prioritized by the browser -->
+  <video style="display:none" bind:this={hudCircleElement} controls autoplay loop autoresume 
+  src="/mp4/hudcirclebackdrop_orange.mp4">
   </video>
-  <video style="display:none" bind:this={scribbleAllElement} controls autoplay muted loop autoresume>
-    <source src="/mp4/scribble_all.mp4">
+  <video style="display:none" bind:this={scribbleAllElement} controls autoplay loop autoresume
+  src="/mp4/sequence_all_audio.mp4">
   </video>
   <!-- </video>
   <video style="display: none" bind:this={scribble2Element} autoplay muted loop autoresume>
