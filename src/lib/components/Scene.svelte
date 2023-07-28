@@ -62,7 +62,6 @@
 
   $: {
     if(leftLight && rightLight && pointLight && scene ){
-      console.log('gridcolor', gridColor  )
       if($darkMode){
         // orange2
         gsap.to(leftLight.color, { r: 0.7912979403281553, g: 0.057805430183792694, b: 0.007499032040460618, duration: 1, ease: 'power4.inOut'})
@@ -70,13 +69,12 @@
         gsap.to(rightLight.color, { r: 0.15292615198613213, g: 0.010329823026364548, b: 0.5457244613615395, duration: 1, ease: 'power4.inOut'})
         // purple
         gsap.to(pointLight.color, { r: 0.15292615198613213, g: 0.010329823026364548, b: 0.5457244613615395, duration: 1, ease: 'power4.inOut'})
+        gsap.to(pointLight, { intensity: 5, duration: 1, ease: 'power4.inOut'})
         // 
         gsap.to(groundColor, { r: 0.0018211619011764706, g: 0, b: 0.008568125615105716, duration: 1, ease: 'power4.inOut'})
         // 
-    
-        gsap.to(gridColor, { r: 0.266666, g: 0.26666, b: 0.266666, duration: 1, ease: 'power4.inOut', onUpdate: () => {
-
-        }})
+        // gsap.to(gridColor, { r: 0, g: 0, b: 0,  duration: 1, ease: 'power4.inOut'})
+        gsap.to(grid.material.uniforms.uColor1.value, { r: 0.0618211619011764706, g: 0.005, b: 0.068568125615105716,  duration: 1, ease: 'power4.inOut'})
       } else {
         // white
         gsap.to(leftLight.color, { r: 1, g: 1, b: 1, duration: 1, ease: 'power4.inOut'})
@@ -84,20 +82,31 @@
         gsap.to(rightLight.color, { r: 0.7912979403281553, g: 0.057805430183792694, b: 0.007499032040460618, duration: 1, ease: 'power4.inOut'})
         // white
         gsap.to(pointLight.color, { r: 1, g: 1, b: 1, duration: 1, ease: 'power4.inOut'})
+        gsap.to(pointLight, { intensity: 1.5, duration: 1, ease: 'power4.inOut'})
         //
         gsap.to(groundColor, { r: 0.6038273388475408, g: 0.6038273388475408, b: 0.6038273388475408, duration: 1, ease: 'power4.inOut'})
         //
-        gsap.to(gridColor, { r: 1, g: 1, b: 1, duration: 1, ease: 'power4.inOut', onUpdate: () => {
-          // update loop
-        }})
+        // gsap.to(gridColor, { r: 0, g: 0, b: 0,  duration: 1, ease: 'power4.inOut'})
+        gsap.to(grid.material.uniforms.uColor1.value, { r: 0.8, g: 0.8, b: 0.8,  duration: 1, ease: 'power4.inOut'})
       }
     }
   }
 
   let hudCircle, hudCircleMesh, hudCircleMaterial, 
   hudCircleTexture, hudGraphTexture;
+  let scribbleAllTexture,
+  scribble1Texture, scribble2Texture,
+  scribble3Texture, scribble4Texture,
+  scribble5Texture, scribble6Texture
   const hudGraphElement = getContext('hudGraph')
   const hudCircleElement = getContext('hudCircle')
+  const scribbleAllElement = getContext('scribbleAll')
+  // const scribble1Element = getContext('scribble1')
+  // const scribble2Element = getContext('scribble2')
+  // const scribble3Element = getContext('scribble3')
+  // const scribble4Element = getContext('scribble4')
+  // const scribble5Element = getContext('scribble5')
+  // const scribble6Element = getContext('scribble6')
 
   $: console.log($hudGraphElement)
   $: console.log($hudCircleElement)
@@ -115,10 +124,16 @@
   const darkModeGround = new THREE.Color(0x060017)
   const lightModeGround = new THREE.Color(0xcccccc)
   let groundColor = lightModeGround;
-  let gridColor = new THREE.Color(0xffffff)
+  const darkGrid = new THREE.Color(0x333333)
+  const lightGrid = new THREE.Color(0x888888)
+  $: console.log('grid gird grid: ', grid)
   // let groundColor = new THREE.Color(0x0000000)
   // $: groundColor = $darkMode ? darkModeGround : lightModeGround
-  $: console.log($darkMode)
+  $: {
+    console.log($darkMode)
+    if(grid)
+      console.log(grid.material.uniforms.uColor1.value)
+  }
   
   
   let ref;
@@ -162,6 +177,12 @@
     if($hudCircleElement && !hudCircleTexture){
       hudCircleTexture = new THREE.VideoTexture( $hudCircleElement );
       // hudTexture.format = THREE.RGBAFormat
+    }
+  }
+  $: {
+    if($scribbleAllElement && !scribbleAllTexture){
+      scribbleAllTexture = new THREE.VideoTexture( $scribbleAllElement );
+      // scribble1Texture.format = THREE.RGBAFormat
     }
   }
   // $: {
@@ -254,7 +275,7 @@
   autoRotate
   enableRotate={false}
   enableZoom={false}
-  enablePan={false}
+  enablePan={true}
   enableDamping
   autoRotateSpeed={0}
   bind:ref={orbitControls}
@@ -297,7 +318,7 @@
 
 <!-- HUD Circle -->
 <!-- Custom Blending ref: https://threejs.org/examples/#webgl_materials_blending_custom -->
-{#if $pageState == 'character'}
+{#if $pageState == 'character' && !$darkMode}
 <T.Mesh
   position.y={1}
   position.z={-0.5}
@@ -308,19 +329,42 @@
   <T.MeshStandardMaterial 
     map={hudCircleTexture}
     emissiveMap={hudCircleTexture}
-    emissiveColor={$darkMode ? white : orange2}
-    emissiveIntensity={1.1}
-    blending={$darkMode ? THREE.NormalBlending : THREE.AdditiveBlending}
+    emissiveColor={$darkMode ? white : white}
+    emissiveIntensity={10.1}
+    blending={THREE.AdditiveBlending}
     blendEquation={THREE.AddEquation}
     blendSrc={THREE.OneFactor}
     blendDst={THREE.DstAlphaFactor}
     alphaMap={hudCircleTexture}
     side={THREE.DoubleSide}
     alphaTest={0.3}
-    color={$darkMode ? white : orange2}
+    color={$darkMode ? white : white}
     transparent={true}
     />
 </T.Mesh>
+{/if}
+
+<!-- Scribble 1 -->
+{#if $pageState == 'character' && $darkMode}
+  <T.Mesh
+    position.x={-0.3}
+    position.y={1.5}
+    position.z={-0.5}
+    rotation.y={Math.PI}>
+    <T.PlaneGeometry args={[5, 3]}
+      />
+    <T.MeshStandardMaterial 
+      map={scribbleAllTexture}
+      emissiveMap={scribbleAllTexture}
+      emissiveIntensity={10.1}
+      side={THREE.DoubleSide}
+      blending={THREE.AdditiveBlending}
+      alphaMap={scribbleAllTexture}
+      alphaTest={0.92}
+      color={$darkMode ? white : white}
+      transparent={true}
+      />
+  </T.Mesh>
 {/if}
 
 
@@ -357,7 +401,7 @@
 <!-- position={[0, 0.5, 3]} -->
 
 <T.PointLight
-intensity={$darkMode ? 4 : 1.5}
+intensity={1.5}
 bind:ref={pointLight}
 >
 <!-- <Editable name="Point Light" transform controls /> -->
@@ -373,8 +417,6 @@ bind:ref={pointLight}
 
 <Grid
   position.y={-0.001}
-  cellColor={gridColor}
-  sectionColor={gridColor}
   bind:ref={grid}
   sectionThickness={0}
   fadeDistance={20}

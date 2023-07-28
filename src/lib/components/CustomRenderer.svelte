@@ -19,9 +19,9 @@
 	const setupEffectComposer = (camera) => {
 		composer.addPass(new RenderPass(scene, camera));
 		const bloomEffect = new BloomEffect({
-            intensity: $darkMode ? 0.3 : 0.7,
+            intensity: 0.15 ,
 			kernelSize: 5,
-            luminanceThreshold: $darkMode ? 0.4 : 1
+            luminanceThreshold: 0.75
         })
 		composer.addPass(new EffectPass(camera, bloomEffect));
         const noiseEffect = new NoiseEffect({

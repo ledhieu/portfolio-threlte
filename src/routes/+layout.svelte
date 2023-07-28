@@ -62,6 +62,14 @@ class="loading-screen fixed w-full h-full" style="z-index: 1000000">
 </div>
 
 <style>
+  :global(.dark *) {
+    color: white;
+    transition: color 1s ease;
+  }
+  :global(*){
+    color: black;
+    transition: color 1s ease;
+  }
   .loading-screen{
     background: #DCDCDC
   }

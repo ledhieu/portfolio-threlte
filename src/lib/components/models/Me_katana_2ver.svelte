@@ -36,8 +36,8 @@ $: {
     } else {
       gsap.to(darkModeMask.material, {opacity: 0, duration: 1, ease: 'power4.inOut'})
       gsap.to(glowMaterial, { emissiveIntensity: 0, duration: 1, ease: 'power4.inOut'})
-      gsap.to(glowMaterial.color, { r: 0.1, g: .1, b: .1, duration: 1, ease: 'power4.inOut'})
-      gsap.to(glowMaterial.emissive, { r: .1, g: .1, b: .1, duration: 1, ease: 'power4.inOut'})
+      gsap.to(glowMaterial.color, { r: 0, g: 0, b: 0, duration: 1, ease: 'power4.inOut'})
+      gsap.to(glowMaterial.emissive, { r: 0, g: 0, b: 0, duration: 1, ease: 'power4.inOut'})
     }
     console.log('animating opacity')
   }
@@ -167,15 +167,9 @@ onMount(() => {
     glowMaterial.emissiveIntensity = 10
     console.log(glow)
     glowMaterial = new THREE.MeshLambertMaterial({
-      color: new THREE.Color(0x6622ff),
-      emissive: new THREE.Color(0x6622ff),
-      emissiveColor: new THREE.Color(0x6622ff),
-      blending: THREE.AdditiveBlending
+      ...glow,
     })
-
   })
-  
-  
 })
 
 </script>
