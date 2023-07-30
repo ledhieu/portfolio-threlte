@@ -1,38 +1,41 @@
 <script>
-    import { getContext, onMount } from "svelte";
+    import { getContext, onDestroy, onMount } from "svelte";
     import { loading } from '$lib/loading'
     import { shuffle } from '$lib/shuffleText'
-    import { fade, fly, slide } from 'svelte/transition'
+    import { blur, fly, slide } from 'svelte/transition'
+    import { fade } from '$lib/transitions'
     import { crossfade } from 'svelte/transition';
 	  import { flip } from 'svelte/animate';
     import fontSpacing from '$lib/fontspacing.json'
+    import { gsap } from 'gsap'
 
     const pageState = getContext('pageState')
-    const BASE_DELAY = 4000;
+    const BASE_DELAY = 2000;
     const DELAY_INTERVAL = 500;
     const darkMode = getContext('darkMode')
 
-    const [send, receive] = crossfade({
-		duration: (d) => Math.sqrt(d * 1000),
+  let time = {time: 0}
+  let opacity = 0;
+  let layerblur = 30;
 
-		fallback(node, params) {
-			const style = getComputedStyle(node);
-			const transform = style.transform === 'none' ? '' : style.transform;
+  $: {
+    // onDestroy doesn't work because it would be too late
+    // this works, what a hack
+    if($pageState != 'intro'){
+      gsap.to(time, { time: 0, duration: 1, ease: 'power4.inOut', delay: BASE_DELAY/1000, onUpdate: () => {
+        opacity = time.time
+        layerblur = 30 - time.time * 30
+      }})
+    } else {
+      // putting the code below in onMount works too, but this looks
+      // more consistent
+      gsap.to(time, { time: 1, duration: 1, ease: 'power4.inOut', delay: BASE_DELAY/1000, onUpdate: () => {
+        opacity = time.time
+        layerblur = 30 - time.time * 30
+      }})
+    }
+  }
 
-			return {
-				duration: 600,
-				easing: quintOut,
-				css: (t) => `
-					transform: ${transform} scale(${t});
-					opacity: ${t}
-				`
-			};
-		}
-	});
-
-  onMount(() => {
-    console.log('spacing', fontSpacing)
-  })
 
 </script>
 
@@ -48,6 +51,7 @@ style="transition: 0.5s ease"
     top: -90px;
     "
     id="hieusportfolio"
+    transition:blur={{ amount: 10, duration: 1000, delay: BASE_DELAY }}
     class="text-white uppercase absolute left-0 right-0 m-auto">
     Hieu's portfolio
   </h2>
@@ -56,7 +60,7 @@ style="transition: 0.5s ease"
   <h1 style="
   letter-spacing: -5%;
   line-height: 98px;
-  font-size: 108px"
+  font-size: 108px;"
   id="designside"
   class="absolute uppercase akira"
   >
@@ -69,7 +73,9 @@ style="transition: 0.5s ease"
       from: $darkMode ? 'designside' : 'techieside',
       spaceMapping: fontSpacing,
       log: true
-    }} style="color: #FF6B00; mix-blend-mode:screen">{$darkMode ? 'techieside' : 'designside'}</span>
+    }} 
+    style={`color: #FF6B00; mix-blend-mode:screen; opacity: ${opacity};
+    filter: blur(${layerblur}px)`}>{$darkMode ? 'techieside' : 'designside'}</span>
     {/key}
   </h1>
 
@@ -89,7 +95,9 @@ style="transition: 0.5s ease"
           from: $darkMode ? 'graphics design' : 'full-stack'
         }}
         class="uppercase font-bold"
-        style="font-size: 12px; font-family: Inconsolata">
+        style={`font-size: 12px; font-family: Inconsolata;
+        opacity: ${opacity};
+        filter: blur(${layerblur}px)`}>
           {$darkMode ? 'full-stack' : 'graphics design'}
       </p>
       <p 
@@ -98,7 +106,9 @@ style="transition: 0.5s ease"
           from: $darkMode ? 'ux/ui design' : 'development'
         }}
         class="uppercase font-bold"
-        style="font-size: 12px; font-family: Inconsolata">
+        style={`font-size: 12px; font-family: Inconsolata;
+          opacity: ${opacity};
+          filter: blur(${layerblur}px)`}>
         {$darkMode ? 'development' : 'ux/ui design'}
       </p>
       {/key}

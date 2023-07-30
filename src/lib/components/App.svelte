@@ -16,10 +16,24 @@
   import { dev } from '$app/environment';
   import IntroUI from '$lib/components/UI/IntroUI.svelte'
   import CharacterUI from './UI/CharacterUI.svelte';
+  import Toggle from '$lib/components/Toggle.svelte'
   import { gsap } from 'gsap'
 
   const pageState = getContext('pageState')
   const darkMode = getContext('darkMode')
+  const d = new Date()
+
+  let scrollY;
+
+  $: {
+    if(scrollY < 1000){
+      $pageState = 'intro'
+    } else if(scrollY < 2000){
+      $pageState = 'character'
+    } else if (scrollY < 3000){
+      $pageState = 'weapons'
+    }
+  }
 
   // const hudGraph = writable({})
   const hudCircle = writable({})
@@ -165,15 +179,17 @@
   }
 </script>
 
+<svelte:window bind:scrollY></svelte:window>
+
 <div class="fixed"
 style={`
-  z-index: 1000;
+  z-index: 10000;
   top: 20px;
   left: ${ mounted ? window.innerHeight / 2 + 10 : 500 }px`}>
   <Navbar/>
 </div>
 
-<div class="relative"
+<div class="fixed"
 style={`
   width: 100%;
   height: 100%;
@@ -227,8 +243,7 @@ style={`
 
   <!-- UI -->
   <div class="absolute top-0 w-full h-full"
-  class:loaded={$loading >= 100}
-  style="pointer-events: none">
+  class:loaded={$loading >= 100}>
     {#if LottiePlayer}
     <div style={`filter: invert(${lottieInvert}%); 
       position: absolute;
@@ -264,7 +279,6 @@ style={`
         height={window.innerHeight/2}
         style={`
           position: absolute;
-          filter: invert(${lottieStyle.invert}%)
         `}
       accessors />
     </div>
@@ -287,6 +301,18 @@ style={`
           <div class="tip"></div>
     </div>
 
+    <div class="absolute right-12 top-12 flex flex-col items-center">
+      <img class="" src="/barcode.svg"
+      style={`filter: invert(${lottieInvert}%)`}>
+      <span class="text-center" use:shuffle>
+        {d.getDate()}{d.getMonth() < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1}{d.getFullYear()}</span>
+    </div>
+
+    <div class="absolute right-0" style="top: 170px; z-index: 10000">
+     <Toggle/>
+    </div>
+    
+
     {#if $loading >= 100 && $pageState == 'intro'}
       <IntroUI/>
     {/if}
@@ -301,6 +327,10 @@ style={`
   :global(canvas){
     width: 100% !important;
     height: 100% !important;
+  }
+  :global(body){
+    height: 4000px;
+    overflow-x: hidden
   }
   
 </style>

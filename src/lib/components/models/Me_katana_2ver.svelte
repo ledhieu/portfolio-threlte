@@ -13,6 +13,9 @@ import * as THREE from 'three'
 import { loading } from '$lib/loading'
 import { getContext } from 'svelte'
 import { gsap } from 'gsap'
+import { CustomEase } from "gsap/dist/CustomEase";
+
+gsap.registerPlugin(CustomEase);
 
 export const ref = new Group()
 
@@ -28,13 +31,14 @@ let darkModeMask
 $: {
   if(darkModeMask && glowMaterial){
     darkModeMask.material.transparent = true
+    let customEase = CustomEase.create("custom", "M0,0,C0.06,0.093,0.128,0.5,0.128,0.5,0.128,0.5,0.149,0.323,0.178,0.232,0.183,0.215,0.23,0.08,0.23,0.08,0.23,0.08,0.255,0.084,0.256,0.092,0.263,0.159,0.276,0.48,0.308,0.624,0.315,0.658,0.334,0.276,0.373,0.732,0.373,0.73,0.374,0.73,0.374,0.73,0.374,0.73,0.374,0.73,0.374,0.73,0.374,0.73,0.434,0.77,0.434,0.77,0.467,0.646,0.436,0.246,0.48,0.274,0.495,0.283,0.503,0.344,0.51,0.425,0.522,0.57,0.53,0.78,0.564,0.866,0.565,0.87,0.6,0.936,0.602,0.94,0.62,0.978,0.641,0.541,0.663,0.56,0.699,0.59,0.691,0.849,0.732,0.982,0.75,1.043,0.753,0.752,0.776,0.714,0.778,0.71,0.787,0.851,0.795,0.886,0.8,0.908,0.818,0.827,0.82,0.828,0.832,0.836,0.831,0.911,0.844,0.924,0.871,0.949,0.862,0.815,0.888,0.828,0.899,0.833,0.897,0.937,0.914,0.968,0.926,0.99,0.942,0.899,0.957,0.906,0.976,0.914,0.993,1,1,1")
     if($darkMode){
-      gsap.to(darkModeMask.material, {opacity: 1, duration: 1, ease: 'power4.inOut'})
+      gsap.to(darkModeMask.material, {opacity: 1, duration: 1, ease: customEase})
       gsap.to(glowMaterial, { emissiveIntensity: 24, duration: 1, ease: 'power4.inOut'})
       gsap.to(glowMaterial.color, { r: 0.4, g: 0.13333, b: 1, duration: 1, ease: 'power4.inOut'})
       gsap.to(glowMaterial.emissive, { r: 0.4, g: 0.13333, b: 1, duration: 1, ease: 'power4.inOut'})
     } else {
-      gsap.to(darkModeMask.material, {opacity: 0, duration: 1, ease: 'power4.inOut'})
+      gsap.to(darkModeMask.material, {opacity: 0, duration: 0.5, ease: customEase})
       gsap.to(glowMaterial, { emissiveIntensity: 0, duration: 1, ease: 'power4.inOut'})
       gsap.to(glowMaterial.color, { r: 0, g: 0, b: 0, duration: 1, ease: 'power4.inOut'})
       gsap.to(glowMaterial.emissive, { r: 0, g: 0, b: 0, duration: 1, ease: 'power4.inOut'})
@@ -45,11 +49,13 @@ $: {
 let currentActionKey = 'Happy Idle'
 $: {
   if($pageState == 'intro'){
-    transitionTo('Happy Idle', 1)
+    transitionTo('Happy Idle', 0.5)
   } else if ($pageState == 'character'){
-    transitionTo('Idle', 1)
+    transitionTo('Idle', 0.5)
+  } else if( $pageState == 'weapons'){
+    transitionTo('Torch Idle', 0.5)
   } else {
-    transitionTo('Happy Idle', 1)
+    transitionTo('Happy Idle', 0.5)
   }
   
 }

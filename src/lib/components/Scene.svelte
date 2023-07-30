@@ -1,5 +1,5 @@
 <script>
-  import { T, useRender, useThrelte, extend, useLoader } from '@threlte/core'
+  import { T, useRender, useThrelte, extend, useLoader, useFrame } from '@threlte/core'
   import { ContactShadows, Float, Grid, OrbitControls, 
     interactivity, HTML,
     Environment, useTexture } from '@threlte/extras'
@@ -16,6 +16,9 @@
   import CustomRenderer from './CustomRenderer.svelte';
   import { onMount, getContext } from 'svelte';
   import { gsap } from 'gsap'
+  import { CustomEase } from "gsap/dist/CustomEase";
+
+  gsap.registerPlugin(CustomEase);
 
   const pageState = getContext('pageState')
   const { scene, camera, renderer } = useThrelte();
@@ -27,16 +30,16 @@
   $: {
     console.log($pageState)
     if(leftLight && rightLight && pointLight && $camera){
-      if($pageState == 'loading'){gsap.to($camera.position, { x: 0, y: 1.3, z: -1.8, duration: 4, ease: 'power4.inOut' })
-        gsap.to($camera.position, { x: 0, y: 121.3, z: -121.8, duration: 4, ease: 'power4.inOut' })  
-        //  needs to update projection matrix
-        gsap.to($camera, { fov: 10, duration: 0.11, ease: 'power4.inOut', onUpdate: () => {
-          $camera.updateProjectionMatrix()
-        } })
-        gsap.to(orbitControls.target, { x: 0, y: 1.3, z: 0, duration: 4, ease: 'power4.inOut' })
-        gsap.to(leftLight.position, { x: -9, y: 1, z: 19, duration: 0.1, ease: 'power4.inOut' })
-        gsap.to(rightLight.position, { x: 9, y: 1, z: 19, duration: .1, ease: 'power4.inOut' })
-        gsap.to(pointLight.position, { x: 0, y: 5, z: -2, duration: .1, ease: 'power4.inOut' })
+      if($pageState == 'loading'){
+        // gsap.to($camera.position, { x: 0, y: 121.3, z: -121.8, duration: 0.001, ease: 'power4.inOut' })  
+        // //  needs to update projection matrix
+        // gsap.to($camera, { fov: 10, duration: 0.11, ease: 'power4.inOut', onUpdate: () => {
+        //   $camera.updateProjectionMatrix()
+        // } })
+        // gsap.to(orbitControls.target, { x: 0, y: 1.3, z: 0, duration: 0.001, ease: 'power4.inOut' })
+        // gsap.to(leftLight.position, { x: -9, y: 1, z: 19, duration: 0.1, ease: 'power4.inOut' })
+        // gsap.to(rightLight.position, { x: 9, y: 1, z: 19, duration: .1, ease: 'power4.inOut' })
+        // gsap.to(pointLight.position, { x: 0, y: 5, z: -2, duration: .1, ease: 'power4.inOut' })
       } else if($pageState == 'intro'){
         gsap.to($camera.position, { x: 0, y: 1.3, z: -1.8, duration: 4, ease: 'power4.inOut' })
         gsap.to($camera, { fov: 50, duration: 4, ease: 'power4.inOut', onUpdate: () => {
@@ -47,21 +50,44 @@
         gsap.to(rightLight.position, { x: 9, y: 1, z: 19, duration: 4, delay: 0.5, ease: 'power4.inOut' })
         gsap.to(pointLight.position, { x: 0, y: 5, z: -2, duration: 4, delay: 0.5, ease: 'power4.inOut' })
         gsap.to(ref.rotation, { y: 0, duration: 4, ease: 'power4.inOut' })
-        if(hudCircleMesh)
-          gsap.to(hudCircleMesh.rotation, { y: 0, duration: 4, ease: 'power4.inOut' })
       } else if ($pageState == 'character'){
         gsap.to($camera, { fov: 20, duration: 4, ease: 'power4.inOut', onUpdate: () => {
           $camera.updateProjectionMatrix()
         } })
-        gsap.to($camera.position, { x: 1.2, y: 2, z: 8.8, duration: 4, ease: 'power4.inOut' })
-        gsap.to(orbitControls.target, { x: 1.2, y: 1, z: 0, duration: 3.2, ease: 'power4.inOut' })
+        gsap.to($camera.position, { x: 2, y: 2, z: 8, duration: 4, ease: 'power4.inOut' })
+        gsap.to(orbitControls.target, { x: 1.4, y: 1, z: 0, duration: 3.2, ease: 'power4.inOut' })
         gsap.to(leftLight.position, { x: -29, y: 1, z: -19, duration: 3.2, delay: 0, ease: 'power4.inOut' })
         gsap.to(rightLight.position, { x: 9, y: 1, z: -19, duration: 3.2, delay: 0, ease: 'power4.inOut' })
         gsap.to(pointLight.position, { x: 0, y: 1.5, z: 1.5, duration: 3.2, delay: 0, ease: 'power4.inOut' })
         gsap.to(ref.rotation, { y: Math.PI/15, duration: 4, ease: 'power4.inOut' })
-  
+      } else if ($pageState == 'weapons'){
+        gsap.to($camera.position, { x: -0.7889295559274839, y: 1.6991697557237377, z: 2.252411906431398, duration: 3.2, ease: 'power4.inOut' })
+        gsap.to($camera, { fov: 20, duration: 4, ease: 'power4.inOut', onUpdate: () => {
+          $camera.updateProjectionMatrix()
+        } })
+        gsap.to(orbitControls.target, { x: 0.3567704440725213, y: 1.5961697557237375, z: 0.4814119064313902, duration: 3.2, ease: 'power4.inOut' })
+        gsap.to(leftLight.position, { x: -5, y: 1, z: -19, duration: 3.2, delay: 0, ease: 'power4.inOut' })
+        gsap.to(rightLight.position, { x: 19, y: 1, z: -19, duration: 3.2, delay: 0, ease: 'power4.inOut' })
+        gsap.to(pointLight.position, { x: 0, y: 1.6, z: 1.2, duration: 3.2, delay: 0, ease: 'power4.inOut' })
       } else {
-        target = {x: 0, y: 1.3, z: 0}
+        gsap.to(orbitControls.target, { x: 0, y: 1.3, z: 0, duration: 4, ease: 'power4.inOut' })
+      }
+    }
+  }
+
+  $: {
+    if(hudCircleMesh && scribblesMesh){
+      let customEase = CustomEase.create("custom", "M0,0,C0.06,0.093,0.128,0.5,0.128,0.5,0.128,0.5,0.149,0.323,0.178,0.232,0.183,0.215,0.23,0.08,0.23,0.08,0.23,0.08,0.255,0.084,0.256,0.092,0.263,0.159,0.276,0.48,0.308,0.624,0.315,0.658,0.334,0.276,0.373,0.732,0.373,0.73,0.374,0.73,0.374,0.73,0.374,0.73,0.374,0.73,0.374,0.73,0.374,0.73,0.434,0.77,0.434,0.77,0.467,0.646,0.436,0.246,0.48,0.274,0.495,0.283,0.503,0.344,0.51,0.425,0.522,0.57,0.53,0.78,0.564,0.866,0.565,0.87,0.6,0.936,0.602,0.94,0.62,0.978,0.641,0.541,0.663,0.56,0.699,0.59,0.691,0.849,0.732,0.982,0.75,1.043,0.753,0.752,0.776,0.714,0.778,0.71,0.787,0.851,0.795,0.886,0.8,0.908,0.818,0.827,0.82,0.828,0.832,0.836,0.831,0.911,0.844,0.924,0.871,0.949,0.862,0.815,0.888,0.828,0.899,0.833,0.897,0.937,0.914,0.968,0.926,0.99,0.942,0.899,0.957,0.906,0.976,0.914,0.993,1,1,1")
+      let scribblesEase = CustomEase.create("custom", "M0,0,C0,0,0.095,0.471,0.182,0.558,0.236,0.612,0.276,0.119,0.346,0.156,0.417,0.193,0.358,0.754,0.432,0.83,0.474,0.873,0.504,0.377,0.547,0.35,0.55,0.348,0.597,0.43,0.6,0.432,0.638,0.449,0.592,0.872,0.634,0.912,0.649,0.926,0.649,0.795,0.664,0.75,0.68,0.698,0.712,0.932,0.73,0.938,0.761,0.948,0.749,0.866,0.78,0.874,0.791,0.92,0.806,0.981,0.844,1,0.867,1.011,0.86,0.942,0.886,0.942,0.904,0.941,0.914,0.987,0.936,1,0.963,1.016,1,1,1,1")
+      if($pageState == 'character' && $darkMode){
+        gsap.to(scribblesMesh.material, { opacity: 1, duration: 1, delay: 0.8, ease: scribblesEase })
+        gsap.to(hudCircleMesh.material, { opacity: 0, duration: 1, ease: customEase})
+      } else if ($pageState == 'character' && !$darkMode){
+        gsap.to(hudCircleMesh.material, { opacity: 1, duration: 1, delay: 0.8, ease: customEase})
+        gsap.to(scribblesMesh.material, { opacity: 0, duration: 1, ease: scribblesEase })
+      } else {
+        gsap.to(scribblesMesh.material, { opacity: 0, duration: 1, ease: scribblesEase })
+        gsap.to(hudCircleMesh.material, { opacity: 0, duration: 1, ease: customEase})
       }
     }
   }
@@ -100,6 +126,7 @@
 
   let hudCircle, hudCircleMesh, hudCircleMaterial, 
   hudCircleTexture, hudGraphTexture;
+  let scribblesMesh;
   let scribbleAllTexture,
   scribble1Texture, scribble2Texture,
   scribble3Texture, scribble4Texture,
@@ -114,8 +141,6 @@
   // const scribble5Element = getContext('scribble5')
   // const scribble6Element = getContext('scribble6')
 
-  $: console.log($hudGraphElement)
-  $: console.log($hudCircleElement)
 
   let ground, groundMaterial, groundMounted = false;
   // let groundColor = new THREE.Color(0xa6a6a6)
@@ -132,14 +157,9 @@
   let groundColor = lightModeGround;
   const darkGrid = new THREE.Color(0x333333)
   const lightGrid = new THREE.Color(0x888888)
-  $: console.log('grid gird grid: ', grid)
   // let groundColor = new THREE.Color(0x0000000)
   // $: groundColor = $darkMode ? darkModeGround : lightModeGround
-  $: {
-    console.log($darkMode)
-    if(grid)
-      console.log(grid.material.uniforms.uColor1.value)
-  }
+
   
   
   let ref;
@@ -167,7 +187,6 @@
   // }
   $: {
     if(scene)
-      console.log(scene.background)
       scene.background = groundColor
     if(groundMaterial)
       groundMaterial.color = groundColor
@@ -196,6 +215,12 @@
   //     renderer.toneMapping = $darkMode ? THREE.ACESFilmicToneMapping : THREE.ReinhardToneMapping
   //   }
   // }
+
+  useFrame(() => {
+    if($camera && orbitControls){
+      // console.log($camera.position, orbitControls.target)
+    }
+  })
   onMount(() => {
     window.addEventListener('resize', () => {
       resize()
@@ -203,7 +228,6 @@
     resize()
 
     function resize() {
-      console.log('resizing')
       renderer.setSize(window.innerWidth, window.innerHeight)
       $camera.aspect = renderer.domElement.clientWidth / renderer.domElement.clientHeight
       $camera.updateProjectionMatrix()
@@ -215,14 +239,14 @@
     
 
     // holy shit what a hack
-    const { LottieLoader } = await import ('three/examples/jsm/loaders/LottieLoader')
-    const lottieLoader = new LottieLoader()
-    lottieLoader.load('/lottie/bodymovin1.json', texture => {
-      console.log(texture)
-      hudCircle = texture
+    // const { LottieLoader } = await import ('three/examples/jsm/loaders/LottieLoader')
+    // const lottieLoader = new LottieLoader()
+    // lottieLoader.load('/lottie/bodymovin1.json', texture => {
+    //   console.log(texture)
+    //   hudCircle = texture
       
-      texture.animation.play()
-    })
+    //   texture.animation.play()
+    // })
     
     // const hudPlane = new THREE.Mesh(
     //   new THREE.PlaneGeometry(2, 2),
@@ -262,7 +286,6 @@
     
   
   })
-  let testRender = () => {}
   
 </script>
 
@@ -276,12 +299,14 @@
 <!-- <CameraAnimation/> -->
 <T.PerspectiveCamera
   makeDefault
+  position={ [0, 121.3, -121.8]}
+  fov={10}
 >
 <!-- <Editable name="Camera" transform controls fov/> -->
 <OrbitControls
   autoRotate
   enableRotate={true}
-  enableZoom={false}
+  enableZoom={true}
   enablePan={true}
   enableDamping
   autoRotateSpeed={0}
@@ -326,7 +351,7 @@
 
 <!-- HUD Circle -->
 <!-- Custom Blending ref: https://threejs.org/examples/#webgl_materials_blending_custom -->
-{#if $pageState == 'character' && !$darkMode}
+
 <T.Mesh
   position.y={1}
   position.z={-0.5}
@@ -348,17 +373,17 @@
     alphaTest={0.3}
     color={$darkMode ? white : white}
     transparent={true}
+    opacity={0}
     />
 </T.Mesh>
-{/if}
 
 <!-- Scribble 1 -->
-{#if $pageState == 'character' && $darkMode}
   <T.Mesh
     position.x={-0.3}
     position.y={1.5}
     position.z={-0.5}
-    rotation.y={Math.PI}>
+    rotation.y={Math.PI}
+    bind:ref={scribblesMesh}>
     <T.PlaneGeometry args={[5, 3]}
       />
     <T.MeshStandardMaterial 
@@ -368,12 +393,12 @@
       side={THREE.DoubleSide}
       blending={THREE.AdditiveBlending}
       alphaMap={scribbleAllTexture}
-      alphaTest={0.92}
+      alphaTest={0.32}
       color={$darkMode ? white : white}
       transparent={true}
+      opacity={0}
       />
   </T.Mesh>
-{/if}
 
 
 <!-- Left light -->
@@ -382,6 +407,7 @@
   intensity={22}
   target={ref}
   penumbra={0}
+  position={[-9, 1, 19]}
   angle={Math.PI/4}
   decay={5}
   bind:ref={leftLight}
@@ -396,6 +422,7 @@
   intensity={22}
   penumbra={0}
   angle={Math.PI/4}
+  position={[9, 1, 19]}
   target={ref}
   decay={5}
   bind:ref={rightLight}
@@ -411,6 +438,7 @@
 <T.PointLight
 intensity={1.5}
 bind:ref={pointLight}
+position={[0, 5, 2]}
 >
 <!-- <Editable name="Point Light" transform controls /> -->
 </T.PointLight>
