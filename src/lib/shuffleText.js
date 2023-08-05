@@ -1,12 +1,8 @@
 
-import { loading } from '$lib/loading'
 
 const  characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
-let _loading = 0
-loading.subscribe(value => {
-    _loading = value
-})
+
 export function shuffle(node, params){
     const delay = (params && params.delay) ?? 0
     const shuffleEveryNFrames = (params && params.everyNFrames) ?? 2
@@ -59,8 +55,7 @@ export function shuffle(node, params){
             })
             .join('')
         node.innerText = currentText
-        if(_loading >= 100)
-            _shuffles += 1
+        _shuffles += 1
         if(_shuffles > maxShuffles){
             cancelAnimationFrame(_raf)
             return;

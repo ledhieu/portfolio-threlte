@@ -45,20 +45,20 @@
         gsap.to($camera, { fov: 50, duration: 4, ease: 'power4.inOut', onUpdate: () => {
           $camera.updateProjectionMatrix()
         } })
-        gsap.to(orbitControls.target, { x: 0, y: 1.3, z: 0, duration: 4, ease: 'power4.inOut' })
-        gsap.to(leftLight.position, { x: -9, y: 1, z: 19, duration: 4, delay: 0.5, ease: 'power4.inOut' })
-        gsap.to(rightLight.position, { x: 9, y: 1, z: 19, duration: 4, delay: 0.5, ease: 'power4.inOut' })
-        gsap.to(pointLight.position, { x: 0, y: 5, z: -2, duration: 4, delay: 0.5, ease: 'power4.inOut' })
+        gsap.to(orbitControls.target, { x: 0, y: 1.3, z: 0, duration: 3, ease: 'power4.inOut' })
+        gsap.to(leftLight.position, { x: -9, y: 1, z: 19, duration: 3, delay: 0.5, ease: 'power4.inOut' })
+        gsap.to(rightLight.position, { x: 9, y: 1, z: 19, duration: 3, delay: 0.5, ease: 'power4.inOut' })
+        gsap.to(pointLight.position, { x: 0, y: 5, z: -2, duration: 3, delay: 0.5, ease: 'power4.inOut' })
         gsap.to(ref.rotation, { y: 0, duration: 4, ease: 'power4.inOut' })
       } else if ($pageState == 'character'){
         gsap.to($camera, { fov: 20, duration: 4, ease: 'power4.inOut', onUpdate: () => {
           $camera.updateProjectionMatrix()
         } })
         gsap.to($camera.position, { x: 2, y: 2, z: 8, duration: 4, ease: 'power4.inOut' })
-        gsap.to(orbitControls.target, { x: 1.4, y: 1, z: 0, duration: 3.2, ease: 'power4.inOut' })
-        gsap.to(leftLight.position, { x: -29, y: 1, z: -19, duration: 3.2, delay: 0, ease: 'power4.inOut' })
-        gsap.to(rightLight.position, { x: 9, y: 1, z: -19, duration: 3.2, delay: 0, ease: 'power4.inOut' })
-        gsap.to(pointLight.position, { x: 0, y: 1.5, z: 1.5, duration: 3.2, delay: 0, ease: 'power4.inOut' })
+        gsap.to(orbitControls.target, { x: 1.4, y: 1, z: 0, duration: 3.6, ease: 'power4.inOut' })
+        gsap.to(leftLight.position, { x: -29, y: 1, z: -19, duration: 3.6, delay: 0, ease: 'power4.inOut' })
+        gsap.to(rightLight.position, { x: 9, y: 1, z: -19, duration: 3.6, delay: 0, ease: 'power4.inOut' })
+        gsap.to(pointLight.position, { x: 0, y: 1.5, z: 1.5, duration: 3.6, delay: 0, ease: 'power4.inOut' })
         gsap.to(ref.rotation, { y: Math.PI/15, duration: 4, ease: 'power4.inOut' })
       } else if ($pageState == 'weapons'){
         gsap.to($camera.position, { x: -0.7889295559274839, y: 1.6991697557237377, z: 2.252411906431398, duration: 3.2, ease: 'power4.inOut' })
@@ -104,6 +104,7 @@
         gsap.to(pointLight, { intensity: 5, duration: 1, ease: 'power4.inOut'})
         // 
         gsap.to(groundColor, { r: 0.0018211619011764706, g: 0, b: 0.008568125615105716, duration: 1, ease: 'power4.inOut'})
+        // gsap.to(groundColor, { r: 0.7912979403281553, g: 0.057805430183792694, b: 0.007499032040460618, duration: 1, ease: 'power4.inOut'})
         // 
         // gsap.to(gridColor, { r: 0, g: 0, b: 0,  duration: 1, ease: 'power4.inOut'})
         gsap.to(grid.material.uniforms.uColor1.value, { r: 0.1418211619011764706, g: 0.015, b: 0.148568125615105716,  duration: 1, ease: 'power4.inOut'})
@@ -117,6 +118,7 @@
         gsap.to(pointLight, { intensity: 1.5, duration: 1, ease: 'power4.inOut'})
         //
         gsap.to(groundColor, { r: 0.6038273388475408, g: 0.6038273388475408, b: 0.6038273388475408, duration: 1, ease: 'power4.inOut'})
+        
         //
         // gsap.to(gridColor, { r: 0, g: 0, b: 0,  duration: 1, ease: 'power4.inOut'})
         gsap.to(grid.material.uniforms.uColor1.value, { r: 0.7, g: 0.7, b: 0.7,  duration: 1, ease: 'power4.inOut'})

@@ -1,8 +1,8 @@
 <script>
-    import { loading } from '$lib/loading'
-    import { onMount } from 'svelte';
+    import { getContext, onMount } from 'svelte';
 
     export let data
+    const loading = getContext('loading')
     
     $: weapons = data.weapons
     $: console.log(data)

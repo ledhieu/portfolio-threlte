@@ -1,17 +1,25 @@
 <script>
     import "../app.postcss";
-    import { loading } from '$lib/loading'
     import Typed from 'typed.js'
     import { shuffle } from '$lib/shuffleText'
     import { fade } from 'svelte/transition'
     import { onMount, setContext } from "svelte";
     import { writable } from "svelte/store";
+    import { useProgress } from '@threlte/extras'
+    import { tweened } from 'svelte/motion'
+
+    const { progress } = useProgress()
+    const loading = tweened($progress, {
+      duration: 800
+    })
+    $: loading.set($progress * 100)
 
     let date = new Date()
     const pageState = writable("loading")
     setContext("pageState", pageState)
     const darkMode = writable(false)
     setContext("darkMode", darkMode)
+    setContext('loading', loading)
 
     let loadedEvent, emitted = false;
     onMount(() => {
@@ -62,14 +70,7 @@ class="loading-screen fixed w-full h-full" style="z-index: 1000000">
 </div>
 
 <style>
-  :global(.dark *) {
-    color: white;
-    transition: color 1s ease;
-  }
-  :global(*){
-    color: black;
-    transition: color 1s ease;
-  }
+  
   .loading-screen{
     background: #DCDCDC
   }

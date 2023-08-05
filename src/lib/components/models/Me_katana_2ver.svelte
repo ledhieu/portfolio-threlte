@@ -10,7 +10,6 @@ import { Group } from 'three'
 import { T, forwardEventHandlers } from '@threlte/core'
 import { useGltf, useGltfAnimations, useTexture, HTML } from '@threlte/extras'
 import * as THREE from 'three'
-import { loading } from '$lib/loading'
 import { getContext } from 'svelte'
 import { gsap } from 'gsap'
 import { CustomEase } from "gsap/dist/CustomEase";
@@ -61,7 +60,6 @@ $: {
 }
 const { scene, camera, renderer } = useThrelte()
 
-$: console.log($gltf, actions)
 
 $: {
     if($actions && $actions[currentActionKey]){
@@ -98,22 +96,9 @@ bottomMaterial
 let glowMaterial
 let leftEyeBone, rightEyeSkeleton, leftEyeMesh, rightEyeMesh
 
+
 onMount(() => {
   gltf.then(gltf => {
-    const maxLoadPoint = 80
-    let loadPoint = 0;
-    let interval = setInterval(() => {
-      let _ = Math.ceil(Math.random() * 2)
-      
-      if(loadPoint >= maxLoadPoint){
-        clearInterval(interval)
-        return
-      } else if(maxLoadPoint - loadPoint < _){
-        _ = maxLoadPoint - loadPoint
-      }
-      loadPoint += _
-      $loading += _
-    }, 7)
 
     // materials
     const body = gltf.materials['Wolf3D_Body.008']

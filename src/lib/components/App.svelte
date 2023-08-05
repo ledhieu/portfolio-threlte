@@ -8,7 +8,6 @@
   import { shuffle } from '$lib/shuffleText'
   import Navbar from './Navbar.svelte';
   import Typed from 'typed.js'
-  import { loading } from '$lib/loading'
   import { fade, fly } from 'svelte/transition'
   import { Theatre, Project, Sheet, Studio } from '@threlte/theatre'
   import introState from '$lib/theatre/Intro.theatre-project-state.json'
@@ -22,6 +21,7 @@
   const pageState = getContext('pageState')
   const darkMode = getContext('darkMode')
   const d = new Date()
+  const loading = getContext('loading')
 
   let scrollY;
 
@@ -140,7 +140,7 @@
       mounted = true;
       const module = await import("@lottiefiles/svelte-lottie-player");
       LottiePlayer = module.LottiePlayer;
-      $loading += 20
+      // $loading += 20
   });
   onMount(() => {
     window.addEventListener('customLoaded', () => {
@@ -317,7 +317,33 @@ style={`
       <IntroUI/>
     {/if}
     {#if $loading >= 100 && $pageState == 'character'}
+      
       <CharacterUI/>
+    {/if}
+
+    {#if $darkMode}
+      <div class="absolute"
+      style="width: 700px; height: 700px; background:#FF6B00;
+      border-radius: 500px; mix-blend-mode: screen;
+      left: -300px; top: -300px;
+      opacity: 0.7;
+      z-index: 10000;
+      pointer-events: none;
+      filter: blur(200px)"
+      transition:fade={{duration: 1000}}>
+
+      </div>
+      <div class="absolute"
+      style="width: 1000px; height: 1000px; background:#6E18FF;
+      border-radius: 500px; mix-blend-mode: screen;
+      right: -300px; bottom : -300px;
+      z-index: 10000;
+      opacity: 0.8;
+      pointer-events: none;
+      filter: blur(400px)"
+      transition:fade={{duration: 1000}}>
+
+      </div>
     {/if}
   </div>
 </div>

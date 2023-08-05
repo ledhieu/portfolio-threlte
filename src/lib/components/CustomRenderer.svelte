@@ -9,7 +9,8 @@
 		BlendFunction,
         NoiseEffect,
         ToneMappingEffect,
-        ToneMappingMode
+        ToneMappingMode,
+		GodRaysEffect
 	} from 'postprocessing';
     import { getContext } from 'svelte';
 
@@ -32,6 +33,9 @@
         const toneMappingEffect = new ToneMappingEffect({
             mode: ToneMappingMode.REINHARD
         })
+
+		// const godRaysEffect = new GodRaysEffect(camera)
+		// composer.addPass( new EffectPass(camera, godRaysEffect) )
         // composer.addPass( new EffectPass(camera, toneMappingEffect) );
 	};
 	$: setupEffectComposer($camera);

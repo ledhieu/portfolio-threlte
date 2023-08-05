@@ -39,7 +39,7 @@
     <button
         class:active={$pageState == 'match-history'}
         on:click={() => { handleClick('match-history') }}
-        use:shuffle={{ shufflesBeforeOrdering: 100 }}>
+        use:shuffle={{ shufflesBeforeOrdering: 1 }}>
         MATCH HISTORY 
     </button>
 </div>

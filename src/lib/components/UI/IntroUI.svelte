@@ -1,6 +1,5 @@
 <script>
     import { getContext, onDestroy, onMount } from "svelte";
-    import { loading } from '$lib/loading'
     import { shuffle } from '$lib/shuffleText'
     import { blur, fly, slide } from 'svelte/transition'
     import { fade } from '$lib/transitions'
@@ -13,6 +12,7 @@
     const BASE_DELAY = 2000;
     const DELAY_INTERVAL = 500;
     const darkMode = getContext('darkMode')
+    const loading = getContext('loading')
 
   let time = {time: 0}
   let opacity = 0;
@@ -88,6 +88,7 @@ style="transition: 0.5s ease"
   class="uppercase akira"
   >{$darkMode ? 'techieside' : 'designside'}
   </h1>
+  <!-- End ghost title -->
   <div class="flex absolute w-full justify-between">
       {#key $darkMode}
       <p use:shuffle={{
