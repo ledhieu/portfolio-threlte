@@ -17,6 +17,7 @@
   import CharacterUI from './UI/CharacterUI.svelte';
   import Toggle from '$lib/components/Toggle.svelte'
   import { gsap } from 'gsap'
+    import ProjectsUI from './UI/ProjectsUI.svelte';
 
   const pageState = getContext('pageState')
   const darkMode = getContext('darkMode')
@@ -32,6 +33,8 @@
       $pageState = 'character'
     } else if (scrollY < 3000){
       $pageState = 'weapons'
+    } else {
+      $pageState = 'match-history'
     }
   }
 
@@ -112,7 +115,7 @@
     let isPlaying = video.currentTime > 0 && !video.paused && !video.ended 
         && video.readyState > video.HAVE_CURRENT_DATA;
     let playPromise
-    console.log(isPlaying)
+    // console.log(isPlaying)
     playPromise = video.play();
 
     if (playPromise !== undefined) {
@@ -120,7 +123,7 @@
         // Automatic playback started!
         // Show playing UI.
         isPlaying = true
-        console.log('playing video', video)
+        // console.log('playing video', video)
       })
       .catch(error => {
         // Auto-play was prevented
@@ -147,6 +150,10 @@
       setTimeout(run, 1000)
     })
   })
+
+  $: {
+    console.log('pageState', $pageState)
+  }
   function run(){
     topLeftLottie.play()
     bottomRightLottie.play()
@@ -262,7 +269,7 @@ style={`
         width={window.innerHeight/2}
         height={window.innerHeight/2}
         style={`
-          
+          pointer-events: none;
         `}
       accessors />
     </div>
@@ -279,12 +286,14 @@ style={`
         height={window.innerHeight/2}
         style={`
           position: absolute;
+          pointer-events: none;
         `}
       accessors />
     </div>
       {#if $loading >= 100 && $pageState == 'intro'}
         <video muted loop bind:this={hudCircleLottie}
-        style="mix-blend-mode: screen; width: 100%; height: 100%;">
+        style="mix-blend-mode: screen; width: 100%; height: 100%;
+        pointer-events: none;">
           <source src="/mp4/HUD Circle 15.mp4"/>
         </video>
       {/if}
@@ -313,12 +322,15 @@ style={`
     </div>
     
 
-    {#if $loading >= 100 && $pageState == 'intro'}
+    {#if $loading >= 100 && $pageState == ''}
       <IntroUI/>
     {/if}
     {#if $loading >= 100 && $pageState == 'character'}
       
       <CharacterUI/>
+    {/if}
+    {#if $loading >= 100 && $pageState == 'match-history'}
+      <ProjectsUI/>
     {/if}
 
     {#if $darkMode}
@@ -326,7 +338,7 @@ style={`
       style="width: 700px; height: 700px; background:#FF6B00;
       border-radius: 500px; mix-blend-mode: screen;
       left: -300px; top: -300px;
-      opacity: 0.7;
+      opacity: 0.5;
       z-index: 10000;
       pointer-events: none;
       filter: blur(200px)"
@@ -338,7 +350,7 @@ style={`
       border-radius: 500px; mix-blend-mode: screen;
       right: -300px; bottom : -300px;
       z-index: 10000;
-      opacity: 0.8;
+      opacity: 0.5;
       pointer-events: none;
       filter: blur(400px)"
       transition:fade={{duration: 1000}}>
@@ -355,7 +367,7 @@ style={`
     height: 100% !important;
   }
   :global(body){
-    height: 4000px;
+    /* height: 5000px; */
     overflow-x: hidden
   }
   

@@ -3,18 +3,9 @@
   import { darkMode } from '$lib/character';
   import { getContext, onMount } from 'svelte';
 
-  const pageState = getContext('pageState')
 
-  onMount(() => {
-    window.addEventListener('customLoaded', () => {
-      $pageState = 'intro'
-    })
-  })
 </script>
 
-<div class="app-container">
-  <App />
-</div>
 
 
 <style>

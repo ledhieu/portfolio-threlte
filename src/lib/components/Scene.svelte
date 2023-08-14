@@ -40,7 +40,7 @@
         // gsap.to(leftLight.position, { x: -9, y: 1, z: 19, duration: 0.1, ease: 'power4.inOut' })
         // gsap.to(rightLight.position, { x: 9, y: 1, z: 19, duration: .1, ease: 'power4.inOut' })
         // gsap.to(pointLight.position, { x: 0, y: 5, z: -2, duration: .1, ease: 'power4.inOut' })
-      } else if($pageState == 'intro'){
+      } else if($pageState == '' ){
         gsap.to($camera.position, { x: 0, y: 1.3, z: -1.8, duration: 4, ease: 'power4.inOut' })
         gsap.to($camera, { fov: 50, duration: 4, ease: 'power4.inOut', onUpdate: () => {
           $camera.updateProjectionMatrix()
@@ -69,6 +69,16 @@
         gsap.to(leftLight.position, { x: -5, y: 1, z: -19, duration: 3.2, delay: 0, ease: 'power4.inOut' })
         gsap.to(rightLight.position, { x: 19, y: 1, z: -19, duration: 3.2, delay: 0, ease: 'power4.inOut' })
         gsap.to(pointLight.position, { x: 0, y: 1.6, z: 1.2, duration: 3.2, delay: 0, ease: 'power4.inOut' })
+      } else if($pageState == 'match-history'){
+        gsap.to($camera.position, { x: 0, y: 121.3, z: -121.8, duration: 3.6, ease: 'power4.inOut' })  
+        //  needs to update projection matrix
+        gsap.to($camera, { fov: 10, duration: 3.6, ease: 'power4.inOut', onUpdate: () => {
+          $camera.updateProjectionMatrix()
+        } })
+        gsap.to(orbitControls.target, { x: 0, y: 1.3, z: 45, duration: 3.6, ease: 'power4.inOut' })
+        gsap.to(leftLight.position, { x: -9, y: 1, z: 19, duration: 3.6, ease: 'power4.inOut' })
+        gsap.to(rightLight.position, { x: 9, y: 1, z: 19, duration: 3.6, ease: 'power4.inOut' })
+        gsap.to(pointLight.position, { x: 0, y: 5, z: -2, duration: 3.6, ease: 'power4.inOut' })
       } else {
         gsap.to(orbitControls.target, { x: 0, y: 1.3, z: 0, duration: 4, ease: 'power4.inOut' })
       }

@@ -2,14 +2,10 @@
     import App from '$lib/components/App.svelte'
     import { darkMode } from '$lib/character';
     import { getContext, onMount } from 'svelte';
-
-    const pageState = getContext('pageState')
-    
+    import { page } from '$app/stores'
   </script>
   
-  <!-- <div class="app-container">
-    <App />
-  </div> -->
+
   
   
   <style>

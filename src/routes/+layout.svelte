@@ -1,5 +1,6 @@
 <script>
     import "../app.postcss";
+    
     import Typed from 'typed.js'
     import { shuffle } from '$lib/shuffleText'
     import { fade } from 'svelte/transition'
@@ -7,21 +8,27 @@
     import { writable } from "svelte/store";
     import { useProgress } from '@threlte/extras'
     import { tweened } from 'svelte/motion'
+    import { page } from '$app/stores'
+    import App from '$lib/components/App.svelte'
+    import { enhance } from '$app/forms';
 
     const { progress } = useProgress()
     const loading = tweened($progress, {
       duration: 800
     })
-    $: loading.set($progress * 100)
+    
 
     let date = new Date()
     const pageState = writable("loading")
-    setContext("pageState", pageState)
     const darkMode = writable(false)
+    $: loading.set($progress * 100)
+    setContext("pageState", pageState)
     setContext("darkMode", darkMode)
     setContext('loading', loading)
 
     let loadedEvent, emitted = false;
+    let form;
+
     onMount(() => {
       loadedEvent = new Event('customLoaded')
       $pageState = 'loading'
@@ -32,9 +39,24 @@
         window.dispatchEvent(loadedEvent)
       }
     }
+    
+    onMount(async () => {
+        window.addEventListener('customLoaded', () => {
+            $pageState = $page.route.id.replace('/', '')
+            console.log($page)
+        })
+
+        console.log($page.route.id)
+
+        
+    })
 
     
 </script>
+
+<svelte:head>
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/augmented-ui@2/augmented-ui.min.css">
+</svelte:head>
 
 <div class="contents"
   class:dark={$darkMode}>
@@ -67,6 +89,18 @@ class="loading-screen fixed w-full h-full" style="z-index: 1000000">
 </div>
 {/if}
 <slot />
+
+<!-- <form bind:this={form} method="POST" action={$page.route.id} 
+use:enhance={({formData, cancel}) => {
+  cancel()
+   return async ({ result, update }) => {
+        console.log(result)
+      };
+}}></form> -->
+
+<div class="app-container">
+  <App />
+</div>
 </div>
 
 <style>
