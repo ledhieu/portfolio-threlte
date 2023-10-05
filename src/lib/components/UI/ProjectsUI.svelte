@@ -63,7 +63,12 @@ onMount(() => {
 
 </script>
 
-<div class="ui-container relative">
+<div 
+    class="ui-container relative"
+    style={`
+    opacity: ${opacity};
+    filter: blur(${layerblur}px)
+`}>
     {#await data}
         <p class="inconsolata">// MODE</p>
         <p class="akira uppercase" style="font-size: 32px">
@@ -92,8 +97,9 @@ onMount(() => {
         
         {#if showCategories}
             <div class="flex flex-col card items-start absolute"
+            class:dark={$darkMode}
             style="z-index: 10"
-            augmented-ui="tl-clip br-clip tr-round bl-round exe">
+            data-augmented-ui="tl-clip br-clip tr-round bl-round exe border">
                 {#each result.filter(category => category.designSide != $darkMode) as category, i}
                     <button class="card-item uppercase"
                         on:click={() => {activeCategory = category;
@@ -136,6 +142,7 @@ onMount(() => {
         padding-top: 120px;
         overflow-y: scroll;
         height: 100%;   
+        z-index: 1;
     }
     .dropdown-btn{
         transform:rotate(0deg);
@@ -148,16 +155,21 @@ onMount(() => {
         transition: 0.3s ease;
     }
     .card{
-        background: #ffffff20;
+        background: #ffffff60;
         /* border: 1px solid #ffffff20; */
-        backdrop-filter: blur(6px);
+        backdrop-filter: blur(16px);
         width: fit-content;
-        --aug-border: 1px;
-        --aug-border-bg: #ffffff40;
+        --aug-border-all: 1px;
+        --aug-border-bg: #ffffff90;
         --aug-tl: 25px;
         --aug-br: 25px;
         --aug-tr: 10px;
         --aug-bl: 10px;
+    }
+    .card.dark{
+        background: #ffffff20;
+        --aug-border-bg: #ffffff40;
+        backdrop-filter: blur(6px);
     }
     .card-item{
         width: 100%;

@@ -45,14 +45,14 @@ $: {
     console.log('animating opacity')
   }
 }
-let currentActionKey = 'Happy Idle'
+let currentActionKey = 'Idle'
 $: {
-  if($pageState == 'intro'){
+  if($pageState == ''){
     transitionTo('Happy Idle', 0.5)
   } else if ($pageState == 'character'){
     transitionTo('Idle', 0.5)
   } else if( $pageState == 'weapons'){
-    transitionTo('Torch Idle', 0.5)
+    transitionTo('Torch Idle', 1)
   } else {
     transitionTo('Happy Idle', 0.5)
   }
@@ -63,9 +63,9 @@ const { scene, camera, renderer } = useThrelte()
 
 $: {
     if($actions && $actions[currentActionKey]){
-        if(currentActionKey == 'Break Dance'){
-            $actions[currentActionKey].loop = THREE.LoopPingPong
-        }
+        // if(currentActionKey == 'Break Dance'){
+        //     $actions[currentActionKey].loop = THREE.LoopPingPong
+        // }
         
         $actions[currentActionKey].play()
     }
@@ -79,11 +79,11 @@ function transitionTo(nextActionKey, duration = 1) {
   // Function inspired by: https://github.com/mrdoob/three.js/blob/master/examples/webgl_animation_skinning_blending.html
   nextAction.enabled = true
   if (currentAction) {
-    currentAction.crossFadeTo(nextAction, duration, true)
+    currentAction.crossFadeTo(nextAction, duration, false)
   }
   // Not sure why I need this but the source code does not
-  nextAction.play()
-  currentActionKey = nextActionKey
+  // nextAction.play()
+    currentActionKey = nextActionKey
 }
 
 onDestroy(() => {

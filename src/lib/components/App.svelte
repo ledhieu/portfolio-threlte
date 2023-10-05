@@ -18,6 +18,7 @@
   import Toggle from '$lib/components/Toggle.svelte'
   import { gsap } from 'gsap'
     import ProjectsUI from './UI/ProjectsUI.svelte';
+    import WeaponsUI from './UI/WeaponsUI.svelte';
 
   const pageState = getContext('pageState')
   const darkMode = getContext('darkMode')
@@ -321,7 +322,7 @@ style={`
      <Toggle/>
     </div>
     
-
+    
     {#if $loading >= 100 && $pageState == ''}
       <IntroUI/>
     {/if}
@@ -332,6 +333,9 @@ style={`
     {#if $loading >= 100 && $pageState == 'match-history'}
       <ProjectsUI/>
     {/if}
+    {#if $loading >= 100 && $pageState == 'weapons'}
+      <WeaponsUI/>
+    {/if}
 
     {#if $darkMode}
       <div class="absolute"
@@ -339,7 +343,7 @@ style={`
       border-radius: 500px; mix-blend-mode: screen;
       left: -300px; top: -300px;
       opacity: 0.5;
-      z-index: 10000;
+      z-index: 0;
       pointer-events: none;
       filter: blur(200px)"
       transition:fade={{duration: 1000}}>
@@ -349,7 +353,7 @@ style={`
       style="width: 1000px; height: 1000px; background:#6E18FF;
       border-radius: 500px; mix-blend-mode: screen;
       right: -300px; bottom : -300px;
-      z-index: 10000;
+      z-index: 0;
       opacity: 0.5;
       pointer-events: none;
       filter: blur(400px)"

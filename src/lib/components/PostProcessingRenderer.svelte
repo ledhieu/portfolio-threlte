@@ -24,11 +24,11 @@
 		composer.addPass(new RenderPass(scene, camera));
         const unrealBloomPass = new UnrealBloomPass(
            128, // resolution
-           $darkMode ? 2 : 0.2, // strength
-           $darkMode ? 5 : 1, // radius
+           $darkMode ? 1 : 1, // strength
+           $darkMode ? 1 : 1, // radius
            $darkMode ? 0.7 : 0.8, // threshold
         );
-        // composer.addPass(unrealBloomPass)
+        composer.addPass(unrealBloomPass)
         const filmPass = new FilmPass(
             0.35,   // noise intensity
             0.025,  // scanline intensity

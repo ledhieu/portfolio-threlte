@@ -11,12 +11,14 @@
   // import MeBlack from '$lib/components/models/Me_black.svelte'
   import BlackKatana from './models/Black_katana.svelte';
   import MeKatana_2ver from './models/Me_katana_2ver.svelte';
+  import Crystal from './models/Crystal.svelte'
   import * as THREE from 'three'
   import PostProcessingRenderer from './PostProcessingRenderer.svelte';
   import CustomRenderer from './CustomRenderer.svelte';
   import { onMount, getContext } from 'svelte';
   import { gsap } from 'gsap'
   import { CustomEase } from "gsap/dist/CustomEase";
+  import Logo from '$lib/components/Logo.svelte'
 
   gsap.registerPlugin(CustomEase);
 
@@ -61,14 +63,15 @@
         gsap.to(pointLight.position, { x: 0, y: 1.5, z: 1.5, duration: 3.6, delay: 0, ease: 'power4.inOut' })
         gsap.to(ref.rotation, { y: Math.PI/15, duration: 4, ease: 'power4.inOut' })
       } else if ($pageState == 'weapons'){
-        gsap.to($camera.position, { x: -0.7889295559274839, y: 1.6991697557237377, z: 2.252411906431398, duration: 3.2, ease: 'power4.inOut' })
-        gsap.to($camera, { fov: 20, duration: 4, ease: 'power4.inOut', onUpdate: () => {
+        gsap.to($camera.position, { x: -0.2889295559274839, y: 1.6991697557237377, z: 2.252411906431398, duration: 3.2, ease: 'power4.inOut' })
+        gsap.to($camera, { fov: 20, duration: 3, ease: 'power4.inOut', onUpdate: () => {
           $camera.updateProjectionMatrix()
         } })
         gsap.to(orbitControls.target, { x: 0.3567704440725213, y: 1.5961697557237375, z: 0.4814119064313902, duration: 3.2, ease: 'power4.inOut' })
         gsap.to(leftLight.position, { x: -5, y: 1, z: -19, duration: 3.2, delay: 0, ease: 'power4.inOut' })
         gsap.to(rightLight.position, { x: 19, y: 1, z: -19, duration: 3.2, delay: 0, ease: 'power4.inOut' })
         gsap.to(pointLight.position, { x: 0, y: 1.6, z: 1.2, duration: 3.2, delay: 0, ease: 'power4.inOut' })
+        gsap.to(ref.rotation, { y: Math.PI/15, duration: 4, ease: 'power4.inOut' })
       } else if($pageState == 'match-history'){
         gsap.to($camera.position, { x: 0, y: 121.3, z: -121.8, duration: 3.6, ease: 'power4.inOut' })  
         //  needs to update projection matrix
@@ -80,7 +83,7 @@
         gsap.to(rightLight.position, { x: 9, y: 1, z: 19, duration: 3.6, ease: 'power4.inOut' })
         gsap.to(pointLight.position, { x: 0, y: 5, z: -2, duration: 3.6, ease: 'power4.inOut' })
       } else {
-        gsap.to(orbitControls.target, { x: 0, y: 1.3, z: 0, duration: 4, ease: 'power4.inOut' })
+        gsap.to(orbitControls.target, { x: 0, y: 1.3, z: 0, duration: 3, ease: 'power4.inOut' })
       }
     }
   }
@@ -477,7 +480,12 @@ position={[0, 5, 2]}
   far={3.5}
   opacity={0.6}
 />
+<!-- 
+<Crystal
+  scale={0.12}
+  position={[0.17, 1.68, 0.67 ]}/> -->
 
+<Logo/>
 <MeKatana_2ver bind:ref/>
 <!-- <MeBlack/> -->
 

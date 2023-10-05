@@ -24,6 +24,7 @@
     class:col-span-3={active}>
     <div 
         class:active={active}
+        class:dark={$darkMode}
         class="card flex flex-col relative h-full"
         style={`
             background: #ffffff10;
@@ -44,16 +45,17 @@
         {#if data.mainImage}
             <img 
                 src={data.mainImage}
-                class="w-full">
+                class="w-full aspect-video object-cover">
 
             <!-- Background glow -->
             <img 
                 src={data.mainImage}
-                class="w-full absolute"
+                class="w-full absolute aspect-video object-cover"
                 style={`z-index: -10;
                 padding: 30px;
                 transform: scale(1.1);
                 top: 0px; left: 0px;
+                mix-blend-mode: screen;
                 filter: blur(20px) ${!$darkMode ? 
                     'brightness(2) opacity(10%)'
                 : ''};`}>
@@ -166,7 +168,7 @@
         backdrop-filter: blur(6px);
         width: fit-content;
         --aug-border-all: 1px;
-        --aug-border-bg: #ffffff30;
+        --aug-border-bg: #ffffff60;
         --aug-tl: 25px;
         --aug-br: 25px;
         --aug-tr: 10px;
@@ -185,6 +187,9 @@
         padding: 30px;
         width: 100%;
         transition: 0.2s ease;
+    }
+    .card.dark{
+        --aug-border-bg: #ffffff30;
     }
     .card.active{
         padding: 50px;

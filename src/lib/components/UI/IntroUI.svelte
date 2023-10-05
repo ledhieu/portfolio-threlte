@@ -61,7 +61,7 @@ style="transition: 0.5s ease"
   letter-spacing: -5%;
   line-height: 98px;
   font-size: 108px;"
-  id="designside"
+  id="visualside"
   class="absolute uppercase akira"
   >
     <!-- {#if !$darkMode}
@@ -70,12 +70,12 @@ style="transition: 0.5s ease"
     {#key $darkMode}
     <span use:shuffle={{
       shufflesBeforeOrdering: 40,
-      from: $darkMode ? 'designside' : 'techieside',
+      from: $darkMode ? 'visualside' : 'techieside',
       spaceMapping: fontSpacing,
       log: true
     }} 
     style={`color: #FF6B00; mix-blend-mode:screen; opacity: ${opacity};
-    filter: blur(${layerblur}px)`}>{$darkMode ? 'techieside' : 'designside'}</span>
+    filter: blur(${layerblur}px)`}>{$darkMode ? 'techieside' : 'visualside'}</span>
     {/key}
   </h1>
 
@@ -86,7 +86,7 @@ style="transition: 0.5s ease"
   font-size: 108px;
   opacity: 0"
   class="uppercase akira"
-  >{$darkMode ? 'techieside' : 'designside'}
+  >{$darkMode ? 'techieside' : 'visualside'}
   </h1>
   <!-- End ghost title -->
   <div class="flex absolute w-full justify-between">

@@ -12,19 +12,22 @@
     import App from '$lib/components/App.svelte'
     import { enhance } from '$app/forms';
 
-    const { progress } = useProgress()
+    const { progress, finishedOnce } = useProgress()
     const loading = tweened($progress, {
       duration: 800
     })
+    $:  loading.set(!finishedOnce ? $progress * 100 : 100)
     
 
     let date = new Date()
     const pageState = writable("loading")
     const darkMode = writable(false)
-    $: loading.set($progress * 100)
+    const activeWeapon = writable(undefined)
+    
     setContext("pageState", pageState)
     setContext("darkMode", darkMode)
     setContext('loading', loading)
+    setContext('activeWeapon', activeWeapon)
 
     let loadedEvent, emitted = false;
     let form;
@@ -60,7 +63,7 @@
 
 <div class="contents"
   class:dark={$darkMode}>
-{#if $loading < 100}
+{#if $loading < 100 && !finishedOnce}
 <div out:fade={{ duration: 1000 }}
 class="loading-screen fixed w-full h-full" style="z-index: 1000000">
   <div class="absolute w-fit h-fit top-0 left-0 right-0 bottom-0 m-auto">

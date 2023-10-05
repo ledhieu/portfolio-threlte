@@ -9,7 +9,7 @@
     class:dark={$darkMode}
     
     class="toggle relative uppercase text-white flex items-center">
-    <p class="text-white btn-text">{$darkMode ? 'techieside' : 'designside'}</p>
+    <p class="text-white btn-text">{$darkMode ? 'techieside' : 'visualside'}</p>
     <div class="toggle-btn absolute"
     class:animate={animating}></div>
 </button> -->
@@ -23,7 +23,7 @@
         class="absolute top-0"
         id="switch" />
     <label for="switch">
-        <p class="text-white absolute btn-text uppercase">{$darkMode ? 'techie' : 'design'}</p>
+        <p class="text-white absolute btn-text uppercase">{$darkMode ? 'techie' : 'visual'}</p>
     </label>
     
 </div>
