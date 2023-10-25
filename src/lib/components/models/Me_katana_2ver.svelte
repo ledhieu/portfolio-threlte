@@ -45,7 +45,7 @@ $: {
     console.log('animating opacity')
   }
 }
-let currentActionKey = 'Idle'
+let currentActionKey = 'Happy Idle'
 $: {
   if($pageState == ''){
     transitionTo('Happy Idle', 0.5)
