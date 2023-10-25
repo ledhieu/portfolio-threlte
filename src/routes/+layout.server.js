@@ -1,5 +1,5 @@
 import {createClient} from "@sanity/client";
-import { SECRET_SANITY_TOKEN } from "$env/dynamic/private"
+import { SECRET_SANITY_TOKEN } from "$env/static/private"
 
 export function load(){
     const client = createClient({
