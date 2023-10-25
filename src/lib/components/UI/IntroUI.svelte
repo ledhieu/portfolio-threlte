@@ -46,23 +46,43 @@ style="transition: 0.5s ease"
 >
 
   <h2 style="font-family: Another;
-    font-size: 128px;
-    line-height: 98px;
-    top: -90px;
     "
     id="hieusportfolio"
     transition:blur={{ amount: 10, duration: 1000, delay: BASE_DELAY }}
-    class="text-white uppercase absolute left-0 right-0 m-auto">
+    class="text-white uppercase absolute left-0 right-0 m-auto
+    white-title">
     Hieu's portfolio
   </h2>
+  <!-- Ink splash 1 -->
+  <h2 style="font-family: Drips;
+    "
+    transition:blur={{ amount: 10, duration: 1000, delay: BASE_DELAY }}
+    class="text-white uppercase absolute left-0 right-0 m-auto
+    ink-1">
+    -*+*+,-
+  </h2>
+  <!-- Ink splash 2 -->
+  <h2 style="font-family: Drips;
+    "
+    transition:blur={{ amount: 10, duration: 1000, delay: BASE_DELAY }}
+    class="text-white uppercase absolute left-0 right-0 m-auto
+    ink-2">
+    \{`[`}\
+  </h2>
+  <!-- <h2 style="font-family: Ink;
+    font-size: 138px;
+    line-height: 98px;
+    top: -20px;
+    "
+    transition:blur={{ amount: 10, duration: 1000, delay: BASE_DELAY }}
+    class="text-white uppercase absolute left-0 right-0 m-auto">
+    @.*+
+  </h2> -->
 
   
-  <h1 style="
-  letter-spacing: -5%;
-  line-height: 98px;
-  font-size: 108px;"
+  <h1 style=""
   id="visualside"
-  class="absolute uppercase akira"
+  class="absolute uppercase akira orange-title"
   >
     <!-- {#if !$darkMode}
     <span in:fade={{duration: 1, delay: DELAY_INTERVAL * 2}}>de</span><span in:fade={{duration: 1, delay: DELAY_INTERVAL * 3}}>si<span style="color: #FF6B00; mix-blend-mode:screen">gn</span></span><span in:fade={{duration: 1, delay: DELAY_INTERVAL * 4}}>side</span>
@@ -70,23 +90,23 @@ style="transition: 0.5s ease"
     {#key $darkMode}
     <span use:shuffle={{
       shufflesBeforeOrdering: 40,
-      from: $darkMode ? 'visualside' : 'techieside',
+      from: $darkMode ? 'visual&side' : 'techie&side',
       spaceMapping: fontSpacing,
       log: true
     }} 
     style={`color: #FF6B00; mix-blend-mode:screen; opacity: ${opacity};
-    filter: blur(${layerblur}px)`}>{$darkMode ? 'techieside' : 'visualside'}</span>
+    filter: blur(${layerblur}px)`}>{@html $darkMode ? 
+      'techie&side' : 
+      'visual&side'}</span>
     {/key}
   </h1>
 
   <!-- Ghost title to keep the spacing -->
   <h1 style="
-  letter-spacing: -5%;
-  line-height: 98px;
-  font-size: 108px;
+  
   opacity: 0"
-  class="uppercase akira"
-  >{$darkMode ? 'techieside' : 'visualside'}
+  class="uppercase akira orange-title"
+  >{@html $darkMode ? 'techie<br class="block lg:hidden">side' : 'visual<br class="block lg:hidden">side'}
   </h1>
   <!-- End ghost title -->
   <div class="flex absolute w-full justify-between">
@@ -95,7 +115,7 @@ style="transition: 0.5s ease"
           shufflesBeforeOrdering: 80,
           from: $darkMode ? 'graphics design' : 'full-stack'
         }}
-        class="uppercase font-bold"
+        class="uppercase font-bold sub-text"
         style={`font-size: 12px; font-family: Inconsolata;
         opacity: ${opacity};
         filter: blur(${layerblur}px)`}>
@@ -106,7 +126,7 @@ style="transition: 0.5s ease"
           shufflesBeforeOrdering: 80,
           from: $darkMode ? 'ux/ui design' : 'development'
         }}
-        class="uppercase font-bold"
+        class="uppercase font-bold sub-text"
         style={`font-size: 12px; font-family: Inconsolata;
           opacity: ${opacity};
           filter: blur(${layerblur}px)`}>
@@ -117,3 +137,55 @@ style="transition: 0.5s ease"
 
 </div>
 <!-- End Intro Page -->
+
+<style>
+  .orange-title{
+    letter-spacing: -5%;
+    line-height: 38px;
+    font-size: 48px;
+  }
+  .white-title{
+    font-size: 65px;
+    line-height: 55px;
+    top: -100px;
+  }
+  .ink-1{
+    font-size: 36px;
+    line-height: 38px;
+    top: -100px;
+  }
+  .ink-2{
+    font-size: 13px;
+    line-height: 18px;
+    top: -80px;
+  }
+  .sub-text{
+    color: white;
+  }
+  @media only screen and (min-width: 1024px){
+    .orange-title{
+      letter-spacing: -5%;
+      line-height: 98px;
+      font-size: 108px;
+    }
+    .white-title{
+      font-size: 128px;
+      line-height: 98px;
+      top: -90px;
+    }
+    .ink-1{
+      font-size: 78px;
+      line-height: 98px;
+      top: -60px;
+    }
+    .ink-2{
+      font-size: 38px;
+      line-height: 98px;
+      top: -30px;
+    }
+    .sub-text{
+      color: inherit
+    }
+  }
+  
+</style>

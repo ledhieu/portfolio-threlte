@@ -28,6 +28,10 @@ export function shuffle(node, params){
         let currentLength = from.length + Math.round((to.length - from.length) * Math.min(1, Math.max(0, _shuffles - maxShuffles * 0.2) / (maxShuffles * 0.7)))
         currentText = Array.from({ length: currentLength})
             .map((char, i) => {
+                // special character (*) to represent <br class="block lg:hidden">
+                if(to[i] === '&'){
+                    return '&'
+                }
                 // if "from" is defined, gradually 'let go' of characters to the chaos
                 if(from != to && _shuffles < shufflesBeforeOrderings){
                     let percentage = _shuffles/shufflesBeforeOrderings
@@ -54,7 +58,7 @@ export function shuffle(node, params){
                 }
             })
             .join('')
-        node.innerText = currentText
+        node.innerHTML = currentText.replace('&', '<br class="block lg:hidden">')
         _shuffles += 1
         if(_shuffles > maxShuffles){
             cancelAnimationFrame(_raf)

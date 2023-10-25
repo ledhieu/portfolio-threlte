@@ -19,12 +19,16 @@
   import { gsap } from 'gsap'
   import { CustomEase } from "gsap/dist/CustomEase";
   import Logo from '$lib/components/Logo.svelte'
+  import { transitions } from '@threlte/extras'
 
   gsap.registerPlugin(CustomEase);
+  transitions()
 
   const pageState = getContext('pageState')
   const { scene, camera, renderer } = useThrelte();
   const darkMode = getContext('darkMode')
+
+  let innerWidth;
 
   // Animation section
   let grid;
@@ -53,21 +57,40 @@
         gsap.to(pointLight.position, { x: 0, y: 5, z: -2, duration: 3, delay: 0.5, ease: 'power4.inOut' })
         gsap.to(ref.rotation, { y: 0, duration: 4, ease: 'power4.inOut' })
       } else if ($pageState == 'character'){
-        gsap.to($camera, { fov: 20, duration: 4, ease: 'power4.inOut', onUpdate: () => {
-          $camera.updateProjectionMatrix()
-        } })
-        gsap.to($camera.position, { x: 2, y: 2, z: 8, duration: 4, ease: 'power4.inOut' })
-        gsap.to(orbitControls.target, { x: 1.4, y: 1, z: 0, duration: 3.6, ease: 'power4.inOut' })
+        
+        if(innerWidth >= 1024){
+          // PC
+          gsap.to($camera, { fov: 20, duration: 4, ease: 'power4.inOut', onUpdate: () => {
+            $camera.updateProjectionMatrix()
+          } })
+          gsap.to($camera.position, { x: 2, y: 2, z: 8, duration: 4, ease: 'power4.inOut' })
+          gsap.to(orbitControls.target, { x: 1.4, y: 1, z: 0, duration: 3.6, ease: 'power4.inOut' })
+        } else {
+          // Mobile
+          gsap.to($camera, { fov: 20, duration: 4, ease: 'power4.inOut', onUpdate: () => {
+            $camera.updateProjectionMatrix()
+          } })
+          gsap.to($camera.position, { x: 0, y: 2, z: 12, duration: 4, ease: 'power4.inOut' })
+          // Look down
+          gsap.to(orbitControls.target, { x: 0, y: 0.3, z: 0, duration: 3.6, ease: 'power4.inOut' })
+        }
         gsap.to(leftLight.position, { x: -29, y: 1, z: -19, duration: 3.6, delay: 0, ease: 'power4.inOut' })
         gsap.to(rightLight.position, { x: 9, y: 1, z: -19, duration: 3.6, delay: 0, ease: 'power4.inOut' })
         gsap.to(pointLight.position, { x: 0, y: 1.5, z: 1.5, duration: 3.6, delay: 0, ease: 'power4.inOut' })
         gsap.to(ref.rotation, { y: Math.PI/15, duration: 4, ease: 'power4.inOut' })
       } else if ($pageState == 'weapons'){
-        gsap.to($camera.position, { x: -0.2889295559274839, y: 1.6991697557237377, z: 2.252411906431398, duration: 3.2, ease: 'power4.inOut' })
+        if(innerWidth >= 1024){
+          gsap.to($camera.position, { x: -0.2889295559274839, y: 1.6991697557237377, z: 2.252411906431398, duration: 3.2, ease: 'power4.inOut' })
+        gsap.to(orbitControls.target, { x: 0.3567704440725213, y: 1.5961697557237375, z: 0.4814119064313902, duration: 3.2, ease: 'power4.inOut' })
+        } else {
+          gsap.to($camera.position, { x: -0.2889295559274839, y: 1.6991697557237377, z: 2.252411906431398, duration: 3.2, ease: 'power4.inOut' })
+        gsap.to(orbitControls.target, { x: 0.2567704440725213, y: 1.5961697557237375, z: 0.4814119064313902, duration: 3.2, ease: 'power4.inOut' })
+        }
+        
         gsap.to($camera, { fov: 20, duration: 3, ease: 'power4.inOut', onUpdate: () => {
           $camera.updateProjectionMatrix()
         } })
-        gsap.to(orbitControls.target, { x: 0.3567704440725213, y: 1.5961697557237375, z: 0.4814119064313902, duration: 3.2, ease: 'power4.inOut' })
+       
         gsap.to(leftLight.position, { x: -5, y: 1, z: -19, duration: 3.2, delay: 0, ease: 'power4.inOut' })
         gsap.to(rightLight.position, { x: 19, y: 1, z: -19, duration: 3.2, delay: 0, ease: 'power4.inOut' })
         gsap.to(pointLight.position, { x: 0, y: 1.6, z: 1.2, duration: 3.2, delay: 0, ease: 'power4.inOut' })
@@ -308,6 +331,8 @@
     <!-- <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> -->
 
 </svelte:head>
+
+<svelte:window bind:innerWidth></svelte:window>
 
 <!-- <PostProcessingRenderer/> -->
 <!-- <CustomRenderer/> -->

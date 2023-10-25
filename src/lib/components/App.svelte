@@ -26,6 +26,10 @@
   const loading = getContext('loading')
 
   let scrollY;
+  let innerWidth;
+  let mobile;
+
+  $: mobile = mounted ? (innerWidth < 1024 ? true : false) : false
 
   $: {
     if(scrollY < 1000){
@@ -187,13 +191,14 @@
   }
 </script>
 
-<svelte:window bind:scrollY></svelte:window>
+<svelte:window bind:scrollY bind:innerWidth></svelte:window>
 
 <div class="fixed"
 style={`
   z-index: 10000;
-  top: 20px;
-  left: ${ mounted ? window.innerHeight / 2 + 10 : 500 }px`}>
+  top: ${ !mobile ? '20px' : '0px'};
+  left: ${ mounted ? (!mobile ? window.innerHeight / 2 + 10 : 'auto') : 500 }px;
+  right: ${ mobile ? '10px' : 'auto' }`}>
   <Navbar/>
 </div>
 
@@ -245,8 +250,9 @@ style={`
   </video> -->
 
   <div style="position: fixed; top: 15px; left: 15px">
-    <button on:click={() => {$darkMode = !$darkMode}}>{$darkMode ? 'dark' : 'light'}</button>
-    <button on:click={playVideos}>play</button>
+    <!-- <button on:click={() => {$darkMode = !$darkMode}}>{$darkMode ? 'dark' : 'light'}</button>
+    <button on:click={playVideos}>play</button> -->
+    {mobile}
   </div>
 
   <!-- UI -->
@@ -267,8 +273,8 @@ style={`
         renderer="svg"
         controls={false}
         background="transparent"
-        width={window.innerHeight/2}
-        height={window.innerHeight/2}
+        width={mobile ? window.innerHeight/3 : window.innerHeight/2}
+        height={mobile ? window.innerHeight/3 : window.innerHeight/2}
         style={`
           pointer-events: none;
         `}
@@ -283,8 +289,8 @@ style={`
         renderer="svg"
         controls={false}
         background="transparent"
-        width={window.innerHeight/2}
-        height={window.innerHeight/2}
+        width={mobile ? window.innerHeight/3 : window.innerHeight/2}
+        height={mobile ? window.innerHeight/3 : window.innerHeight/2}
         style={`
           position: absolute;
           pointer-events: none;
@@ -300,25 +306,27 @@ style={`
       {/if}
     {/if}
     <div class="absolute line-container top-0 bottom-0 m-auto left-0" 
-    style="width: calc(50vw - 600px)">
+    style={`width: calc(50vw - ${mobile ? (innerWidth < 512 ? 150 : 300) : 500}px)`}>
           <div class="line"></div>
           <div class="tip"></div>
     </div>
 
     <div class="absolute line-container top-0 bottom-0 m-auto right-0" 
-    style="width: calc(50vw - 600px); transform: rotate(180deg)">
+    style={`width: calc(50vw - ${mobile ? (innerWidth < 512 ? 150 : 300) : 500}px); transform: rotate(180deg)`}>
           <div class="line"></div>
           <div class="tip"></div>
     </div>
 
-    <div class="absolute right-12 top-12 flex flex-col items-center">
+    <!-- QR Code -->
+    <div class="hidden lg:block
+    absolute right-5 top-5 lg:right-12 lg:top-12 flex flex-col items-center">
       <img class="" src="/barcode.svg"
       style={`filter: invert(${lottieInvert}%)`}>
       <span class="text-center" use:shuffle>
         {d.getDate()}{d.getMonth() < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1}{d.getFullYear()}</span>
     </div>
 
-    <div class="absolute right-0" style="top: 170px; z-index: 10000">
+    <div class="absolute toggle-container" style="">
      <Toggle/>
     </div>
     
@@ -374,5 +382,18 @@ style={`
     /* height: 5000px; */
     overflow-x: hidden
   }
+  .toggle-container{
+    top: 170px; 
+    z-index: 10000;
+    right: -20px;
+  }
+  @media only screen and (min-width: 1024px){
+    .toggle-container{
+      top: 170px; 
+      z-index: 10000;
+      right: 0px;
+    }
+  }
+  
   
 </style>

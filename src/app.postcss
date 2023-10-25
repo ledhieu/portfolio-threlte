@@ -15,10 +15,41 @@ body{
     font-weight: bold;
 }
 @font-face {
+    font-family: Hesorder;
+    src: url('/font/hesorder.regular.ttf');
+    font-weight: normal;
+}
+@font-face {
     font-family: Akira;
     src: url('/font/Akira Expanded Demo.otf');
     font-weight: bold;
 }
+@font-face {
+    font-family: Street;
+    src: url('/font/Street Wars Demo.otf');
+    font-weight: bold;
+}
+@font-face {
+    font-family: Throwupz;
+    src: url('/font/Throwupz.otf');
+    font-weight: bold;
+}
+@font-face {
+    font-family: Drips;
+    src: url('/font/drips.ttf');
+    font-weight: bold;
+}
+@font-face {
+    font-family: Decipher;
+    src: url('/font/decipher.otf');
+    font-weight: bold;
+}
+@font-face {
+    font-family: Ink;
+    src: url('/font/ink.ttf');
+    font-weight: bold;
+}
+
 
 * {
     box-sizing: border-box;
@@ -78,3 +109,27 @@ body{
     transition: background-color 1s, width 1s;
 }
 
+/* Hamburger settings */
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after{
+    height: 2px;
+    width: 30px;
+    background-color: #000;
+    transition: background-color 0.4s ease;
+}
+.hamburger-box{
+    width: 30px;
+}
+.hamburger-inner::before{
+    top: -8px;
+}
+.hamburger-inner::after{
+    bottom: -8px;
+}
+.dark .hamburger-inner,
+.dark .hamburger-inner::before,
+.dark .hamburger-inner::after{
+    background-color: #fff !important;  
+    transition: background-color 0.4s ease;
+}
