@@ -1,5 +1,5 @@
 import {createClient} from "@sanity/client";
-import { SECRET_SANITY_TOKEN } from "$env/dynamic/private"
+import { SECRET_SANITY_TOKEN } from "$env/static/private"
 import { json } from '@sveltejs/kit';
 
 const client = createClient({
