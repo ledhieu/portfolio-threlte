@@ -23,7 +23,7 @@
         class="absolute top-0"
         id="switch" />
     <label for="switch">
-        <p class="text-white absolute btn-text uppercase">{$darkMode ? 'techie' : 'visual'}</p>
+        <p class="text-white absolute btn-text uppercase">{!$darkMode ? 'coding' : 'visual'}</p>
     </label>
     
 </div>

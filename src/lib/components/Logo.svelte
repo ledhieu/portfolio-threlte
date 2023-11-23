@@ -38,7 +38,7 @@
                 ref.opacity = t
             },
             easing: cubicOut,
-            duration: 400,
+            duration: 1000,
             delay: 1400
         }
     })
@@ -49,7 +49,7 @@
                 ref.opacity = t
             },
             easing: cubicOut,
-            duration: 400
+            duration: 1000
         }
     })
 

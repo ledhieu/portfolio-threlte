@@ -2,6 +2,7 @@
     import { shuffle } from '$lib/shuffleText'
     import { getContext } from 'svelte';
     import { fade } from 'svelte/transition'
+    import Hamburger from './UI/Hamburger.svelte';
 
     const pageState = getContext('pageState')
     const darkMode = getContext('darkMode')
@@ -56,14 +57,19 @@
 
 <div class="block lg:hidden"
 style="z-index: 10001">
-    <button class="hamburger hamburger--spin js-hamburger"
+    <!-- <button class="hamburger hamburger--spin js-hamburger"
     on:click={() => {active = !active}}
     class:is-active={active}
     class:dark={$darkMode}>
         <button class="hamburger-box">
           <button class="hamburger-inner"></button>
         </button>
-      </button>
+      </button> -->
+    
+        <Hamburger 
+            active={active}
+            on:click={() => { active = !active }}/>
+    
 
     {#if active}
         <div class="modal w-screen h-screen
@@ -112,9 +118,14 @@ style="z-index: 10001">
     .item {
         opacity: 0.2;
         transition: 0.3s ease;
+        
     }
     .item.active{
         opacity: 1;
         transition: 0.3s ease;
+    }
+    .modal .item{
+        font-family: Akira;
+        font-size: 25px;
     }
 </style>

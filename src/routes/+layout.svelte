@@ -23,11 +23,13 @@
     const pageState = writable("loading")
     const darkMode = writable(false)
     const activeWeapon = writable(undefined)
+    const activeClass = writable(undefined)
     
     setContext("pageState", pageState)
     setContext("darkMode", darkMode)
     setContext('loading', loading)
     setContext('activeWeapon', activeWeapon)
+    setContext('activeClass', activeClass)
 
     let loadedEvent, emitted = false;
     let form;

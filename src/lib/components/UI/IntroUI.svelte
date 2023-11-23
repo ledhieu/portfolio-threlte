@@ -90,14 +90,14 @@ style="transition: 0.5s ease"
     {#key $darkMode}
     <span use:shuffle={{
       shufflesBeforeOrdering: 40,
-      from: $darkMode ? 'visual&side' : 'techie&side',
+      from: !$darkMode ? 'coding&side' : 'visual&side',
       spaceMapping: fontSpacing,
       log: true
     }} 
     style={`color: #FF6B00; mix-blend-mode:screen; opacity: ${opacity};
     filter: blur(${layerblur}px)`}>{@html $darkMode ? 
-      'techie&side' : 
-      'visual&side'}</span>
+      'visual&side' : 
+      'coding&side'}</span>
     {/key}
   </h1>
 
@@ -106,31 +106,31 @@ style="transition: 0.5s ease"
   
   opacity: 0"
   class="uppercase akira orange-title"
-  >{@html $darkMode ? 'techie<br class="block lg:hidden">side' : 'visual<br class="block lg:hidden">side'}
+  >{@html !$darkMode ? 'coding<br class="block lg:hidden">side' : 'visual<br class="block lg:hidden">side'}
   </h1>
   <!-- End ghost title -->
   <div class="flex absolute w-full justify-between">
       {#key $darkMode}
       <p use:shuffle={{
           shufflesBeforeOrdering: 80,
-          from: $darkMode ? 'graphics design' : 'full-stack'
+          from: !$darkMode ? 'graphics design' : 'full-stack'
         }}
         class="uppercase font-bold sub-text"
         style={`font-size: 12px; font-family: Inconsolata;
         opacity: ${opacity};
         filter: blur(${layerblur}px)`}>
-          {$darkMode ? 'full-stack' : 'graphics design'}
+          {!$darkMode ? 'full-stack' : 'graphics design'}
       </p>
       <p 
         use:shuffle={{
           shufflesBeforeOrdering: 80,
-          from: $darkMode ? 'ux/ui design' : 'development'
+          from: !$darkMode ? 'ux/ui design' : 'development'
         }}
         class="uppercase font-bold sub-text"
         style={`font-size: 12px; font-family: Inconsolata;
           opacity: ${opacity};
           filter: blur(${layerblur}px)`}>
-        {$darkMode ? 'development' : 'ux/ui design'}
+        {!$darkMode ? 'development' : 'ux/ui design'}
       </p>
       {/key}
   </div>

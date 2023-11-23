@@ -15,7 +15,7 @@
     const darkMode = getContext('darkMode')
 
 
-    // TODO: add [projectState] in routing
+    // TODO: add [projectState] in routing (maybe done? check again)
 
     const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 </script>
@@ -60,8 +60,8 @@
                     'brightness(2) opacity(10%)'
                 : ''};`}>
         {/if}
-        <p class="akira mt-5"
-            style="font-size: 32px; line-height: 32px;"
+        <p class="akira mt-5 title"
+            style=""
         >
             {data.title ?? ""}
         </p>
@@ -70,7 +70,7 @@
         {/if}
 
         <p class="absolute another h-min m-auto"
-        style="font-size: 200px; opacity: 0.07; z-index: -1;
+        style="font-size: 200px; opacity: 0.05; z-index: -1;
         bottom: 35%; line-height: 0px;">
             {data.title.split(' ')[0]}
         </p>
@@ -184,7 +184,7 @@
         --aug-r-inset1: -5px;
 
         transition: 0.3s ease;
-        padding: 30px;
+        padding: 25px;
         width: 100%;
         transition: 0.2s ease;
     }
@@ -192,7 +192,7 @@
         --aug-border-bg: #ffffff30;
     }
     .card.active{
-        padding: 50px;
+        padding: 30px;
         transition: 0.2s ease;
     }
     .view-btn{
@@ -215,5 +215,22 @@
     }
     :global(.portable-text *){
         margin-top: 30px;
+    }
+    .title{
+        font-size: 18px; 
+        line-height: 16px;
+    }
+    @media only screen and (min-width: 1024px){
+        .title{
+            font-size: 32px; 
+            line-height: 32px;
+        }
+        .card{
+            padding: 30px;
+        }
+        .card.active{
+            padding: 50px;
+            transition: 0.2s ease;
+        }
     }
 </style>

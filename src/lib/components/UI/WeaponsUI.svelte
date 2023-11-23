@@ -54,6 +54,7 @@
 
 <div 
     class="ui-container relative"
+    class:dark={$darkMode}
     style={`
     opacity: ${opacity};
     filter: blur(${layerblur}px)
@@ -65,23 +66,29 @@
         </p>
     {:then result}
         {#if !activeCategory}
-            {#each result.filter(category => category.designSide == !$darkMode) 
-                as weaponCategory}
+            {#each result.filter(category => category.designSide == $darkMode) 
+                as weaponCategory, i}
                 <button 
-                    class="btn"
+                    class="btn gap-3"
+                    style=""
                     on:click={() => {
                         handleWeaponCategoryChange(weaponCategory)
-                    }}>{weaponCategory.title}</button>
+                    }}>
+                        <p class="font-bold">{i < 10 ? '0' + i : i}</p>
+                        <p class=" akira title">{weaponCategory.title}</p>
+                    </button>
             {/each}
         {:else}
             <button class="block"
                 on:click={() => {
                     activeCategory = undefined
                 }}>
-                Back
+                ← Back
             </button>
-            <p>{activeCategory.title}</p>
-            <div class="flex flex-col gap-5">
+            <p class="title uppercase font-bold akira mt-3 mb-5">
+                {activeCategory.title}
+            </p>
+            <div class="grid grid-cols-2 gap-5">
                 {#each activeCategory.weapons as weapon}
                     <WeaponCard data={weapon}/>
                 {/each}
@@ -92,17 +99,51 @@
 
 <style>
     .ui-container{
-        padding: 170px;
+        padding: 80px;
         padding-top: 120px;
         overflow-y: scroll;
         height: 100%;   
         z-index: 1;
-        padding-left: 58vw
     }
     .btn{
-        display: block;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid black;
+        display: flex;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        /* border-bottom: 1px solid black; */
+        text-align: left;
+    }
+    .dark .btn{
+        /* border-bottom: 1px solid #ffffff80; */
+    }
+    .title {
+        font-size: 22px; 
+        line-height: 25px;
+        padding-left: 0px;
+        transition: 0.2s ease;
+    }
+    .btn:hover .title{
+        padding-left: 10px;
+        transition: 0.2s ease;
+    }
+    @media only screen and (min-width: 512px){
+        .ui-container{
+            
+        }
+    }
+    @media only screen and (min-width: 1024px){
+        .ui-container{
+            padding-left: 48vw;
+            padding: 170px;
+            padding-top: 100px;
+        }
+        .title{
+            font-size: 32px; 
+            line-height: 35px;
+        }
+    }
+    @media only screen and (min-width: 1200px){
+        .ui-container{
+            padding-left: 55vw
+        }
     }
 </style>

@@ -15,8 +15,11 @@
 </script>
 
 <div
-    class="card flex relative gap-5
+    class="card flex flex-col md:flex-row
+    col-span-1 md:col-span-2
+    relative gap-5
     justify-between cursor-pointer"
+    class:col-span-2={active}
     class:active={active}
     class:dark={$darkMode}
     style={`
@@ -25,6 +28,14 @@
     on:click={handleClick}
     data-augmented-ui="tl-clip br-clip b-clip-x
     tr-round bl-round exe border">
+
+    <p class="absolute another h-min m-auto"
+    style="font-size: 100px; opacity: 0.045; z-index: -1;
+    left: 30px;
+    bottom: 40%; line-height: 0px;">
+        {data.title.split(' ')[0]}
+    </p>
+
     <div
         class="inner p-3 relative"
         data-augmented-ui="tl-clip br-clip
@@ -32,33 +43,34 @@
         style={`background: #ffffff10;
         height: 80px; aspect-ratio: 1;`}>
         <img 
-            class="glow"
+            class="main-image"
             src={data.mainImage ?? ''}
-            style="height: fit-content; aspect-ratio: 1;
+            style="
         "/>
     </div>
-        
+
     <div class="flex flex-col info-container flex-1
+    gap-2 md:gap-0
     font-bold uppercase">
-        <div class="flex">
+        <div class="flex-col md:flex-row">
             <p class="label">Name</p>
             <p>{data.title}</p>
         </div>
-        <div class="flex">
+        <div class="flex flex-col md:flex-row">
             <p class="label">familiarity</p>
             <div class="progress-bg">
                 <div class="progress-bar"
                 style={`width: ${data.familiarity / 10 * 100}%`}></div>
             </div>
         </div>
-        <div class="flex">
+        <div class="flex flex-col md:flex-row">
             <p class="label">fondness</p>
             <div class="progress-bg">
                 <div class="progress-bar"
                 style={`width: ${data.fondness / 10 * 100}%`}></div>
             </div>
         </div>
-        <div class="flex">
+        <div class="flex flex-col md:flex-row">
             <p class="label">featured projects</p>
             <p>{data.projects ? data.projects.length : 0}</p>
         </div>
@@ -117,6 +129,14 @@
     }
     .label{
         width: 180px;
+        font-size: 12px;
+        font-weight: 300;
+    }
+    .info-container{
+        display: none;
+    }
+    .active .info-container{
+        display: flex;
     }
     .info-container * {
         line-height: 17px;
@@ -128,11 +148,15 @@
     .glow{
         /* backdrop-filter: blur(15px) saturate(3); */
     }
+    .main-image{
+        height: 100%; 
+        aspect-ratio: 1;
+    }
     .progress-bg{
         background: #00000009;
         position: relative;
         height: 7px;
-        width: 50%;
+        width: 100%;
         flex-grow: 0;
         flex-shrink: 1;
         margin: auto;
@@ -156,5 +180,21 @@
     }
     .dark .project-img{
         border: 1px solid #ffffff49;
+    }
+    @media only screen and (min-width: 768px){
+        .info-container{
+            display: flex;
+        }
+        .main-image{
+            height: fit-content; 
+            aspect-ratio: 1;
+        }
+        .progress-bg{
+            width: 50%;
+        }
+        .label{
+            font-size: 16px;
+            font-weight: 600;
+        }
     }
 </style>

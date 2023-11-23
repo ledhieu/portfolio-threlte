@@ -81,10 +81,10 @@
       } else if ($pageState == 'weapons'){
         if(innerWidth >= 1024){
           gsap.to($camera.position, { x: -0.2889295559274839, y: 1.6991697557237377, z: 2.252411906431398, duration: 3.2, ease: 'power4.inOut' })
-        gsap.to(orbitControls.target, { x: 0.3567704440725213, y: 1.5961697557237375, z: 0.4814119064313902, duration: 3.2, ease: 'power4.inOut' })
+          gsap.to(orbitControls.target, { x: 0.3567704440725213, y: 1.5961697557237375, z: 0.4814119064313902, duration: 3.2, ease: 'power4.inOut' })
         } else {
-          gsap.to($camera.position, { x: -0.2889295559274839, y: 1.6991697557237377, z: 2.252411906431398, duration: 3.2, ease: 'power4.inOut' })
-        gsap.to(orbitControls.target, { x: 0.2567704440725213, y: 1.5961697557237375, z: 0.4814119064313902, duration: 3.2, ease: 'power4.inOut' })
+          gsap.to($camera.position, { x: -0.2889295559274839, y: 1.63, z: 2.252411906431398, duration: 3.2, ease: 'power4.inOut' })
+          gsap.to(orbitControls.target, { x: 1.2767704440725213, y: 1.5261697557237375, z: 0.4814119064313902, duration: 3.2, ease: 'power4.inOut' })
         }
         
         gsap.to($camera, { fov: 20, duration: 3, ease: 'power4.inOut', onUpdate: () => {
@@ -153,8 +153,11 @@
         gsap.to(pointLight.color, { r: 1, g: 1, b: 1, duration: 1, ease: 'power4.inOut'})
         gsap.to(pointLight, { intensity: 1.5, duration: 1, ease: 'power4.inOut'})
         //
-        gsap.to(groundColor, { r: 0.6038273388475408, g: 0.6038273388475408, b: 0.6038273388475408, duration: 1, ease: 'power4.inOut'})
-        
+        // old gray color
+        gsap.to(groundColor, { r: 0.6038273388475408, g: 0.6098273388475408, b: 0.6168273388475408, duration: 1, ease: 'power4.inOut'})
+        // gsap.to(groundColor, { r: 1, g: 1, b: 1, duration: 1, ease: 'power4.inOut'})
+        // #B5BDC7 - new light blue gray
+        // gsap.to(groundColor, { r: 181/255, g: 189/255, b: 199/255, duration: 1, ease: 'power4.inOut'})
         //
         // gsap.to(gridColor, { r: 0, g: 0, b: 0,  duration: 1, ease: 'power4.inOut'})
         gsap.to(grid.material.uniforms.uColor1.value, { r: 0.7, g: 0.7, b: 0.7,  duration: 1, ease: 'power4.inOut'})
@@ -191,7 +194,8 @@
   const orange = new THREE.Color(0xffb577)
   const orange2 = new THREE.Color(0xE64415)
   const darkModeGround = new THREE.Color(0x060017)
-  const lightModeGround = new THREE.Color(0xcccccc)
+  const lightModeGround = new THREE.Color(0xcccecf) // true gray
+  // const lightModeGround = new THREE.Color(0xB5BDC7) // blue-ish gray
   let groundColor = lightModeGround;
   const darkGrid = new THREE.Color(0x333333)
   const lightGrid = new THREE.Color(0x888888)

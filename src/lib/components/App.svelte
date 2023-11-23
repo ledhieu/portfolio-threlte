@@ -208,7 +208,11 @@ style={`
   height: 100%;
 `}>
 <!-- <Studio enabled={dev}></Studio> -->
+<!-- <div class="absolute w-full"
+style="background: linear-gradient(180deg, #F2F4F7, #F2F4F700);
+height: 100px">
 
+</div> -->
 <Canvas>
   <!-- <Project config={{ state: characterState }} name="Portfolio">
     <Sheet name={'character'} bind:sequence> -->
@@ -252,18 +256,20 @@ style={`
   <div style="position: fixed; top: 15px; left: 15px">
     <!-- <button on:click={() => {$darkMode = !$darkMode}}>{$darkMode ? 'dark' : 'light'}</button>
     <button on:click={playVideos}>play</button> -->
-    {mobile}
+    <!-- {mobile} -->
   </div>
 
   <!-- UI -->
   <div class="absolute top-0 w-full h-full"
   class:loaded={$loading >= 100}>
     {#if LottiePlayer}
+    <!-- Bottom right -->
     <div style={`filter: invert(${lottieInvert}%); 
       position: absolute;
       transform: rotate(180deg); 
       right: 0px;
-      bottom: 0px;`}
+      bottom: 0px;
+      z-index: 1000`}
     >
       <LottiePlayer
         src={"/lottie/corner.json"}
@@ -279,8 +285,35 @@ style={`
           pointer-events: none;
         `}
       accessors />
+      <!-- Date -->
+      <div class="absolute w-max hidden lg:block"
+        class:text-black={$darkMode}
+        style="
+        transform: rotate(180deg);
+        font-size: 12px;
+        left: 360px;
+        bottom: 315px">
+        <span>■</span>
+        <span use:shuffle>{d.getFullYear().toString().substr(2)}.{d.getMonth() < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1}</span>
+        <span>■</span>
+        <span use:shuffle>{d.getDate()}.{d.getHours()}</span>
+        <span>■</span>
+        <span use:shuffle>{d.getMinutes()}.{d.getSeconds()}</span>
+      </div>
+      <div class="absolute hidden lg:block"
+        style="transform: rotate(90deg);
+        font-size: 12px;
+        top: 260px;
+        left: 37px;"
+        use:shuffle
+        class:text-black={$darkMode}>
+        PORTFOLIO
+      </div>
     </div>
-    <div style={`filter: invert(${lottieInvert}%);`}>
+    <!--Top left -->
+    <div style={`filter: invert(${lottieInvert}%);
+    z-index: 1000`}
+    class="relative">
       <LottiePlayer
         src={"/lottie/corner.json"}
         bind:this={bottomRightLottie}
@@ -296,6 +329,16 @@ style={`
           pointer-events: none;
         `}
       accessors />
+      <div class="absolute hidden lg:block"
+        style="transform: rotate(-90deg);
+        bottom: 0px;
+        font-size: 12px;
+        top: 260px;
+        left: 25px;"
+        use:shuffle
+        class:text-black={$darkMode}>
+        LE DUC HIEU
+      </div>
     </div>
       {#if $loading >= 100 && $pageState == 'intro'}
         <video muted loop bind:this={hudCircleLottie}
@@ -305,14 +348,24 @@ style={`
         </video>
       {/if}
     {/if}
+
+    <!-- Little text button -->
+    <div class="absolute pill"
+    class:dark={$darkMode}
+    style="bottom: 32px; left: 60px"
+    use:shuffle>
+      2930938
+    </div>
+
+    <!-- Left line -->
     <div class="absolute line-container top-0 bottom-0 m-auto left-0" 
-    style={`width: calc(50vw - ${mobile ? (innerWidth < 512 ? 150 : 300) : 500}px)`}>
+    style={`width: ${mobile ? (innerWidth < 512 ? 30 : 60) : 100}px`}>
           <div class="line"></div>
           <div class="tip"></div>
     </div>
-
+    <!-- Right line -->
     <div class="absolute line-container top-0 bottom-0 m-auto right-0" 
-    style={`width: calc(50vw - ${mobile ? (innerWidth < 512 ? 150 : 300) : 500}px); transform: rotate(180deg)`}>
+    style={`width: ${mobile ? (innerWidth < 512 ? 30 : 60) : 100}px; transform: rotate(180deg)`}>
           <div class="line"></div>
           <div class="tip"></div>
     </div>
@@ -322,7 +375,8 @@ style={`
     absolute right-5 top-5 lg:right-12 lg:top-12 flex flex-col items-center">
       <img class="" src="/barcode.svg"
       style={`filter: invert(${lottieInvert}%)`}>
-      <span class="text-center" use:shuffle>
+      <span class="text-right" use:shuffle
+      style="font-size: 12px">
         {d.getDate()}{d.getMonth() < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1}{d.getFullYear()}</span>
     </div>
 
@@ -381,6 +435,22 @@ style={`
   :global(body){
     /* height: 5000px; */
     overflow-x: hidden
+  }
+  .pill{
+    border: 1px solid black;
+    border-radius: 40px;
+    padding: 3px;
+    padding-left: 12px;
+    padding-right: 12px;
+    font-size: 12px;
+    transition: 0.2s ease;
+  }
+  .dark.pill{
+    border: 1px solid white;
+    transition: 0.2s ease;
+  }
+  .text-black, .text-black *{
+    color: black!important;;
   }
   .toggle-container{
     top: 170px; 

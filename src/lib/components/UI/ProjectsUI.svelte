@@ -80,12 +80,11 @@ onMount(() => {
             on:click={() => {showCategories = !showCategories;
             console.log('clicked', showCategories)}}>
             <span 
-                class="akira uppercase"
-                style="font-size: 32px"
+                class="akira uppercase title text-left"
             >
                 {activeCategory ? 
                 activeCategory.title : 
-                result.filter(category => category.designSide != $darkMode)[0].title}
+                result.filter(category => category.designSide == $darkMode)[0].title}
             </span>
             <span 
                 class="dropdown-btn block"
@@ -100,7 +99,7 @@ onMount(() => {
             class:dark={$darkMode}
             style="z-index: 10"
             data-augmented-ui="tl-clip br-clip tr-round bl-round exe border">
-                {#each result.filter(category => category.designSide != $darkMode) as category, i}
+                {#each result.filter(category => category.designSide == $darkMode) as category, i}
                     <button class="card-item uppercase"
                         on:click={() => {activeCategory = category;
                         showCategories = false}}
@@ -111,11 +110,11 @@ onMount(() => {
             </div>
         {/if}
 
-        <div class="grid grid-cols-3 gap-5 mt-10">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-10">
             {#each (
                 activeCategory ? 
                 activeCategory.projects : 
-                result.filter(category => category.designSide != $darkMode)[0].projects
+                result.filter(category => category.designSide == $darkMode)[0].projects
                 )
                 as project, i
             }
@@ -138,11 +137,13 @@ onMount(() => {
 
 <style>
     .ui-container{
-        padding: 170px;
+        padding: 60px;
+        padding-left: 50px;
         padding-top: 120px;
         overflow-y: scroll;
         height: 100%;   
         z-index: 1;
+        overflow-x: hidden;
     }
     .dropdown-btn{
         transform:rotate(0deg);
@@ -189,6 +190,20 @@ onMount(() => {
         background: #ffffff15;
         
         transition: 0.3s ease;
+    }
+    .title{
+        font-size: 20px;
+        line-height: 22px;
+    }
+    @media only screen and (min-width: 1024px){
+        .ui-container{
+            padding: 170px;
+            padding-left: 170px;
+        }
+        .title{
+            font-size: 32px;
+            line-height: 30px;
+        }
     }
 </style>
 
