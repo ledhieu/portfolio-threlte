@@ -264,7 +264,9 @@ height: 100px">
   class:loaded={$loading >= 100}>
     {#if LottiePlayer}
     <!-- Bottom right -->
-    <div style={`filter: invert(${lottieInvert}%); 
+    <div 
+      class="pointer-events-none"
+      style={`filter: invert(${lottieInvert}%); 
       position: absolute;
       transform: rotate(180deg); 
       right: 0px;
@@ -358,20 +360,20 @@ height: 100px">
     </div>
 
     <!-- Left line -->
-    <div class="absolute line-container top-0 bottom-0 m-auto left-0" 
+    <div class="pointer-events-none absolute line-container top-0 bottom-0 m-auto left-0" 
     style={`width: ${mobile ? (innerWidth < 512 ? 30 : 60) : 100}px`}>
           <div class="line"></div>
           <div class="tip"></div>
     </div>
     <!-- Right line -->
-    <div class="absolute line-container top-0 bottom-0 m-auto right-0" 
+    <div class="pointer-events-none absolute line-container top-0 bottom-0 m-auto right-0" 
     style={`width: ${mobile ? (innerWidth < 512 ? 30 : 60) : 100}px; transform: rotate(180deg)`}>
           <div class="line"></div>
           <div class="tip"></div>
     </div>
 
     <!-- QR Code -->
-    <div class="hidden lg:block
+    <div class="pointer-events-none hidden lg:block
     absolute right-5 top-5 lg:right-12 lg:top-12 flex flex-col items-center">
       <img class="" src="/barcode.svg"
       style={`filter: invert(${lottieInvert}%)`}>
@@ -400,7 +402,7 @@ height: 100px">
     {/if}
 
     {#if $darkMode}
-      <div class="absolute"
+      <div class="pointer-events-none absolute"
       style="width: 700px; height: 700px; background:#FF6B00;
       border-radius: 500px; mix-blend-mode: screen;
       left: -300px; top: -300px;
@@ -411,7 +413,7 @@ height: 100px">
       transition:fade={{duration: 1000}}>
 
       </div>
-      <div class="absolute"
+      <div class="pointer-events-none absolute"
       style="width: 1000px; height: 1000px; background:#6E18FF;
       border-radius: 500px; mix-blend-mode: screen;
       right: -300px; bottom : -300px;
