@@ -105,7 +105,7 @@
     }
   }
 
-  function playVideos(){
+  export function playVideos(){
     console.log('playing videos')
     play(hudCircleElement)
     play(scribbleAllElement)
@@ -161,8 +161,10 @@
     console.log('pageState', $pageState)
   }
   function run(){
-    topLeftLottie.play()
-    bottomRightLottie.play()
+    if(topLeftLottie)
+      topLeftLottie.play()
+    if(bottomRightLottie)
+      bottomRightLottie.play()
     if(hudCircleLottie)
       hudCircleLottie.play()
     // console.log(sequence)

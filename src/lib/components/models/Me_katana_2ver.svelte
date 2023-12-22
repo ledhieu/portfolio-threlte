@@ -45,6 +45,11 @@ $: {
     console.log('animating opacity')
   }
 }
+// let currentActionKey = $pageState == '' ? 'Idle' : 
+//   $pageState == 'character' ? 'Idle' : 
+//   $pageState == 'weapons' ? 'Torch Idle' :
+//   $pageState == 'contact' ? 'Happy Idle' :
+//   'Happy Idle'
 let currentActionKey = 'Happy Idle'
 $: {
   if($pageState == ''){
@@ -65,8 +70,11 @@ const { scene, camera, renderer } = useThrelte()
 
 $: {
     if($actions && $actions[currentActionKey]){
-        if(currentActionKey == 'Land To Stand'){
-            $actions[currentActionKey].loop = THREE.LoopOnce
+        // if(currentActionKey == 'Land To Stand'){
+        //     $actions[currentActionKey].loop = THREE.LoopOnce
+        // }
+         if(currentActionKey == 'Break Dance'){
+            $actions[currentActionKey].loop = THREE.LoopPingPong
         }
         
         $actions[currentActionKey].play()
@@ -87,7 +95,7 @@ function transitionTo(nextActionKey, duration = 1) {
     currentAction.crossFadeTo(nextAction, duration, false)
   }
   // Not sure why I need this but the source code does not
-  // nextAction.play()
+  nextAction.play()
     currentActionKey = nextActionKey
 }
 

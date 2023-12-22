@@ -15,12 +15,14 @@
 
     const { progress, finishedOnce } = useProgress()
     const loading = tweened($progress, {
-      duration: 300
+      duration: 601 // race condition with character model?
     })
     $:  loading.set(!finishedOnce ? $progress * 100 : 100)
     $: {
       console.log('progress', $progress, $finishedOnce)
     }
+    let hide = false;
+    let app;
 
     let date = new Date()
     const pageState = writable("loading")
@@ -40,12 +42,7 @@
 
     let loadedEvent, emitted = false;
     let form;
-
-    onMount(() => {
-      loadedEvent = new Event('customLoaded')
-      $pageState = 'loading'
-    })
-
+    $pageState = 'loading'
     $: {
       if($loading >= 100 && !emitted){
         window.dispatchEvent(loadedEvent)
@@ -67,11 +64,10 @@
     }
     
     onMount(async () => {
-        window.addEventListener('customLoaded', onCustomLoaded )
-        window.addEventListener('popstate', onPopstate)
-        console.log($page.route.id)
-
-        
+      loadedEvent = new Event('customLoaded')
+      $pageState = 'loading'
+      window.addEventListener('customLoaded', onCustomLoaded )
+      window.addEventListener('popstate', onPopstate)
     })
     // onDestroy(() => {
     //   if(window){
@@ -89,14 +85,24 @@
 
 <div class="contents"
   class:dark={$darkMode}>
-{#if $loading < 100 || !finishedOnce}
+{#if ($loading < 100 || !finishedOnce) || !hide}
 <div out:fade={{ duration: 1000 }}
 class="loading-screen fixed w-full h-full" style="z-index: 1000000">
 <div><Loader/></div>
 <div class="absolute w-fit h-fit top-0 left-0 right-0 bottom-0 m-auto">
-    <p class="akira"
+  {#if $loading < 100}  
+  <p class="akira"
     style="margin-top: 140px;
     font-size: 25px">Loading...</p>
+  {:else}
+    <button class="akira view-btn"
+    on:click={() => {hide = true; app.playVideos() }}
+    style="margin-top: 140px;
+    font-size: 25px;
+        padding: 20px;"
+    data-augmented-ui="tl-clip br-clip tr-round bl-round exe border"
+    >VIEW PORTFOLIO →</button>
+  {/if}
     <!-- <p
     style="margin-top: 200px">
       DOWNLOADING {$loading}%
@@ -133,7 +139,7 @@ use:enhance={({formData, cancel}) => {
 }}></form> -->
 
 <div class="app-container">
-  <App />
+  <App bind:this={app}/>
 </div>
 </div>
 
@@ -163,4 +169,19 @@ use:enhance={({formData, cancel}) => {
     mix-blend-mode: screen;
     filter: blur(20px)
   }
+  .view-btn{
+    background: #ffffff00;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    --aug-border-all: 1px;
+    --aug-border-bg: #ffffff00;
+    --aug-tl: 8px;
+    --aug-br: 8px;
+    --aug-tr: 2px;
+    --aug-bl: 2px;
+    transition: 0.2s ease;
+    color: #000;
+}
 </style>
