@@ -58,7 +58,7 @@ let data = fetch('/api/projects', {
     'content-type': 'application/json'
     }
 }).then(res => res.json())
-.then(value => {console.log(value); return value;})
+.then(value => {console.log(value); return value.sort((a, b) => b.count - a.count);})
 
 onMount(() => {
     mounted = true;

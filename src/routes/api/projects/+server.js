@@ -11,20 +11,21 @@ const client = createClient({
 });
 
 const projectsQuery = `
-*[ _type == "projectCategory"]{
-    _id, 
-    title, 
-    designSide,
-    "projects":  *[ _type == 'project' && references(^._id)] | order(date desc){
-      _id, title,
-      slug, 
-      "mainImage": mainImage.asset->url,
-      roles, date,
-      url,
-      body, weapons[]->,
-      projectCategories[]->
-    }
-  }
+*[ _type == "projectCategory"] | order("count" desc){
+  _id, 
+  title, 
+  designSide,
+  "projects":  *[ _type == 'project' && references(^._id)] | order(date desc){
+    _id, title,
+    slug, 
+    "mainImage": mainImage.asset->url,
+    roles, date,
+    url,
+    body, weapons[]->,
+    projectCategories[]->
+  },
+  "count": count(*[ _type == 'project' && references(^._id)] )
+}
 `
 
 export async function GET({ request }){

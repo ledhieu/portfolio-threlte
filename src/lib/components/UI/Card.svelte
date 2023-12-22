@@ -9,7 +9,7 @@
     export let data;
     let active
 
-    $: date = new Date(data.date)
+    $: date = data.date ? new Date(data.date) : null
     $: {
         console.log(data)
     }
@@ -89,7 +89,11 @@
             {data.title ?? ""}
         </p>
         {#if active}
-            <p class="" style="">{month[date.getMonth()].substring(0, 3)} {date.getFullYear()} | a site</p>
+            {#if date}
+                <p class="" style="">{month[date.getMonth()].substring(0, 3)} {date.getFullYear()} | a site</p>
+            {:else}
+                <p>WORK IN PROGRESS</p>
+            {/if}
         {/if}
 
         <p class="absolute another h-min m-auto"
@@ -147,7 +151,11 @@
         <div class="w-full flex justify-between mt-auto pt-10">
             {#if !active}
             <div class="inconsolata uppercase">
-                {month[date.getMonth()].substring(0, 3)} {date.getFullYear()}
+                {#if date}
+                    {month[date.getMonth()].substring(0, 3)} {date.getFullYear()}
+                {:else}
+                    WORK IN PROGRESS
+                {/if}
             </div>
             {/if}
 
