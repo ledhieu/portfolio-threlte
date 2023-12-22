@@ -22,21 +22,21 @@
     }).then(res => res.json())
     .then(value => {console.log(value); return value;})
 
-    $: {
-      // console.log(data)
-        if(!$activeClass){
-          data.then(classes => {
-            $activeClass = classes[0]
-          })
-        }
-    }
+    // $: {
+    //   // console.log(data)
+    //     if(!$activeClass){
+    //       data.then(classes => {
+    //         $activeClass = classes[0]
+    //       })
+    //     }
+    // }
 
     $: {
       // on darkMode change
       $darkMode;
       data.then(classes => {
         $activeClass = classes.filter(
-          c => c.designSide == !$darkMode
+          c => c.designSide == $darkMode
         )[0]
       })
     }

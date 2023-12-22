@@ -105,6 +105,15 @@
         gsap.to(leftLight.position, { x: -9, y: 1, z: 19, duration: 3.6, ease: 'power4.inOut' })
         gsap.to(rightLight.position, { x: 9, y: 1, z: 19, duration: 3.6, ease: 'power4.inOut' })
         gsap.to(pointLight.position, { x: 0, y: 5, z: -2, duration: 3.6, ease: 'power4.inOut' })
+      } else if($pageState == 'contact'){
+        gsap.to($camera.position, { x: 0, y: 1.3, z: -4.8, duration: 4, ease: 'power4.inOut' })
+        gsap.to($camera, { fov: 20, duration: 4, ease: 'power4.inOut', onUpdate: () => {
+          $camera.updateProjectionMatrix()
+        } })
+        gsap.to(orbitControls.target, { x: 0.9, y: 1.3, z: 0, duration: 3, ease: 'power4.inOut' })
+        gsap.to(leftLight.position, { x: -9, y: 1, z: 19, duration: 3, delay: 0.5, ease: 'power4.inOut' })
+        gsap.to(rightLight.position, { x: 9, y: 1, z: 19, duration: 3, delay: 0.5, ease: 'power4.inOut' })
+        gsap.to(pointLight.position, { x: 0, y: 5, z: -2, duration: 3, delay: 0.5, ease: 'power4.inOut' })
       } else {
         gsap.to(orbitControls.target, { x: 0, y: 1.3, z: 0, duration: 3, ease: 'power4.inOut' })
       }

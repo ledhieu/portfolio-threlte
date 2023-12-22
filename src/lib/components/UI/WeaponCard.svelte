@@ -6,15 +6,30 @@
     const pageState = getContext('pageState')
     const darkMode = getContext('darkMode')
     const activeWeapon = getContext('activeWeapon')
+    const activeProject = getContext('activeProject')
+    const activeCategory = getContext('activeCategory')
 
     $: active = $activeWeapon && $activeWeapon._id ? $activeWeapon._id == data._id : false
 
     function handleClick(){
         $activeWeapon = data
     }
+    function handleProjectClick(project){
+        history.pushState({}, "", `/match-history/`)
+        $pageState = 'match-history';
+        $activeProject = project
+        // if(string == '')
+        //     scrollY = 0
+        // else if (string == 'character')
+        //     scrollY = 1000
+        // else if (string == 'weapons')
+        //     scrollY = 2000
+        // else if (string == 'match-history')
+        //     scrollY = 3000
+    }
 </script>
 
-<div
+<button
     class="card flex flex-col md:flex-row
     col-span-1 md:col-span-2
     relative gap-5
@@ -22,9 +37,6 @@
     class:col-span-2={active}
     class:active={active}
     class:dark={$darkMode}
-    style={`
-        background: #ffffff10;
-    `}
     on:click={handleClick}
     data-augmented-ui="tl-clip br-clip b-clip-x
     tr-round bl-round exe border">
@@ -51,26 +63,26 @@
 
     <div class="flex flex-col info-container flex-1
     gap-2 md:gap-0
-    font-bold uppercase">
-        <div class="flex-col md:flex-row">
+    font-bold ">
+        <div class="flex-col md:flex-row uppercase">
             <p class="label">Name</p>
             <p>{data.title}</p>
         </div>
-        <div class="flex flex-col md:flex-row">
+        <div class="flex flex-col md:flex-row uppercase">
             <p class="label">familiarity</p>
             <div class="progress-bg">
                 <div class="progress-bar"
                 style={`width: ${data.familiarity / 10 * 100}%`}></div>
             </div>
         </div>
-        <div class="flex flex-col md:flex-row">
+        <div class="flex flex-col md:flex-row uppercase">
             <p class="label">fondness</p>
             <div class="progress-bg">
                 <div class="progress-bar"
                 style={`width: ${data.fondness / 10 * 100}%`}></div>
             </div>
         </div>
-        <div class="flex flex-col md:flex-row">
+        <div class="flex flex-col md:flex-row uppercase">
             <p class="label">featured projects</p>
             <p>{data.projects ? data.projects.length : 0}</p>
         </div>
@@ -79,24 +91,29 @@
         {#if active}
             <div class="grid grid-cols-4 gap-2 mt-3">
                 {#each data.projects as project}
-                    <div class="flex rounded-md overflow-hidden project-img">
+                    <button class="flex rounded-md overflow-hidden project-img"
+                    on:click={() => {handleProjectClick(project)}}>
                         <img 
                             src={project.mainImage}
                             style="
                             aspect-ratio: 1/1;
                             object-fit: cover"/>
-                    </div>
+                    </button>
                 {/each}
             </div>
             <div class="flex mt-3">
-                <p class="label">description</p>
-                <p>{data.description ?? ''}</p>
+                <p class="label flex-shrink-0 uppercase">description</p>
+                <p class="font-normal"
+                style="letter-spacing: -0.5px;">{data.description ?? ''}</p>
             </div>
         {/if}
     </div>
-</div>
+</button>
 
 <style>
+    *{
+        text-align: left;
+    }
     .card{
         
         /* border: 1px solid #ffffff20; */
@@ -123,9 +140,14 @@
         padding-bottom: 25px;
         width: 100%;
         transition: 0.2s ease;
+        background: #ffffff10;
     }
     .card.dark{
         --aug-border-bg: #ffffff30;
+    }
+    .card:hover{
+        background: #ffffff29;
+        transition: 0.2s ease;
     }
     .label{
         width: 180px;
@@ -166,7 +188,8 @@
         background: #ffffff19;
     }
     .progress-bar{
-        background: #00000020;
+        background: #00000012;
+        mix-blend-mode: screen;
         position: absolute;
         top: 0;
         left: 0;

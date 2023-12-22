@@ -3,12 +3,14 @@
     import { getContext } from 'svelte';
     import { fade } from 'svelte/transition'
     import Hamburger from './UI/Hamburger.svelte';
+    import { goto } from '$app/navigation';
 
     const pageState = getContext('pageState')
     const darkMode = getContext('darkMode')
 
     function handleClick(string){
-        history.pushState({}, "", "/" + (string == 'intro' ? '' : string))
+        // history.pushState({}, "", "/" + (string == 'intro' ? '' : string))
+        goto("/" + (string == 'intro' ? '' : string))
         $pageState = string;
         active = false;
         // if(string == '')
@@ -52,6 +54,13 @@
         on:click={() => { handleClick('match-history') }}
         use:shuffle={{ shufflesBeforeOrdering: 1 }}>
         MATCH HISTORY 
+    </button>
+    <button
+        class="item"
+        class:active={$pageState == 'contact'}
+        on:click={() => { handleClick('contact') }}
+        use:shuffle={{ shufflesBeforeOrdering: 1 }}>
+        CONTACT
     </button>
 </div>
 
@@ -101,6 +110,12 @@ style="z-index: 10001">
                     class:active={$pageState == 'match-history'}
                     on:click={() => { handleClick('match-history') }}>
                     MATCH HISTORY 
+                </button>
+                <button
+                    class="item"
+                    class:active={$pageState == 'contact'}
+                    on:click={() => { handleClick('contact') }}>
+                    CONTACT
                 </button>
             </div>
         </div>

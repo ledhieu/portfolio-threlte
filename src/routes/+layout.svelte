@@ -4,32 +4,39 @@
     import Typed from 'typed.js'
     import { shuffle } from '$lib/shuffleText'
     import { fade } from 'svelte/transition'
-    import { onMount, setContext } from "svelte";
+    import { onDestroy, onMount, setContext } from "svelte";
     import { writable } from "svelte/store";
     import { useProgress } from '@threlte/extras'
     import { tweened } from 'svelte/motion'
     import { page } from '$app/stores'
     import App from '$lib/components/App.svelte'
     import { enhance } from '$app/forms';
+    import Loader from '$lib/components/UI/Loader.svelte'
 
     const { progress, finishedOnce } = useProgress()
     const loading = tweened($progress, {
-      duration: 800
+      duration: 300
     })
     $:  loading.set(!finishedOnce ? $progress * 100 : 100)
-    
+    $: {
+      console.log('progress', $progress, $finishedOnce)
+    }
 
     let date = new Date()
     const pageState = writable("loading")
     const darkMode = writable(false)
     const activeWeapon = writable(undefined)
     const activeClass = writable(undefined)
+    const activeProject = writable(undefined)
+    const activeCategory = writable(undefined)
     
     setContext("pageState", pageState)
     setContext("darkMode", darkMode)
     setContext('loading', loading)
     setContext('activeWeapon', activeWeapon)
     setContext('activeClass', activeClass)
+    setContext('activeProject', activeProject)
+    setContext('activeCategory', activeCategory)
 
     let loadedEvent, emitted = false;
     let form;
@@ -44,17 +51,34 @@
         window.dispatchEvent(loadedEvent)
       }
     }
+
+    function onCustomLoaded(){
+      $pageState = $page.route.id.split('/')[1].replace('/', '')
+      console.log($page)
+    }
+    function onPopstate(event){
+      console.log('popstate', event)
+      $pageState = event.target.location.pathname.split('/')[1].replace('/', '')
+      const project =  event.target.location.pathname.split('/')[2].replace('/', '')
+      if(project)
+        $activeProject = { slug: { current: project}}
+      else 
+        $activeProject = undefined
+    }
     
     onMount(async () => {
-        window.addEventListener('customLoaded', () => {
-            $pageState = $page.route.id.replace('/', '')
-            console.log($page)
-        })
-
+        window.addEventListener('customLoaded', onCustomLoaded )
+        window.addEventListener('popstate', onPopstate)
         console.log($page.route.id)
 
         
     })
+    // onDestroy(() => {
+    //   if(window){
+    //     window.removeEventListener('customLoaded', onCustomLoaded)
+    //     window.removeEventListener('popstate', onPopstate)
+    //   }
+    // })
 
     
 </script>
@@ -65,11 +89,16 @@
 
 <div class="contents"
   class:dark={$darkMode}>
-{#if $loading < 100 && !finishedOnce}
+{#if $loading < 100 || !finishedOnce}
 <div out:fade={{ duration: 1000 }}
 class="loading-screen fixed w-full h-full" style="z-index: 1000000">
-  <div class="absolute w-fit h-fit top-0 left-0 right-0 bottom-0 m-auto">
-    <p>
+<div><Loader/></div>
+<div class="absolute w-fit h-fit top-0 left-0 right-0 bottom-0 m-auto">
+    <p class="akira"
+    style="margin-top: 140px;
+    font-size: 25px">Loading...</p>
+    <!-- <p
+    style="margin-top: 200px">
       DOWNLOADING {$loading}%
     </p>
     <div class="progress">
@@ -88,7 +117,7 @@ class="loading-screen fixed w-full h-full" style="z-index: 1000000">
       <p style="font-size: 10px" use:shuffle={{
         shufflesBeforeOrdering: 1
       }}>LE DUC HIEU</p>
-    </div>
+    </div> -->
   </div>
   
 </div>

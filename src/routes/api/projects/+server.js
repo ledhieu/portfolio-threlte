@@ -20,6 +20,7 @@ const projectsQuery = `
       slug, 
       "mainImage": mainImage.asset->url,
       roles, date,
+      url,
       body, weapons[]->,
       projectCategories[]->
     }

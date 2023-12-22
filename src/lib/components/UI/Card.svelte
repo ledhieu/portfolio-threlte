@@ -7,46 +7,69 @@
     
 
     export let data;
+    let active
 
     $: date = new Date(data.date)
-    export let active = false;
+    $: {
+        console.log(data)
+    }
+    $: {
+        active = (data && data.slug && $activeProject && $activeProject.slug) ? $activeProject.slug.current == data.slug.current : false;
+    }
     const dispatch = createEventDispatcher()
     const pageState = getContext('pageState')
     const darkMode = getContext('darkMode')
-
+    const activeProject = getContext('activeProject')
 
     // TODO: add [projectState] in routing (maybe done? check again)
 
     const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+    function handleClick(){
+        if(!data){
+            return
+        }
+        
+        if(!active){
+            dispatch('open', data);
+            history.pushState({}, "", `/${$pageState}/${data.slug.current}`)
+            $activeProject = data
+        } else {
+            dispatch('minimize', data)
+            history.pushState({}, "", `/${$pageState}`)
+            $activeProject = undefined;
+        }
+    }
+    function handleLinkClick(){
+        if(data.url && window){
+            window.open(data.url, '_blank');
+            return
+        }
+    }
 </script>
 
 <div class="relative"
     class:col-span-3={active}>
-    <div 
+    <button 
         class:active={active}
         class:dark={$darkMode}
-        class="card flex flex-col relative h-full"
-        style={`
-            background: #ffffff10;
-        `}
+        class="card flex flex-col relative h-full cursor-pointer"
+        on:click|preventDefault|stopPropagation={handleClick}
         data-augmented-ui="tl-clip br-clip b-clip-x r-clip-x
         tr-round bl-round exe border"
         >   
         {#if active}
-            <button on:click={() => {
-                active = false;
-                dispatch('minimize', data)
-                history.pushState({}, "", `/${$pageState}`)
-            }}
+            <button on:click|stopPropagation={handleClick}
                 class="text-white text-left mb-10">
                 <p>{"<"} MINIMIZE</p>
             </button>
         {/if}
         {#if data.mainImage}
-            <img 
-                src={data.mainImage}
-                class="w-full aspect-video object-cover">
-
+            <div class="w-full aspect-video object-cover overflow-hidden">
+                <img 
+                    src={data.mainImage}
+                    class="main-image object-cover w-full h-full">
+            </div>
             <!-- Background glow -->
             <img 
                 src={data.mainImage}
@@ -60,7 +83,7 @@
                     'brightness(2) opacity(10%)'
                 : ''};`}>
         {/if}
-        <p class="akira mt-5 title"
+        <p class="akira mt-5 title text-left"
             style=""
         >
             {data.title ?? ""}
@@ -75,7 +98,7 @@
             {data.title.split(' ')[0]}
         </p>
 
-        <div class="mt-3">
+        <div class="mt-3 text-left">
         {#if data.roles}
             {#each data.roles as role}
                 <p style="line-height: 18px;">// {role}</p>
@@ -129,28 +152,33 @@
             {/if}
 
             <button
-                on:click={() => {
-                    if(!active){
-                        dispatch('open', data);
-                        history.pushState({}, "", `/${$pageState}/${data.slug.current}`)
-                    } else {
-                        dispatch('minimize', data)
-                        history.pushState({}, "", `/${$pageState}`)
-                    }
-                       
-                    active = !active;
-                }}
+                on:click|stopPropagation={data.url && data.url != '' && !active ? handleLinkClick : handleClick}
                 class="view-btn"
+                class:url-btn={data.url && data.url != '' && !active}
                 data-augmented-ui="tl-clip br-clip tr-round bl-round exe border">
                 {#if !active}
-                    VIEW {">"}
+                    {#if data.url && data.url != ''}
+                        VISIT SITE {">"}
+                    {:else}
+                        VIEW {">"}
+                    {/if}
                 {:else}
                     {"<"} MINIMIZE
                 {/if}
             </button>
+            <!-- Opened card visit site link -->
+            {#if data.url && data.url != '' && active }
+                <button
+                class="view-btn"
+                on:click={handleLinkClick}
+                class:url-btn={true}
+                data-augmented-ui="tl-clip br-clip tr-round bl-round exe border">
+                    VISIT SITE {">"}
+                </button>
+            {/if}
         </div>
         
-    </div>
+    </button>
 </div>
 
 <style>
@@ -187,12 +215,25 @@
         padding: 25px;
         width: 100%;
         transition: 0.2s ease;
+        background: #ffffff10;
     }
     .card.dark{
         --aug-border-bg: #ffffff30;
     }
     .card.active{
         padding: 30px;
+        transition: 0.2s ease;
+    }
+    .card:hover{
+        background: #ffffff29;
+        transition: 0.2s ease;
+    }
+    .main-image{
+        transform: scale(1);
+        transition: 0.2s ease;
+    }
+    .card:hover .main-image{
+        transform: scale(1.05);
         transition: 0.2s ease;
     }
     .view-btn{
@@ -213,6 +254,21 @@
         background: #ffffff20;
         transition: 0.2s ease;
     }
+    .url-btn{
+        background: #000000f0;
+        color: #ffffffd0;
+    }
+    .url-btn:hover{
+        background: #000000ff;
+        color: #ffffffff
+    }
+    .dark .url-btn{
+        background: #ffffff20;
+    }
+    .dark .url-btn:hover{
+        background: #ffffff50;
+    }
+
     :global(.portable-text *){
         margin-top: 30px;
     }

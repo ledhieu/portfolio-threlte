@@ -10,24 +10,27 @@ import { gsap } from 'gsap'
 import Card from "./Card.svelte";
 
 const pageState = getContext('pageState')
-const BASE_DELAY = 2000;
+const BASE_DELAY = 1000;
 const DELAY_INTERVAL = 500;
 const darkMode = getContext('darkMode')
 const loading = getContext('loading')
+const activeProject = getContext('activeProject')
+const activeCategory = getContext('activeCategory')
 
 let time = {time: 0}
 let opacity = 0;
 let layerblur = 30;
 let activeCategoryIndex = 0;
-let activeCategory;
 let showCategories = false;
-let activeProject;
 let mounted = false;
 
-$: {
-    $darkMode;
-    activeCategory = undefined;
-}
+
+onMount(() => {
+    console.log('activeProject', $activeProject)
+    setTimeout(() => {
+        console.log('activeProject', $activeProject)
+    }, 1000)
+})
 
 
 $: {
@@ -82,8 +85,8 @@ onMount(() => {
             <span 
                 class="akira uppercase title text-left"
             >
-                {activeCategory ? 
-                activeCategory.title : 
+                {$activeCategory ? 
+                $activeCategory.title : 
                 result.filter(category => category.designSide == $darkMode)[0].title}
             </span>
             <span 
@@ -101,7 +104,7 @@ onMount(() => {
             data-augmented-ui="tl-clip br-clip tr-round bl-round exe border">
                 {#each result.filter(category => category.designSide == $darkMode) as category, i}
                     <button class="card-item uppercase"
-                        on:click={() => {activeCategory = category;
+                        on:click={() => {$activeCategory = category;
                         showCategories = false}}
                     >
                         {category.title} <span class="opacity-40">({category.projects.length})</span>
@@ -112,23 +115,14 @@ onMount(() => {
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-10">
             {#each (
-                activeCategory ? 
-                activeCategory.projects : 
+                $activeCategory ? 
+                $activeCategory.projects : 
                 result.filter(category => category.designSide == $darkMode)[0].projects
                 )
                 as project, i
             }
                 <Card 
                     data={project}
-                    on:open={e => {
-                        activeProject = e.detail
-                        console.log(activeProject)
-                    }}
-                    on:minimize={
-                        e => {
-                            activeProject = undefined
-                        }
-                    }
                 />
             {/each}
         </div>

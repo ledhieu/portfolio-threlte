@@ -1,18 +1,18 @@
 <script>
-    import { getContext, onDestroy, onMount } from "svelte";
-    import { shuffle } from '$lib/shuffleText'
-    import { blur, fly, slide } from 'svelte/transition'
-    import { fade } from '$lib/transitions'
-    import { crossfade } from 'svelte/transition';
-	  import { flip } from 'svelte/animate';
-    import fontSpacing from '$lib/fontspacing.json'
-    import { gsap } from 'gsap'
+  import { getContext, onDestroy, onMount } from "svelte";
+  import { shuffle } from '$lib/shuffleText'
+  import { blur, fly, slide } from 'svelte/transition'
+  import { fade } from '$lib/transitions'
+  import { crossfade } from 'svelte/transition';
+  import { flip } from 'svelte/animate';
+  import fontSpacing from '$lib/fontspacing.json'
+  import { gsap } from 'gsap'
 
-    const pageState = getContext('pageState')
-    const BASE_DELAY = 2000;
-    const DELAY_INTERVAL = 500;
-    const darkMode = getContext('darkMode')
-    const loading = getContext('loading')
+  const pageState = getContext('pageState')
+  const BASE_DELAY = 2000;
+  const DELAY_INTERVAL = 500;
+  const darkMode = getContext('darkMode')
+  const loading = getContext('loading')
 
   let time = {time: 0}
   let opacity = 0;

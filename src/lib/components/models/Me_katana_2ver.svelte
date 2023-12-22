@@ -53,6 +53,8 @@ $: {
     transitionTo('Idle', 0.5)
   } else if( $pageState == 'weapons'){
     transitionTo('Torch Idle', 1)
+  } else if( $pageState == 'contact') {
+    transitionTo('Happy Idle', 0.5)
   } else {
     transitionTo('Happy Idle', 0.5)
   }
@@ -63,14 +65,17 @@ const { scene, camera, renderer } = useThrelte()
 
 $: {
     if($actions && $actions[currentActionKey]){
-        // if(currentActionKey == 'Break Dance'){
-        //     $actions[currentActionKey].loop = THREE.LoopPingPong
-        // }
+        if(currentActionKey == 'Land To Stand'){
+            $actions[currentActionKey].loop = THREE.LoopOnce
+        }
         
         $actions[currentActionKey].play()
     }
 }
 
+$: {
+  console.log('actions', $actions)
+}
 
 function transitionTo(nextActionKey, duration = 1) {
   const currentAction = $actions[currentActionKey]

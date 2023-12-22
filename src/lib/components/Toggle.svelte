@@ -3,6 +3,12 @@
 
 
     const darkMode = getContext('darkMode')
+    const activeCategory = getContext('activeCategory')
+
+    function clearCategory(){
+        $activeCategory = undefined
+    }
+
 </script>
 
 <!-- <button 
@@ -19,6 +25,7 @@
     
     <input 
         bind:checked={$darkMode}
+        on:change={clearCategory}
         type="checkbox" 
         class="absolute top-0"
         id="switch" />

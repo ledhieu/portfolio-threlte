@@ -19,6 +19,7 @@
   import { gsap } from 'gsap'
     import ProjectsUI from './UI/ProjectsUI.svelte';
     import WeaponsUI from './UI/WeaponsUI.svelte';
+    import ContactUI from './UI/ContactUI.svelte';
 
   const pageState = getContext('pageState')
   const darkMode = getContext('darkMode')
@@ -399,6 +400,9 @@ height: 100px">
     {/if}
     {#if $loading >= 100 && $pageState == 'weapons'}
       <WeaponsUI/>
+    {/if}
+    {#if $loading >= 100 && $pageState == 'contact'}
+      <ContactUI/>
     {/if}
 
     {#if $darkMode}
