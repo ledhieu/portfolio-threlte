@@ -64,7 +64,7 @@
     <div class="flex flex-col info-container flex-1
     gap-2 md:gap-0
     font-bold ">
-        <div class="flex-col md:flex-row uppercase">
+        <div class="flex flex-col md:flex-row uppercase">
             <p class="label">Name</p>
             <p>{data.title}</p>
         </div>

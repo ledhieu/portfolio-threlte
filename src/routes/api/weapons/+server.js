@@ -16,7 +16,7 @@ const projectsQuery = `
     title,
     designSide,
     "weapons": *[ _type == 'weapon' && references(^._id)]
-    | order(familiarity) {
+    | order(title) {
         _id, title,
         slug,
         familiarity,

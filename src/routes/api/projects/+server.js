@@ -15,7 +15,7 @@ const projectsQuery = `
     _id, 
     title, 
     designSide,
-    "projects":  *[ _type == 'project' && references(^._id)]{
+    "projects":  *[ _type == 'project' && references(^._id)] | order(date desc){
       _id, title,
       slug, 
       "mainImage": mainImage.asset->url,
