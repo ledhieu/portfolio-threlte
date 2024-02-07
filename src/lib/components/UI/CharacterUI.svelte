@@ -72,6 +72,7 @@ filter: blur(${layerblur}px)`}>
     <div class="titles mt-auto md:mt-0" style="">
       <p class="uppercase font-bold mb-3 subtitle">LE DUC HIEU // CLASS</p>
       <p class="another uppercase title" style="">{$activeClass ? $activeClass.title : 'Class title'}</p>
+
       
       <div class="flex gap-3 mb-5">
         {#await data then classes}
@@ -89,6 +90,7 @@ filter: blur(${layerblur}px)`}>
           Class title
         {/if}
       </p>
+
       <p style="line-height: 18px; font-size: 15px">
         {#if $activeClass && $activeClass.description}
           {$activeClass.description}
@@ -117,6 +119,11 @@ class:dark={$darkMode}>
 <!-- End Character Page -->
 
 <style>
+  .orange-title{
+    letter-spacing: -5%;
+    line-height: 38px;
+    font-size: 48px;
+  }
   .bg-title{
     font-size: 100px;
     color: #00000008;
@@ -170,6 +177,11 @@ class:dark={$darkMode}>
     }
     .dark.character-bg{
       background: #00000000;
+    }
+    .orange-title{
+      letter-spacing: -5%;
+      line-height: 98px;
+      font-size: 108px;
     }
   }
 </style>

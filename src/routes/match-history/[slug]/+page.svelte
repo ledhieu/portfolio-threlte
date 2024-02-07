@@ -1,11 +1,11 @@
 <script>
     import App from '$lib/components/App.svelte'
-    import { darkMode } from '$lib/character';
     import { getContext, onMount } from 'svelte';
 
     const pageState = getContext('pageState')
     const activeProject = getContext('activeProject')
     const activeCategory = getContext('activeCategory')
+    const darkMode = getContext('darkMode')
 
     export let data;
 
@@ -26,6 +26,8 @@
                         if(project.slug.current == data.slug){
                             $activeCategory = category
                             $activeProject = project
+                            $darkMode = category.designSide
+                            console.log("4adrkMode", $darkMode)
                         }
                     }, 100) // race condition with darkMode setting activeCategory to undefined
                 })

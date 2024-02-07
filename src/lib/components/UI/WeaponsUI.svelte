@@ -7,7 +7,7 @@
 	  import { flip } from 'svelte/animate';
     import fontSpacing from '$lib/fontspacing.json'
     import { gsap } from 'gsap'
-    import WeaponCard from "./WeaponCard.svelte";
+    import WeaponCard from "./WeaponCard2.svelte";
 
     const pageState = getContext('pageState')
     const BASE_DELAY = 2000;
@@ -88,7 +88,7 @@
             <p class="title uppercase font-bold akira mt-3 mb-5">
                 {activeCategory.title}
             </p>
-            <div class="grid grid-cols-2 gap-5">
+            <div class="grid grid-cols-1 gap-5">
                 {#each activeCategory.weapons as weapon}
                     <WeaponCard data={weapon}/>
                 {/each}

@@ -68,6 +68,16 @@
       $pageState = 'loading'
       window.addEventListener('customLoaded', onCustomLoaded )
       window.addEventListener('popstate', onPopstate)
+
+      grained('#grained', {
+        "animate": true,
+        "patternWidth": 138.73,
+        "patternHeight": 141.73,
+        "grainOpacity": 0.11,
+        "grainDensity": 1,
+        "grainWidth": 1.1,
+        "grainHeight": 1
+      })
     })
     // onDestroy(() => {
     //   if(window){
@@ -139,6 +149,8 @@ use:enhance={({formData, cancel}) => {
 }}></form> -->
 
 <div class="app-container">
+  <div id="grained" style="width: 100%; height: 100%; position: absolute;
+  mix-blend-mode: screen; z-index: 1; pointer-events: none"></div>
   <App bind:this={app}/>
 </div>
 </div>

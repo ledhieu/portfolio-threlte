@@ -1,17 +1,21 @@
 <script>
     import { createEventDispatcher } from "svelte";
-    import {PortableText} from '@portabletext/svelte'
+    import { PortableText } from '@portabletext/svelte'
     import Image from './Image.svelte'
     import { getContext } from 'svelte'
+    import Youtube from './Youtube.svelte'
     
     
 
     export let data;
-    let active
+    let active;
+    let cardDOM;
+    let titleDOM;
+    let imageDOM;
 
     $: date = data.date ? new Date(data.date) : null
     $: {
-        console.log(data)
+        console.log('blocks', data)
     }
     $: {
         active = (data && data.slug && $activeProject && $activeProject.slug) ? $activeProject.slug.current == data.slug.current : false;
@@ -29,7 +33,9 @@
         if(!data){
             return
         }
-        
+        setTimeout(() => {
+            imageDOM.scrollIntoView({ block: "center", behaviour: 'smooth'})
+        }, 200)
         if(!active){
             dispatch('open', data);
             history.pushState({}, "", `/${$pageState}/${data.slug.current}`)
@@ -51,6 +57,7 @@
 <div class="relative"
     class:col-span-3={active}>
     <button 
+        bind:this={cardDOM}
         class:active={active}
         class:dark={$darkMode}
         class="card flex flex-col relative h-full cursor-pointer"
@@ -67,6 +74,7 @@
         {#if data.mainImage}
             <div class="w-full aspect-video object-cover overflow-hidden">
                 <img 
+                    bind:this={imageDOM}
                     src={data.mainImage}
                     class="main-image object-cover w-full h-full">
             </div>
@@ -85,6 +93,7 @@
         {/if}
         <p class="akira mt-5 title text-left"
             style=""
+            bind:this={titleDOM}
         >
             {data.title ?? ""}
         </p>
@@ -135,12 +144,13 @@
                     <img src={block.asset._ref}/>
                 {/if}
             {/each} -->
-            <div class="portable-text">
+            <div class="portable-text w-full text-left">
                 <PortableText
                     value={data.body}
                     components={{
                         types: {
-                            image: Image
+                            image: Image,
+                            youtube: Youtube
                         }
                     }}
                 />

@@ -17,9 +17,9 @@
   import CharacterUI from './UI/CharacterUI.svelte';
   import Toggle from '$lib/components/Toggle.svelte'
   import { gsap } from 'gsap'
-    import ProjectsUI from './UI/ProjectsUI.svelte';
-    import WeaponsUI from './UI/WeaponsUI.svelte';
-    import ContactUI from './UI/ContactUI.svelte';
+  import ProjectsUI from './UI/ProjectsUI.svelte';
+  import WeaponsUI from './UI/WeaponsUI.svelte';
+  import ContactUI from './UI/ContactUI.svelte';
 
   const pageState = getContext('pageState')
   const darkMode = getContext('darkMode')
