@@ -99,7 +99,7 @@
 
 <style>
     .ui-container{
-        padding: 80px;
+        padding: 60px;
         padding-top: 120px;
         overflow-y: scroll;
         height: 100%;   

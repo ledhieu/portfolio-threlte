@@ -29,7 +29,9 @@
     }
 </script>
 
-<button class="relative">
+<button class="relative top-container"
+on:click={handleClick}
+class:active={active}>
     <div data-augmented-ui="all-hex border"
     class="hex"
     class:dark={$darkMode}
@@ -47,16 +49,17 @@
         </div>
     </div>
     <div class="card-container absolute z-[-1] w-full"
-    style="top: 5%; height: 90%; left: 55px">
+    style="">
         <div class="card flex h-full"
         data-augmented-ui="br-clip b-clip-x
         tr-round exe border"
-        style="padding: 0; padding-left: calc(55px + 10px)">
+        style="">
             <div class="text-left flex flex-col h-full p-2">
-                <p class="akira">{data.title}</p>
-                <p style="font-size: 13px;
+                <p class="akira title">{data.title}</p>
+                <p class="description"
+                style="font-size: 13px;
                 line-height: 15px">{data.description ?? ''}</p>
-                <div class="mt-auto mb-2" style="height: 10px">
+                <div class="bar-container mt-auto lg:mb-2" style="height: 10px">
                     {#each Array(5) as _, i}
                         <div class="bar absolute"
                             class:fill={i < data.familiarity / 2}
@@ -86,22 +89,24 @@
         background: #fff;
     }
     .hex{
-        --aug-all-width: 110px;
+        --aug-all-width: 60px;
         --aug-border-all: 1px;
         --aug-border-bg: #fff;
         background: #CCCDCE;
         transition: 0.5s ease;
+        margin-bottom: 125px;
+        margin-left: calc(100% - 30px);
     }
     .dark.hex{
         background: #18043B;
         transition: 0.5s ease;
     }
     .inside-hex{
-        --aug-all-width: 90px;
+        --aug-all-width: 50px;
         --aug-border-all: 0.5px;
         --aug-border-bg: #ffffff00;
-        top: calc((110px - 88px)/2);
-        left: calc((110px - 91px)/2);
+        left: 0; right: 0; top: 0; bottom: 0;
+        margin:auto;
         background: #ffffff30;
         transition: 0.5s ease;
     }
@@ -133,10 +138,75 @@
 
         transition: 0.3s ease;
         padding: 5px;
-        padding-bottom: 25px;
+        padding-bottom: 5px;
         width: 100%;
         transition: 0.2s ease;
         background: #ffffff10;
 
+    }
+    .top-container{
+        height: 80px;
+        transition: 0.5s ease;
+    }
+    .top-container.active{
+        height: 200px;
+        transition: 0.5s ease;
+    }
+    .card-container{
+        height: 80px;
+        top: 5%;
+        padding-left: 0px;
+        transition: 0.5s ease;
+    }
+    .active .card-container{
+        height: 200px;
+        transition: 0.5s ease;
+    }
+    .title{
+        padding-right: 20px;
+    }
+    .description{
+        padding-right: 20px;
+        display: none;
+    }
+    .active .description{
+        display: block;
+    }
+    .bar-container{
+        margin-left: -72px;
+        position: relative;
+    }
+    @media only screen and (min-width: 768px){
+        .hex{
+            --aug-all-width: 110px;
+            margin-bottom: 0px;
+        }
+        .inside-hex{
+            --aug-all-width: 90px;
+        }
+        .top-container{
+            height: auto
+        }
+        .card-container{
+            top: 5%; 
+            height: 90%; 
+            padding-left: 55px
+        }
+        .card{
+            padding: 5px;
+            padding-bottom: 25px; 
+            padding-left: calc(55px + 10px)
+        }
+        .title{
+            margin-left: 0px;
+            padding: 0;
+        }
+        .description{
+            padding: 0;
+            display: block;
+        }
+        .bar-container{
+            margin-left: 0;
+        }
     }
 </style>
