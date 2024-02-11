@@ -33,7 +33,7 @@
 on:click={handleClick}
 class:active={active}>
     <div data-augmented-ui="all-hex border"
-    class="hex"
+    class="hex absolute z-[1]"
     class:dark={$darkMode}
     style="">
         <div class="w-full h-full flex">
@@ -48,22 +48,24 @@ class:active={active}>
             </div>
         </div>
     </div>
-    <div class="card-container absolute z-[-1] w-full"
+    <div class="card-container z-[-1] w-full"
     style="">
         <div class="card flex h-full"
         data-augmented-ui="br-clip b-clip-x
         tr-round exe border"
         style="">
-            <div class="text-left flex flex-col h-full p-2">
+            <div class="text-left flex flex-col h-full p-2 gap-2">
                 <p class="akira title">{data.title}</p>
-                <p class="description"
-                style="font-size: 13px;
-                line-height: 15px">{data.description ?? ''}</p>
+                {#if data.description}
+                    <p class="description"
+                    style="font-size: 13px;
+                    line-height: 15px">{data.description ?? ''}</p>
+                {/if}
                 <div class="bar-container mt-auto lg:mb-2" style="height: 10px">
                     {#each Array(5) as _, i}
                         <div class="bar absolute"
                             class:fill={i < data.familiarity / 2}
-                            style={`left: ${i > 0 ? 75 + i * 30 - 10 : 75 + i * 30}px;
+                            style={`left: ${i > 0 ? 0 + i * 30 - 10 : 0 + i * 30}px;
                             width: ${i != 0 && i != 4 ? 50 : 40}px`}
                             data-augmented-ui={`border ${i != 0 ? 'bl-clip' : ''}
                         ${i != '4' ? 'tr-clip' : ''} exec`}></div>
@@ -83,7 +85,8 @@ class:active={active}>
     .bar{
         --aug-border-bg: #ffffffa0;
         --aug-border-all: 1px;
-        height: 4px
+        height: 4px;
+        position: absolute;
     }
     .bar.fill{
         background: #fff;
@@ -96,6 +99,7 @@ class:active={active}>
         transition: 0.5s ease;
         margin-bottom: 125px;
         margin-left: calc(100% - 30px);
+        
     }
     .dark.hex{
         background: #18043B;
@@ -145,25 +149,27 @@ class:active={active}>
 
     }
     .top-container{
-        height: 80px;
+        height: fit-content;
         transition: 0.5s ease;
+        
     }
     .top-container.active{
-        height: 200px;
+        height: fit-content;
         transition: 0.5s ease;
     }
     .card-container{
-        height: 80px;
+        height: fit-content;
         top: 5%;
         padding-left: 0px;
         transition: 0.5s ease;
     }
     .active .card-container{
-        height: 200px;
+        height: fit-content;
         transition: 0.5s ease;
     }
     .title{
         padding-right: 20px;
+        line-height: 15px;
     }
     .description{
         padding-right: 20px;
@@ -173,29 +179,33 @@ class:active={active}>
         display: block;
     }
     .bar-container{
-        margin-left: -72px;
+        
         position: relative;
+        margin-top: 5px;
     }
     @media only screen and (min-width: 768px){
         .hex{
             --aug-all-width: 110px;
             margin-bottom: 0px;
+            top: 0px;
         }
         .inside-hex{
             --aug-all-width: 90px;
         }
         .top-container{
-            height: auto
+            height: auto;
+            min-height: 130px;
         }
         .card-container{
             top: 5%; 
-            height: 90%; 
+            /* height: 90%;  */
             padding-left: 55px
         }
         .card{
             padding: 5px;
-            padding-bottom: 25px; 
-            padding-left: calc(55px + 10px)
+            padding-top: 10px;
+            /* padding-bottom: 25px;  */
+            padding-left: calc(25px + 10px)
         }
         .title{
             margin-left: 0px;
@@ -206,7 +216,7 @@ class:active={active}>
             display: block;
         }
         .bar-container{
-            margin-left: 0;
+            margin-left: 0px
         }
     }
 </style>
