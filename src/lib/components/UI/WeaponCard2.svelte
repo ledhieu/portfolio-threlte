@@ -33,7 +33,7 @@
 on:click={handleClick}
 class:active={active}>
     <div data-augmented-ui="all-hex border"
-    class="hex absolute z-[1]"
+    class="hex"
     class:dark={$darkMode}
     style="">
         <div class="w-full h-full flex">
@@ -43,14 +43,14 @@ class:active={active}>
                 style="
             "/>
             <div data-augmented-ui="all-hex border"
-            class="inside-hex absolute">
+            class="inside-hex">
 
             </div>
         </div>
     </div>
-    <div class="card-container z-[-1] w-full"
+    <div class="card-container"
     style="">
-        <div class="card flex h-full"
+        <div class="card"
         data-augmented-ui="br-clip b-clip-x
         tr-round exe border"
         style="">
@@ -99,6 +99,8 @@ class:active={active}>
         transition: 0.5s ease;
         margin-bottom: 125px;
         margin-left: calc(100% - 30px);
+        position: absolute;
+        z-index: 1;
         
     }
     .dark.hex{
@@ -113,6 +115,7 @@ class:active={active}>
         margin:auto;
         background: #ffffff30;
         transition: 0.5s ease;
+        position: absolute;
     }
     .dark .inside-hex{
         --aug-border-bg: #fffffff0;
@@ -146,7 +149,7 @@ class:active={active}>
         width: 100%;
         transition: 0.2s ease;
         background: #ffffff10;
-
+        display: flex;
     }
     .top-container{
         height: fit-content;
@@ -162,6 +165,8 @@ class:active={active}>
         top: 5%;
         padding-left: 0px;
         transition: 0.5s ease;
+        z-index: -1;
+        width: 100%;
     }
     .active .card-container{
         height: fit-content;
