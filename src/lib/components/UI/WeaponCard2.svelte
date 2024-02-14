@@ -1,5 +1,6 @@
 <script>
     import { getContext } from 'svelte'
+    import { goto } from '$app/navigation'
 
     export let data;
 
@@ -15,9 +16,14 @@
         $activeWeapon = data
     }
     function handleProjectClick(project){
-        history.pushState({}, "", `/match-history/`)
+        // history.pushState({}, "", `/match-history/${project.slug.current}`)
         $pageState = 'match-history';
         $activeProject = project
+        goto(`/match-history/${project.slug.current}`)
+
+        console.log(project)
+        // window.open(`/match-history/${project.slug.current}`).focus();
+
         // if(string == '')
         //     scrollY = 0
         // else if (string == 'character')
@@ -71,6 +77,21 @@ class:active={active}>
                         ${i != '4' ? 'tr-clip' : ''} exec`}></div>
                     {/each}
                 </div>
+                {#if active}
+                <p class="font-bold"><span class="akira">Featured in</span> ({data.projects.length < 10 ? '0' + data.projects.length : data.projects.length})</p>
+                <div class="grid grid-cols-4 gap-2 mb-4">
+                    {#each data.projects as project}
+                        <button class="flex rounded-md overflow-hidden project-img"
+                        on:click={() => {handleProjectClick(project)}}>
+                            <img 
+                                src={project.mainImage}
+                                style="
+                                aspect-ratio: 1/1;
+                                object-fit: cover"/>
+                        </button>
+                    {/each}
+                </div>
+                {/if}
             </div>
             <!-- <div class="grid grid-rows-2"
             style="border-left: 1px solid #ffffff90;

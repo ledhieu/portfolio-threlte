@@ -29,18 +29,19 @@
 
     const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-    function handleClick(){
+    function handleClick(isMinimizeButton = false){
         if(!data){
             return
         }
-        setTimeout(() => {
-            imageDOM.scrollIntoView({ block: "center", behaviour: 'smooth'})
-        }, 200)
         if(!active){
+            console.log('click')
+            setTimeout(() => {
+                imageDOM.scrollIntoView({ block: "center", behaviour: 'smooth'})
+            }, 200)
             dispatch('open', data);
             history.pushState({}, "", `/${$pageState}/${data.slug.current}`)
             $activeProject = data
-        } else {
+        } else if(isMinimizeButton) {
             dispatch('minimize', data)
             history.pushState({}, "", `/${$pageState}`)
             $activeProject = undefined;
@@ -61,12 +62,12 @@
         class:active={active}
         class:dark={$darkMode}
         class="card flex flex-col relative h-full cursor-pointer"
-        on:click|preventDefault|stopPropagation={handleClick}
+        on:click|preventDefault|stopPropagation={() => {handleClick(false)}}
         data-augmented-ui="tl-clip br-clip b-clip-x r-clip-x
         tr-round bl-round exe border"
         >   
         {#if active}
-            <button on:click|stopPropagation={handleClick}
+            <button on:click|stopPropagation={() => {handleClick(true)}}
                 class="text-white text-left mb-10">
                 <p>{"<"} MINIMIZE</p>
             </button>
@@ -91,25 +92,27 @@
                     'brightness(2) opacity(10%)'
                 : ''};`}>
         {/if}
-        <p class="akira mt-5 title text-left"
-            style=""
-            bind:this={titleDOM}
-        >
-            {data.title ?? ""}
-        </p>
-        {#if active}
-            {#if date}
-                <p class="" style="">{month[date.getMonth()].substring(0, 3)} {date.getFullYear()} | a site</p>
-            {:else}
-                <p>WORK IN PROGRESS</p>
-            {/if}
-        {/if}
+        
 
         <p class="absolute another h-min m-auto"
         style="font-size: 200px; opacity: 0.05; z-index: -1;
         bottom: 35%; line-height: 0px;">
             {data.title.split(' ')[0]}
         </p>
+
+        <p class="akira mt-5 title text-left"
+            style=""
+            bind:this={titleDOM}
+        >
+            {data.title ?? ""}
+        </p>
+        <!-- {#if active}
+            {#if date}
+                <p class="" style="">{month[date.getMonth()].substring(0, 3)} {date.getFullYear()} | a site</p>
+            {:else}
+                <p>WORK IN PROGRESS</p>
+            {/if}
+        {/if}
 
         <div class="mt-3 text-left">
         {#if data.roles}
@@ -119,7 +122,38 @@
         {:else}
             <p>// no role</p>
         {/if}
-        </div>
+        </div> -->
+
+        {#if active}
+        <table class="text-left">
+            <tr>
+                <td class="title-cell">Project type</td>
+                <td>Project type</td>
+            </tr>
+            <tr>
+                <td class="title-cell">Date</td>
+                <td>
+                    {#if date}
+                        <p class="" style="">{month[date.getMonth()].substring(0, 3)} {date.getFullYear()}</p>
+                    {:else}
+                        <p>WORK IN PROGRESS</p>
+                    {/if}
+                </td>
+            </tr>
+            <tr>
+                <td class="title-cell">Roles</td>
+                <td>
+                    {#if data.roles}
+                        {#each data.roles as role}
+                            <p style="line-height: 18px;">{role}</p>
+                        {/each}
+                    {:else}
+                        <p>no role</p>
+                    {/if}
+                </td>
+            </tr>
+        </table>
+        {/if}
 
         <div class="flex gap-3 flex-wrap w-full mt-4">
             {#each data.weapons as weapon}
@@ -170,7 +204,7 @@
             {/if}
 
             <button
-                on:click|stopPropagation={data.url && data.url != '' && !active ? handleLinkClick : handleClick}
+                on:click|stopPropagation={data.url && data.url != '' && !active ? handleLinkClick : () => {handleClick(true)}}
                 class="view-btn"
                 class:url-btn={data.url && data.url != '' && !active}
                 data-augmented-ui="tl-clip br-clip tr-round bl-round exe border">
@@ -206,7 +240,8 @@
         padding: 5px;
         padding-left: 10px;
         padding-right: 10px;
-        font-size: 11px;
+        font-size: 13px;
+        color: white;
     }
     .card{
         
@@ -293,6 +328,12 @@
     .title{
         font-size: 18px; 
         line-height: 16px;
+    }
+    .title-cell{
+        text-transform: uppercase;
+        font-weight: bold;
+        vertical-align: top;
+        width: 150px;
     }
     @media only screen and (min-width: 1024px){
         .title{

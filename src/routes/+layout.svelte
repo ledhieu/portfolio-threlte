@@ -43,10 +43,17 @@
     let loadedEvent, emitted = false;
     let form;
     $pageState = 'loading'
-    $: {
-      if($loading >= 100 && !emitted){
-        window.dispatchEvent(loadedEvent)
-      }
+
+    // OLD WAY: automatically dispatch event
+    // $: {
+    //   if($loading >= 100 && !emitted){
+    //     window.dispatchEvent(loadedEvent)
+    //   }
+    // }
+    
+    // NEW WAY: dispatch after user click the button
+    function loadingFinished(){
+      window.dispatchEvent(loadedEvent)
     }
 
     function onCustomLoaded(){
@@ -106,7 +113,7 @@ class="loading-screen fixed w-full h-full" style="z-index: 1000000">
     font-size: 25px">Loading...</p>
   {:else}
     <button class="akira view-btn"
-    on:click={() => {hide = true; app.playVideos() }}
+    on:click={() => {hide = true; app.playVideos(); loadingFinished() }}
     style="margin-top: 140px;
     font-size: 25px;
         padding: 20px;"

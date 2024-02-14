@@ -25,7 +25,8 @@ const projectsQuery = `
         "mainImage": mainImage.asset->url,
         "projects": *[ _type == 'project' && references(^._id)]{
             _id, title,
-            "mainImage": mainImage.asset->url
+            "mainImage": mainImage.asset->url,
+            slug
         }
     }
   }
