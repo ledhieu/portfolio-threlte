@@ -225,7 +225,7 @@ class:active={active}>
         .card-container{
             top: 5%; 
             /* height: 90%;  */
-            padding-left: 55px
+            /* padding-left: 55px */
         }
         .card{
             padding: 5px;
