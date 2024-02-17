@@ -1,12 +1,20 @@
 <script>
     import { getContext } from "svelte";
 
-
+    let used = false;
     const darkMode = getContext('darkMode')
     const activeCategory = getContext('activeCategory')
+    const pageState = getContext('pageState')
 
     function clearCategory(){
         $activeCategory = undefined
+    }
+
+    $:{
+        $darkMode;
+        if($darkMode && !used){
+            used = true;
+        }
     }
 
 </script>
@@ -34,6 +42,21 @@
     </label>
     
 </div>
+
+{#if !used && ($pageState == '' || $pageState == 'character')}
+<div class="absolute hidden lg:block"
+style="left: -40px; top: 10px;">
+    <img class=""
+    src={"/arrow2-01.png"}
+    style={`
+    height: 80px`}>
+    <p class="text-white passionate pointer-events-none"
+    style="font-size: 25px; margin-left: -15px; margin-top: 2px">
+    Switch</p>
+</div>
+{/if}
+
+
 
 <style>
     .btn-text{
