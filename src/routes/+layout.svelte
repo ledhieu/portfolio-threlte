@@ -165,7 +165,8 @@ use:enhance={({formData, cancel}) => {
 <style>
   
   .loading-screen{
-    background: #DCDCDC
+    background: #DCDCDC;
+    background: linear-gradient(135deg, #DADBDC, #B6B7B7);
   }
   .progress{
     width: 300px;
