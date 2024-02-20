@@ -1,10 +1,10 @@
 <script>
-    import { createEventDispatcher } from "svelte";
+    import { createEventDispatcher, onMount } from "svelte";
     import { PortableText } from '@portabletext/svelte'
     import Image from './Image.svelte'
     import { getContext } from 'svelte'
     import Youtube from './Youtube.svelte'
-    
+    import PhotoSwipe from './PhotoSwipe.svelte'
     
 
     export let data;
@@ -25,6 +25,14 @@
     const darkMode = getContext('darkMode')
     const activeProject = getContext('activeProject')
 
+    onMount(() => {
+        if(active){
+            setTimeout(() => {
+                console.log('first onMount')
+                imageDOM.scrollIntoView({ block: "center", behaviour: 'smooth'})
+            }, 500)
+        }
+    })
     // TODO: add [projectState] in routing (maybe done? check again)
 
     const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -56,7 +64,8 @@
 </script>
 
 <div class="relative"
-    class:col-span-3={active}>
+    class:lg:col-span-3={active}
+    class:col-span-1={active}>
     <button 
         bind:this={cardDOM}
         class:active={active}
@@ -68,7 +77,7 @@
         >   
         {#if active}
             <button on:click|stopPropagation={() => {handleClick(true)}}
-                class="text-white text-left mb-10">
+                class="text-white text-left mb-4 mt-4 lg:mt-0 lg:mb-10">
                 <p>{"<"} MINIMIZE</p>
             </button>
         {/if}
@@ -128,12 +137,12 @@
             <table class="text-left">
                 <tr>
                     <td class="title-cell">Project type</td>
-                    <td class="be">----------</td>
+                    <td class="be hidden lg:table-cell">----------</td>
                     <td>{data.type}</td>
                 </tr>
                 <tr>
                     <td class="title-cell">Date</td>
-                    <td class="be">----------</td>
+                    <td class="be hidden lg:table-cell">----------</td>
                     <td>
                         {#if date}
                             <p class="" style="">{month[date.getMonth()].substring(0, 3)} {date.getFullYear()}</p>
@@ -144,7 +153,7 @@
                 </tr>
                 <tr>
                     <td class="title-cell">Roles</td>
-                    <td class="be">----------</td>
+                    <td class="be hidden lg:table-cell">----------</td>
                     <td>
                         {#if data.roles}
                             {#each data.roles as role}
@@ -187,7 +196,8 @@
                         components={{
                             types: {
                                 image: Image,
-                                youtube: Youtube
+                                youtube: Youtube,
+                                gallery: PhotoSwipe
                             }
                         }}
                     />
@@ -277,7 +287,7 @@
         --aug-border-bg: #ffffff30;
     }
     .card.active{
-        padding: 30px;
+        padding: 10px;
         transition: 0.2s ease;
     }
     .card:hover{
@@ -381,7 +391,7 @@
             padding-top: 30px;
         }
         .card.active{
-            /* padding: 50px; */
+            padding: 30px;
             transition: 0.2s ease;
         }
         
