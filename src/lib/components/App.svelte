@@ -93,6 +93,16 @@
 
     window.onfocus = playVideos
     playVideos()
+
+    grained('#grained', {
+        "animate": true,
+        "patternWidth": 138.73,
+        "patternHeight": 141.73,
+        "grainOpacity": 0.1,
+        "grainDensity": 1,
+        "grainWidth": 1.1,
+        "grainHeight": 1
+      })
   })
   
   $: {
@@ -389,6 +399,8 @@ height: 100px">
      <Toggle/>
     </div>
     
+    <div id="grained" style="width: 100%; height: 100%; position: absolute;
+  mix-blend-mode: screen; z-index: 1; pointer-events: none"></div>
     
     {#if $loading >= 100 && $pageState == ''}
       <IntroUI/>
