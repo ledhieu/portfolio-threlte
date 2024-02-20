@@ -98,7 +98,7 @@
         "animate": true,
         "patternWidth": 138.73,
         "patternHeight": 141.73,
-        "grainOpacity": 0.1,
+        "grainOpacity": 0.11,
         "grainDensity": 1,
         "grainWidth": 1.1,
         "grainHeight": 1
