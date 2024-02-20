@@ -117,6 +117,7 @@ class:active={active}>
         --aug-border-all: 1px;
         --aug-border-bg: #fff;
         background: #CCCDCE;
+        background: #B7B7B9;
         transition: 0.5s ease;
         margin-bottom: 125px;
         margin-left: calc(100% - 30px);

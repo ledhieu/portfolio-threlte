@@ -407,6 +407,7 @@ height: 100px">
       <ContactUI/>
     {/if}
 
+    <!-- Glowing stuffs -->
     {#if $darkMode}
       <div class="pointer-events-none absolute"
       style="width: 700px; height: 700px; background:#FF6B00;
@@ -429,6 +430,27 @@ height: 100px">
       filter: blur(400px)"
       transition:fade={{duration: 1000}}>
 
+      </div>
+    {:else}
+      <div class="pointer-events-none absolute"
+        style="width: 700px; height: 700px; background:#ffffffbf;
+        border-radius: 500px; mix-blend-mode: normal;
+        left: -300px; top: -300px;
+        opacity: 0.4;
+        z-index: 0;
+        pointer-events: none;
+        filter: blur(200px)"
+        transition:fade={{duration: 1000}}>
+      </div>
+      <div class="pointer-events-none absolute"
+        style="width: 1000px; height: 1000px; background:#00000090;
+        border-radius: 500px; mix-blend-mode: normal;
+        right: -300px; bottom : -300px;
+        z-index: 0;
+        opacity: 0.5;
+        pointer-events: none;
+        filter: blur(400px)"
+        transition:fade={{duration: 1000}}>
       </div>
     {/if}
   </div>
