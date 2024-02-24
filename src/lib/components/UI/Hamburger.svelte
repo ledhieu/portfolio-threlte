@@ -32,8 +32,8 @@
         position: relative;
         width: 40px;
         height: 40px;
-        margin-top: 6px;
-        margin-right: 11px;
+        /* margin-top: 6px; */
+        /* margin-right: 11px; */
         /* transform: rotate(-90deg); */
         transform: scale(0.7)
     }

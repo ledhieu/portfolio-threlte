@@ -209,10 +209,23 @@
 <div class="fixed"
 style={`
   z-index: 10000;
-  top: ${ !mobile ? '20px' : '0px'};
-  left: ${ mounted ? (!mobile ? window.innerHeight / 2 + 10 : 'auto') : 500 }px;
+  top: ${ !mobile ? '30px' : '20px'};
+  left: ${ mounted ? (!mobile ? 45 : 27) : 500 }px;
   right: ${ mobile ? '10px' : 'auto' }`}>
   <Navbar/>
+</div>
+
+<div class="fixed left-0 m-auto right-0
+text-center w-fit"
+style="z-index: 9999; top: 20px; color: #FF6B00;
+letter-spacing: -1px; 
+font-size: 15px">
+  <!-- LE DUC HIEU -->
+  <span class="akira">LE DUC HIEU</span>
+  <!-- <img 
+  class="logo"
+  class:dark={$darkMode}
+  src='/hlogo.svg' style="width: 40px; height: 40px"/> -->
 </div>
 
 <div class="fixed"
@@ -387,12 +400,13 @@ height: 100px">
 
     <!-- QR Code -->
     <div class="pointer-events-none hidden lg:block
-    absolute right-5 top-5 lg:right-12 lg:top-12 flex flex-col items-center">
-      <img class="" src="/barcode.svg"
-      style={`filter: invert(${lottieInvert}%)`}>
-      <span class="text-right" use:shuffle
+    absolute right-5 top-5 lg:right-12 lg:top-8 flex-col items-center">
+      <img class="" src="/orns/barcode.svg"
+      style={`filter: invert(${$darkMode ? 1 : 0})};
+      width: 100px`}>
+      <!-- <span class="text-right" use:shuffle
       style="font-size: 12px">
-        {d.getDate()}{d.getMonth() < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1}{d.getFullYear()}</span>
+        {d.getDate()}{d.getMonth() < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1}{d.getFullYear()}</span> -->
     </div>
 
     <div class="absolute toggle-container" style="">
@@ -498,6 +512,13 @@ height: 100px">
     top: 170px; 
     z-index: 10000;
     right: -20px;
+  }
+  .logo{
+    transition: 0.2s ease;
+  }
+  .dark.logo{
+    filter: invert(1);
+    transition: 0.2s ease;
   }
   @media only screen and (min-width: 1024px){
     .toggle-container{

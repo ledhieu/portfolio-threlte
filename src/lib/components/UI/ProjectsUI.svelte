@@ -8,6 +8,7 @@ import { crossfade } from 'svelte/transition';
 import fontSpacing from '$lib/fontspacing.json'
 import { gsap } from 'gsap'
 import Card from "./Card.svelte";
+import Arrow from "./Arrow.svelte"
 
 const pageState = getContext('pageState')
 const BASE_DELAY = 1000;
@@ -68,42 +69,48 @@ onMount(() => {
 
 <div 
     class="ui-container relative"
+    class:dark={$darkMode}
     style={`
     opacity: ${opacity};
     filter: blur(${layerblur}px)
 `}>
     {#await data}
-        <p class="inconsolata">// MODE</p>
+        <p class="inconsolata">▪ MODE</p>
         <p class="akira uppercase" style="font-size: 32px">
             loading ...
         </p>
     {:then result}
-        <p class="inconsolata">// MODE</p>
+        <p class="inconsolata">▪ MODE</p>
         <button class="flex items-center gap-5"
             on:click={() => {showCategories = !showCategories;
             console.log('clicked', showCategories)}}>
             <span 
                 class="akira uppercase title text-left"
             >
-                {$activeCategory ? 
+                [{$activeCategory ? 
                 $activeCategory.title : 
-                result.filter(category => category.designSide == $darkMode)[0].title}
+                result.filter(category => category.designSide == $darkMode)[0].title}]
             </span>
-            <span 
+            <!-- <span 
                 class="dropdown-btn block"
                 class:active={showCategories}
             >
-                &#x25BC;
-            </span>
+                <Arrow/>
+            </span> -->
+            <div style="height: 12px; width: 12px"
+            class="arrow"
+            class:show={showCategories}>
+                <Arrow/>
+            </div>
         </button>
         
         {#if showCategories}
-            <div class="flex flex-col card items-start absolute"
+            <div class="flex flex-col card items-start absolute mt-5"
             class:dark={$darkMode}
             style="z-index: 10"
             data-augmented-ui="tl-clip br-clip tr-round bl-round exe border">
                 {#each result.filter(category => category.designSide == $darkMode) as category, i}
-                    <button class="card-item uppercase"
+                    <button class="card-item uppercase font-bold"
                         on:click={() => {$activeCategory = category;
                         showCategories = false}}
                     >
@@ -189,14 +196,26 @@ onMount(() => {
         font-size: 20px;
         line-height: 22px;
     }
+    .dark .arrow{
+        filter: invert(1);
+        transition: 0.2s ease;
+    }
+    .arrow{
+        transition: 0.2s ease;
+    }
+    .show.arrow{
+        rotate: -90deg;
+        transition: 0.2s ease;
+    }
+
     @media only screen and (min-width: 1024px){
         .ui-container{
             padding: 170px;
             padding-left: 170px;
         }
         .title{
-            font-size: 32px;
-            line-height: 30px;
+            font-size: 36px;
+            line-height: 33px;
         }
     }
 </style>
