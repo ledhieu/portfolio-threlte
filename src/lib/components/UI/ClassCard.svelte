@@ -41,7 +41,7 @@
         class="inner p-3 relative"
         data-augmented-ui="tl-clip br-clip
         tr-round bl-round exe"
-        style={`background: #ffffff30;
+        style={`
         height: 60px; aspect-ratio: 1;`}>
         <img 
             class="main-image"
@@ -86,7 +86,15 @@
         transition: 0.2s ease;
     }
     .card.dark{
-        --aug-border-bg: #ffffff35;
+        --aug-border-bg: #ffffff25;
+    }
+    .inner{
+        background: #ffffff50;
+        transition: 0.2s ease;
+    }
+    .card:hover .inner{
+        background: #ffffff60;
+        transition: 0.2s ease;
     }
     .label{
         width: 180px;

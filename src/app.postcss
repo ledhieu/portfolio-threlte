@@ -95,6 +95,11 @@ body{
     font-weight: thin;
     src: url('/font/XenoDemon-vWvA.otf')
 }
+@font-face {
+    font-family: 'Orbitron';
+    font-weight: thin;
+    src: url('/font/Orbitron.ttf')
+}
 
 
 * {
@@ -108,7 +113,7 @@ body{
     transition: color 0.3s ease;
 }
 .akira, .akira *{
-    font-family: Akira
+    font-family: Akira;
 }
 .another, .another *{
     font-family: Another
@@ -127,6 +132,9 @@ body{
 }
 .space, .space *{
     font-family: Space
+}
+.orbitron, .orbitron *{
+    font-family: Orbitron
 }
 .line{
     height: fit-content;
@@ -201,4 +209,7 @@ body{
 .dark .link{
     border-bottom: 1px solid white;
     transition: 0.2s ease;
+}
+.bg-stripes {
+    background-image: repeating-linear-gradient(45deg,transparent,transparent 4px,#fff 0,#fff 6px);
 }

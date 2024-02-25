@@ -215,13 +215,28 @@ style={`
   <Navbar/>
 </div>
 
+<div class="fixed toggle-container" style="">
+  <Toggle/>
+ </div>
+
 <div class="fixed left-0 m-auto right-0
+hidden lg:flex gap-3
 text-center w-fit"
 style="z-index: 9999; top: 20px; color: #FF6B00;
 letter-spacing: -1px; 
 font-size: 15px">
   <!-- LE DUC HIEU -->
+  <div class="pointer-events-none line-container relative" 
+    style="width: 30px;">
+    <div class="line" style="width: 30px"></div>
+    <div class="tip"></div>
+  </div>
   <span class="akira">LE DUC HIEU</span>
+  <div class="pointer-events-none line-container relative" 
+    style="width: 30px; transform: rotate(180deg)">
+    <div class="line "style="width: 30px"></div>
+    <div class="tip"></div>
+  </div>
   <!-- <img 
   class="logo"
   class:dark={$darkMode}
@@ -409,9 +424,6 @@ height: 100px">
         {d.getDate()}{d.getMonth() < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1}{d.getFullYear()}</span> -->
     </div>
 
-    <div class="absolute toggle-container" style="">
-     <Toggle/>
-    </div>
     
     <div id="grained" style="width: 100%; height: 100%; position: absolute;
   mix-blend-mode: screen; z-index: 1; pointer-events: none"></div>
@@ -510,7 +522,7 @@ height: 100px">
   }
   .toggle-container{
     top: 170px; 
-    z-index: 10000;
+    z-index: 1001;
     right: -20px;
   }
   .logo{
@@ -523,7 +535,6 @@ height: 100px">
   @media only screen and (min-width: 1024px){
     .toggle-container{
       top: 170px; 
-      z-index: 10000;
       right: 0px;
     }
   }

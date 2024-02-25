@@ -5,9 +5,47 @@
     import Hamburger from './UI/Hamburger2.svelte';
     import { goto } from '$app/navigation';
     import Arrow from './UI/Arrow.svelte';
+    import { onMount } from 'svelte'
 
     const pageState = getContext('pageState')
     const darkMode = getContext('darkMode')
+
+    let hover;
+    let characterData, weaponsData, projectsData
+
+    onMount(() => {
+        characterData = fetch('/api/character', {
+            method: 'GET',
+            headers: {
+            'content-type': 'application/json'
+            }
+        }).then(res => res.json())
+        .then(value => {console.log(value); return value;})
+
+        weaponsData = fetch('/api/weapons', {
+            method: 'GET',
+            headers: {
+            'content-type': 'application/json'
+            }
+        }).then(res => res.json())
+        .then(value => {console.log(value); return value;})
+
+        projectsData = fetch('/api/projects', {
+            method: 'GET',
+            headers: {
+            'content-type': 'application/json'
+            }
+        }).then(res => res.json())
+        .then(value => {console.log(value); return value.sort((a, b) => b.count - a.count);})
+
+    })
+    
+    function setHover(value){
+        setTimeout(() => {
+            hover = value
+        }, 1)
+    }
+    
 
     function handleClick(string){
         // history.pushState({}, "", "/" + (string == 'intro' ? '' : string))
@@ -92,45 +130,115 @@ style="z-index: 10001">
 
     {#if active}
         <div class="modal w-screen h-screen
-        fixed top-0 left-0"
-        class:dark={$darkMode}
-        transition:fade={{duration: 200}}
-        style=" z-index: -1;">
+            fixed top-0 left-0"
+            class:dark={$darkMode}
+            transition:fade={{duration: 200}}
+            style=" z-index: -1;"
+        >
             <div class="flex flex-col items-start h-full">
                 <button
                     class="item"
                     data-augmented-ui="br-clip tl-round tr-round bl-round exe"
                     class:active={$pageState == ''}
                     on:click={() => {  handleClick('') }}>
-                    <span class="font-bold num">01</span>HOME
+                    <span class="font-bold num">01</span>HOME<div
+                    class="arrow w-[12px] h-[12px]"><Arrow/></div>
                 </button>
                 <button
                     class="item"
                     data-augmented-ui="br-clip tl-round tr-round bl-round exe"
                     class:active={$pageState == 'character'}
+                    on:mouseenter={() => {setHover('character')}}
+                    on:mouseout={() => {setHover('')}}
                     on:click={() => { handleClick('character') }}>
-                    <span class="font-bold num">02</span>CHARACTER 
+                    <span class="font-bold num">02</span>
+                    CHARACTER
+                    <div
+                    class="arrow w-[12px] h-[12px]"><Arrow/></div>
                 </button>
+                {#if hover == 'character' || ($pageState == 'character' )}
+                <div class="carousel"
+                    style="font-size: 15px">
+                    {#each Array.from({length: 2}) as _}
+                        <div class="flex array">
+                            {#await characterData then classes}
+                                {#each classes.filter(klass => klass.designSide == $darkMode) as charItem}
+                                <span class="avant"
+                                class:text-orange={!$darkMode}
+                                class:text-purple={$darkMode}
+                                style="font-family: Akira; text-transform: uppercase"> {charItem.title} ▪&nbsp;</span>
+                                {/each}
+                            {/await}
+                        </div>
+                    {/each}
+                </div>
+                {/if}
+                
                 <button     
                     class="item"
                     data-augmented-ui="br-clip tl-round tr-round bl-round exe"
                     class:active={$pageState == 'weapons'}
+                    on:mouseenter={() => {setHover('weapons')}}
+                    on:mouseout={() => {setHover('')}}
                     on:click={() => { handleClick('weapons') }}>
-                    <span class="font-bold num">03</span>WEAPONS
+                    <span class="font-bold num">03</span>WEAPONS<div style=""
+                    class="arrow w-[12px] h-[12px]"><Arrow/></div>
                 </button>
+                {#if hover == 'weapons' || ($pageState == 'weapons' )}
+                <div class="carousel"
+                    style="font-size: 15px">
+                    {#each Array.from({length: 2}) as _}
+                        <div class="flex array">
+                            {#await weaponsData then weaponCategories}
+                                {#each weaponCategories.filter(c => c.designSide == $darkMode) as item}
+                                <span class="avant"
+                                class:text-orange={!$darkMode}
+                                class:text-purple={$darkMode}
+                                style="font-family: Akira; text-transform: uppercase"> {item.title} ▪&nbsp;</span>
+                                {/each}
+                            {/await}
+                        </div>
+                    {/each}
+                </div>
+                {/if}
+
+
                 <button
                     class="item"
                     data-augmented-ui="br-clip tl-round tr-round bl-round exe"
                     class:active={$pageState == 'match-history'}
+                    on:mouseenter={() => {setHover('match-history')}}
+                    on:mouseout={() => {setHover('')}}
                     on:click={() => { handleClick('match-history') }}>
-                    <span class="font-bold num">04</span>MATCH HISTORY 
+                    <span class="font-bold num">04</span>MATCH HISTORY <div style=""
+                    class="arrow w-[12px] h-[12px]"><Arrow/></div>
                 </button>
+                {#if hover == 'match-history' || ($pageState == 'match-history' )}
+                <div class="carousel"
+                    style="font-size: 15px">
+                    {#each Array.from({length: 2}) as _}
+                        <div class="flex array">
+                            {#await projectsData then projectCategories}
+                                {#each projectCategories.filter(c => c.designSide == $darkMode) as item}
+                                <span class="avant"
+                                class:text-orange={!$darkMode}
+                                class:text-purple={$darkMode}
+                                style="font-family: Akira; text-transform: uppercase"> {item.title} ▪&nbsp;</span>
+                                {/each}
+                            {/await}
+                        </div>
+                    {/each}
+                </div>
+                {/if}
+
+
                 <button
                     class="item"
                     data-augmented-ui="br-clip tl-round tr-round bl-round exe"
                     class:active={$pageState == 'contact'}
                     on:click={() => { handleClick('contact') }}>
-                    <span class="font-bold num">05</span>CONTACT
+                    <span class="font-bold num">05</span>CONTACT<div style="height: 12px; width: 12px"
+                    class="arrow"><Arrow/></div>
                 </button>
             </div>
         </div>
@@ -145,12 +253,24 @@ style="z-index: 10001">
     * {
         font-family: Inconsolata;
     }
+    .text-orange{
+        color: #FF6B00;
+    }
+    .text-purple{
+        color: #6E18FF;
+    }
+    .arrow{
+        filter: invert(1);
+        padding-top: 8px;
+    }
     .item {
         /* opacity: 0.2; */
         transition: 0.3s ease;
         color: #fff;
         padding: 5px;
         padding-right: 40px;
+        padding-bottom: 0px;
+        margin-top: 5px;
         --aug-br: 30px;
         --aug-tl: 5px;
         --aug-tr: 5px;
@@ -158,14 +278,17 @@ style="z-index: 10001">
         display: flex;
         align-items: start;
         gap: 10px;
+        background: #ffffff00;
     }
     .item:hover, .item:hover .num{
         /* opacity: 0.5; */
         color: #FF6B00;
         transition: 0.3s ease;
-        gap: 25px;
     }
-    .dark .item:hover{
+    .item:hover .num{
+        margin-right: 15px;
+    }
+    .dark .item:hover, .dark .item:hover .num{
         color: #6E18FF
     }
     .item.active{
@@ -180,21 +303,22 @@ style="z-index: 10001">
     }
     .modal{
         padding-top: 100px;
-        padding-left: 40px;
+        padding-left: 25px;
         background: linear-gradient(90deg, #000000f0 30%, #000000a0)
     }
     .dark.modal{
         background: linear-gradient(90deg, #0e0322f0 30%, #0e032250)
     }
     .modal .item{
-        font-family: Akira;
-        font-size: 65px;
-        line-height: 60px;
+        font-family: Akira; text-transform: uppercase;
+        font-size: 30px;
+        line-height: 26px;
+        text-align: left;
     }
     .button{
         background: #FF6B00;
-        height: 30px;
-        width: 40px;
+        height: 35px;
+        width: 45px;
         --aug-border-all: 2px;
         --aug-border-bg: #ffdcc2d0;
         --aug-bl: 2px;
@@ -227,6 +351,28 @@ style="z-index: 10001">
     .dark .item.active .num{
         color: #0e0322;
     }
+    .carousel{
+        width: calc(100vw - 50px);
+        overflow: hidden;
+        white-space: nowrap;
+        pointer-events: none;
+    }
+    .carousel span{
+        min-width: fit-content;
+    }
+    .carousel .array{
+        animation: 20s slide infinite linear;
+        display: inline-block;
+        pointer-events: none;
+    }
+    @keyframes slide{
+        from{
+            transform: translateX(0)
+        }
+        to {
+            transform: translateX(-100%);
+        }
+    }
     @media only screen and (min-width: 1024px){
         .button{
             height: 40px;
@@ -235,6 +381,16 @@ style="z-index: 10001">
         .shadow{
             width: 45px;
             height: 40px;
+        }
+        .modal{
+            padding-left: 40px;
+        }
+        .modal .item{
+            font-size: 75px;
+            line-height: 65px;
+        }
+        .carousel{
+            width: 600px;
         }
     }
 </style>

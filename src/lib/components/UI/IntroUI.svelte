@@ -7,6 +7,8 @@
   import { flip } from 'svelte/animate';
   import fontSpacing from '$lib/fontspacing.json'
   import { gsap } from 'gsap'
+  import Arrow from './Arrow.svelte'
+  import { goto } from '$app/navigation'
 
   const pageState = getContext('pageState')
   const BASE_DELAY = 2000;
@@ -29,7 +31,7 @@
     } else {
       // putting the code below in onMount works too, but this looks
       // more consistent
-      gsap.to(time, { time: 1, duration: 1, ease: 'power4.inOut', delay: BASE_DELAY/1000, onUpdate: () => {
+      gsap.to(time, { time: 1, duration: 0.3, ease: 'power4.inOut', delay: BASE_DELAY/1000, onUpdate: () => {
         opacity = time.time
         layerblur = 30 - time.time * 30
       }})
@@ -48,7 +50,7 @@ style="transition: 0.5s ease"
   <h2 style="font-family: Another;
     "
     id="hieusportfolio"
-    transition:blur={{ amount: 10, duration: 1000, delay: BASE_DELAY }}
+    transition:blur={{ amount: 10, duration: 800, delay: BASE_DELAY }}
     class="text-white uppercase absolute left-0 right-0 m-auto
     white-title">
     Hieu's portfolio
@@ -56,7 +58,7 @@ style="transition: 0.5s ease"
   <!-- Ink splash 1 -->
   <h2 style="font-family: Drips;
     "
-    transition:blur={{ amount: 10, duration: 1000, delay: BASE_DELAY }}
+    transition:blur={{ amount: 10, duration: 800, delay: BASE_DELAY }}
     class="text-white uppercase absolute left-0 right-0 m-auto
     ink-1">
     -*+*+,-
@@ -64,7 +66,7 @@ style="transition: 0.5s ease"
   <!-- Ink splash 2 -->
   <h2 style="font-family: Drips;
     "
-    transition:blur={{ amount: 10, duration: 1000, delay: BASE_DELAY }}
+    transition:blur={{ amount: 10, duration: 800, delay: BASE_DELAY }}
     class="text-white uppercase absolute left-0 right-0 m-auto
     ink-2">
     \{`[`}\
@@ -80,9 +82,10 @@ style="transition: 0.5s ease"
   </h2> -->
 
   
-  <h1 style=""
+  <h1 style="mix-blend-mode:screen;"
   id="visualside"
-  class="absolute uppercase akira orange-title"
+  class="absolute uppercase akira orange-title z-[1]"
+  transition:blur={{ amount: 10, duration: 800, delay: BASE_DELAY }}
   >
     <!-- {#if !$darkMode}
     <span in:fade={{duration: 1, delay: DELAY_INTERVAL * 2}}>de</span><span in:fade={{duration: 1, delay: DELAY_INTERVAL * 3}}>si<span style="color: #FF6B00; mix-blend-mode:screen">gn</span></span><span in:fade={{duration: 1, delay: DELAY_INTERVAL * 4}}>side</span>
@@ -94,8 +97,7 @@ style="transition: 0.5s ease"
       spaceMapping: fontSpacing,
       log: true
     }} 
-    style={`color: #FF6B00; mix-blend-mode:screen; opacity: ${opacity};
-    filter: blur(${layerblur}px)`}>{@html $darkMode ? 
+    style={`color: #FF6B00;`}>{@html $darkMode ? 
       'visual&side' : 
       'coding&side'}</span>
     {/key}
@@ -109,7 +111,8 @@ style="transition: 0.5s ease"
   >{@html !$darkMode ? 'coding<br class="block lg:hidden">side' : 'visual<br class="block lg:hidden">side'}
   </h1>
   <!-- End ghost title -->
-  <div class="flex absolute w-full justify-between">
+  <div class="flex absolute w-full justify-between"
+  >
       {#key $darkMode}
       <p use:shuffle={{
           shufflesBeforeOrdering: 80,
@@ -135,6 +138,41 @@ style="transition: 0.5s ease"
       {/key}
   </div>
 
+  <div class="flex m-auto z-[1] relative gap-3"
+  transition:blur={{ amount: 10, duration: 800, delay: BASE_DELAY + 200 }}>
+    <!-- <div class="bg-stripes h-[40px] w-[10px] ml-auto"></div> -->
+    <p class="w-[560px] text-white m-auto
+    uppercase text-center"
+    style={`font-size: 12px; line-height: 12px;`}>
+      A full-stack developer with a focus on front-end who's interested in game design, videography, graphics design and has a thing for creating visually appealing stuffs.
+    </p>
+  </div>
+  <div class="shadow absolute m-auto 
+   w-[500px] h-[60px] z-[0] top-20 left-0 right-0" 
+  transition:fade={{ amount: 10, duration: 800, delay: BASE_DELAY + 400 }}
+  style={`background: #000000a0; filter: blur(60px);`}></div>
+
+
+  <div class="absolute left-0 right-0 m-auto mt-8"
+  transition:blur={{ amount: 10, duration: 800, delay: BASE_DELAY + 400 }}
+  style={``}>
+    <div class="flex flex-col justify-center">
+      <button
+        on:click={() => {goto('character'); $pageState = 'character'}}
+        class="button w-fit m-auto"
+        data-augmented-ui="br-clip tl-round tr-round bl-round exe
+        border"
+      >
+        <div><span class="font-bold text-white">
+          VIEW MORE</span><div style="height: 7px; width: 7px;
+          transform: rotate(-90deg); filter: invert(1)" 
+          class="arrow inline-block pt-4 ml-0 pl-0 mr-2">
+            <Arrow/>
+          </div>
+        </div>
+      </button>
+    </div>
+  </div>
 </div>
 <!-- End Intro Page -->
 
@@ -161,6 +199,33 @@ style="transition: 0.5s ease"
   }
   .sub-text{
     color: white;
+  }
+  .button, .button-2{
+      padding: 10px;
+      padding-left: 25px;
+      padding-right: 25px;
+      mix-blend-mode: screen;
+      --aug-border-all: 1px;
+      --aug-border-bg: #FF6B00ff;
+      --aug-bl: 2px;
+      --aug-tl: 2px;
+      --aug-tr: 2px;
+  }
+  .button{
+    background: #FF6B00a0;
+    transition: 0.2s ease;
+  }
+  .button:hover{
+    background: #FF6B00ff;
+    transition: 0.2s ease;
+  }
+  .button-2{
+    top: 3px;
+    left: 3px;
+    position: absolute;
+    color: none;
+    --aug-border-bg: #ffdcc2;
+    --aug-border-all: 1px;
   }
   @media only screen and (min-width: 1024px){
     .orange-title{

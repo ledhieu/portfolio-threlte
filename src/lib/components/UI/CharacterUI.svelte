@@ -70,9 +70,27 @@ filter: blur(${layerblur}px)`}>
     pt-10 p-8 lg:p-0
     character-bg">
     <div class="titles mt-auto md:mt-0" style="">
-      <p class="uppercase font-bold mb-3 subtitle">LE DUC HIEU // CLASS</p>
+      <p class="uppercase font-bold mb-3 subtitle">▪ CLASS:</p>
       <p class="another uppercase title" style="">{$activeClass ? $activeClass.title : 'Class title'}</p>
-
+      <div class="absolute top-0"
+      style="font-size: 100px">
+        <!-- Ink splash 1 -->
+        <h2 style="font-family: Drips;
+        "
+        class="uppercase absolute left-0 right-0 m-auto
+        ink-1">
+        -*+*+,-
+        </h2>
+        {#if $activeClass && $activeClass.title.length > 15 && false}
+        <!-- Ink splash 2 -->
+        <h2 style="font-family: Drips;
+          "
+          class="uppercase absolute left-0 right-0 m-auto
+          ink-2">
+          -+-,-*,+
+        </h2>
+        {/if}
+      </div>
       
       <div class="flex gap-3 mb-5">
         {#await data then classes}
@@ -90,6 +108,7 @@ filter: blur(${layerblur}px)`}>
           Class title
         {/if}
       </p>
+      
 
       <p style="line-height: 18px; font-size: 15px">
         {#if $activeClass && $activeClass.description}
@@ -119,6 +138,16 @@ class:dark={$darkMode}>
 <!-- End Character Page -->
 
 <style>
+  .ink-1{
+    font-size: 66px;
+    line-height: 38px;
+    top: 50px;
+  }
+  .ink-2{
+    font-size: 63px;
+    line-height: 18px;
+    top: 190px;
+  }
   .orange-title{
     letter-spacing: -5%;
     line-height: 38px;
@@ -145,7 +174,7 @@ class:dark={$darkMode}>
     font-size: 14px;
   }
   .character-bg{
-    background: #ffffffe6;
+    background: #ccccced0;
     transition: 0.4s ease;
     border-radius: 30px 30px 0px 0px;
     box-shadow: 0px -11px 50px -7px #00000030;

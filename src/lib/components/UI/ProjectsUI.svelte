@@ -80,10 +80,10 @@ onMount(() => {
             loading ...
         </p>
     {:then result}
+        <!-- <div class="bg-stripes w-[15px] h-[30px]"></div> -->
         <p class="inconsolata">▪ MODE</p>
         <button class="flex items-center gap-5"
-            on:click={() => {showCategories = !showCategories;
-            console.log('clicked', showCategories)}}>
+            on:click={() => {showCategories = !showCategories;}}>
             <span 
                 class="akira uppercase title text-left"
             >
