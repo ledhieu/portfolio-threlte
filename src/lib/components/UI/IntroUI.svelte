@@ -138,7 +138,7 @@ style="transition: 0.5s ease"
       {/key}
   </div>
 
-  <div class="flex m-auto z-[1] relative gap-3"
+  <div class="hidden lg:flex m-auto z-[1] relative gap-3"
   transition:blur={{ amount: 10, duration: 800, delay: BASE_DELAY + 200 }}>
     <!-- <div class="bg-stripes h-[40px] w-[10px] ml-auto"></div> -->
     <p class="w-[560px] text-white m-auto
