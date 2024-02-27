@@ -425,7 +425,9 @@ height: 100px">
     </div>
 
     
-    <div id="grained" style="width: 100%; height: 100%; position: absolute;
+    <div id="grained" 
+    class="hidden lg:block"
+    style="width: 100%; height: 100%; position: absolute;
   mix-blend-mode: screen; z-index: 1; pointer-events: none"></div>
     
     {#if $loading >= 100 && $pageState == ''}
