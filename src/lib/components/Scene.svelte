@@ -80,11 +80,11 @@
         gsap.to(ref.rotation, { y: Math.PI/15, duration: 4, ease: 'power4.inOut' })
       } else if ($pageState == 'weapons'){
         if(innerWidth >= 1024){
-          gsap.to($camera.position, { x: -0.2889295559274839, y: 1.6991697557237377, z: 2.252411906431398, duration: 3.2, ease: 'power4.inOut' })
-          gsap.to(orbitControls.target, { x: 0.3567704440725213, y: 1.5961697557237375, z: 0.4814119064313902, duration: 3.2, ease: 'power4.inOut' })
+          gsap.to($camera.position, { x: -0.2889295559274839, y: 1.6991697557237377, z: 2.252411906431398, duration: 2.2, ease: 'power4.inOut' })
+          gsap.to(orbitControls.target, { x: 0.3567704440725213, y: 1.5961697557237375, z: 0.4814119064313902, duration: 2.2, ease: 'power4.inOut' })
         } else {
           gsap.to($camera.position, { x: -0.2889295559274839, y: 1.63, z: 2.252411906431398, duration: 3.2, ease: 'power4.inOut' })
-          gsap.to(orbitControls.target, { x: 1.2767704440725213, y: 1.5261697557237375, z: 0.4814119064313902, duration: 3.2, ease: 'power4.inOut' })
+          gsap.to(orbitControls.target, { x: 1.2767704440725213, y: 1.5261697557237375, z: 0.4814119064313902, duration: 2.2, ease: 'power4.inOut' })
         }
         
         gsap.to($camera, { fov: 20, duration: 3, ease: 'power4.inOut', onUpdate: () => {

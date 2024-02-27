@@ -10,7 +10,7 @@
     import WeaponCard from "./WeaponCard2.svelte";
 
     const pageState = getContext('pageState')
-    const BASE_DELAY = 2000;
+    const BASE_DELAY = 600;
     const DELAY_INTERVAL = 500;
     const darkMode = getContext('darkMode')
     const loading = getContext('loading')
