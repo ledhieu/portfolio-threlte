@@ -37,7 +37,7 @@ onMount(() => {
 $: {
     // onDestroy doesn't work because it would be too late
     // this works, what a hack
-    if($pageState != 'match-history'){
+    if($pageState != 'adventures'){
     gsap.to(time, { time: 0, duration: 1, ease: 'power4.inOut', delay: BASE_DELAY/1000, onUpdate: () => {
         opacity = time.time
         layerblur = 30 - time.time * 30

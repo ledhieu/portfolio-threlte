@@ -85,11 +85,11 @@ style="left: -40px; top: 10px;">
         cursor: pointer;
         width: 120px;
         height: 35px;
-        background: #FF6B00;
+        background: var(--light-primary);
         display: block;
         border-radius: 100px;
         position: relative;
-        box-shadow: 0px 0px 24px #FF7B30;
+        box-shadow: 0px 0px 24px var(--light-primary);
         transition: background-color 0.5s ease, box-shadow 0.5s ease;
     }
 
@@ -106,8 +106,8 @@ style="left: -40px; top: 10px;">
     }
 
     input:checked + label {
-        background-color: #6E18FF;
-        box-shadow: 0px 0px 24px #6E18FF;
+        background-color: var(--dark-primary);
+        box-shadow: 0px 0px 24px var(--dark-primary);
         transition: background-color 0.5s ease, box-shadow 0.5s ease;
     }
 

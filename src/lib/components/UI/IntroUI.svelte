@@ -9,6 +9,7 @@
   import { gsap } from 'gsap'
   import Arrow from './Arrow.svelte'
   import { goto } from '$app/navigation'
+    import Button from "./Button.svelte";
 
   const pageState = getContext('pageState')
   const BASE_DELAY = 2000;
@@ -19,6 +20,8 @@
   let time = {time: 0}
   let opacity = 0;
   let layerblur = 30;
+  let innerHeight, innerWidth = 1025;
+
 
   $: {
     // onDestroy doesn't work because it would be too late
@@ -40,6 +43,8 @@
 
 
 </script>
+
+<svelte:window bind:innerWidth bind:innerHeight></svelte:window>
 
 <!-- Intro UI Page -->
 <div class="titles absolute left-0 right-0 top-0 bottom-0 m-auto
@@ -92,12 +97,13 @@ style="transition: 0.5s ease"
     {:else} -->
     {#key $darkMode}
     <span use:shuffle={{
-      shufflesBeforeOrdering: 40,
-      from: !$darkMode ? 'coding&side' : 'visual&side',
+      shufflesBeforeOrderings: innerWidth > 1024 ? 2 : 1,
+      shufflesBetweenOrderings: innerWidth > 1024 ? 2 : 1,
+      from: !$darkMode ? 'visual&side' : 'coding&side',
       spaceMapping: fontSpacing,
       log: true
     }} 
-    style={`color: #FF6B00;`}>{@html $darkMode ? 
+    style={`color: ${!$darkMode ? 'var(--light-primary)' : 'var(--dark-primary)'}`}>{@html $darkMode ? 
       'visual&side' : 
       'coding&side'}</span>
     {/key}
@@ -115,8 +121,9 @@ style="transition: 0.5s ease"
   >
       {#key $darkMode}
       <p use:shuffle={{
-          shufflesBeforeOrdering: 80,
-          from: !$darkMode ? 'graphics design' : 'full-stack'
+          shufflesBeforeOrderings: innerWidth > 1024 ? 2 : 1,
+          shufflesBetweenOrderings: innerWidth > 1024 ? 2 : 1,
+          from: $darkMode ? 'graphics design' : 'full-stack'
         }}
         class="uppercase font-bold sub-text"
         style={`font-size: 12px; font-family: Inconsolata;
@@ -126,8 +133,9 @@ style="transition: 0.5s ease"
       </p>
       <p 
         use:shuffle={{
-          shufflesBeforeOrdering: 80,
-          from: !$darkMode ? 'ux/ui design' : 'development'
+          shufflesBeforeOrderings: innerWidth > 1024 ? 2 : 1,
+          shufflesBetweenOrderings: innerWidth > 1024 ? 2 : 1,
+          from: $darkMode ? 'ux/ui design' : 'development'
         }}
         class="uppercase font-bold sub-text"
         style={`font-size: 12px; font-family: Inconsolata;
@@ -157,20 +165,17 @@ style="transition: 0.5s ease"
   transition:blur={{ amount: 10, duration: 800, delay: BASE_DELAY + 400 }}
   style={``}>
     <div class="flex flex-col justify-center">
-      <button
+      <Button
         on:click={() => {goto('character'); $pageState = 'character'}}
-        class="button w-fit m-auto"
-        data-augmented-ui="br-clip tl-round tr-round bl-round exe
-        border"
       >
         <div><span class="font-bold text-white">
-          VIEW MORE</span><div style="height: 7px; width: 7px;
+          ABOUT ME</span><div style="height: 7px; width: 7px;
           transform: rotate(-90deg); filter: invert(1)" 
           class="arrow inline-block pt-4 ml-0 pl-0 mr-2">
             <Arrow/>
           </div>
         </div>
-      </button>
+      </Button>
     </div>
   </div>
 </div>
@@ -200,33 +205,7 @@ style="transition: 0.5s ease"
   .sub-text{
     color: white;
   }
-  .button, .button-2{
-      padding: 10px;
-      padding-left: 25px;
-      padding-right: 25px;
-      mix-blend-mode: screen;
-      --aug-border-all: 1px;
-      --aug-border-bg: #FF6B00ff;
-      --aug-bl: 2px;
-      --aug-tl: 2px;
-      --aug-tr: 2px;
-  }
-  .button{
-    background: #FF6B00a0;
-    transition: 0.2s ease;
-  }
-  .button:hover{
-    background: #FF6B00ff;
-    transition: 0.2s ease;
-  }
-  .button-2{
-    top: 3px;
-    left: 3px;
-    position: absolute;
-    color: none;
-    --aug-border-bg: #ffdcc2;
-    --aug-border-all: 1px;
-  }
+  
   @media only screen and (min-width: 1024px){
     .orange-title{
       letter-spacing: -5%;

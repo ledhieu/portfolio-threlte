@@ -58,7 +58,7 @@
         //     scrollY = 1000
         // else if (string == 'weapons')
         //     scrollY = 2000
-        // else if (string == 'match-history')
+        // else if (string == 'adventures')
         //     scrollY = 3000
     }
     let scrollY;
@@ -89,8 +89,8 @@
     </button>
     <button
         class="item"
-        class:active={$pageState == 'match-history'}
-        on:click={() => { handleClick('match-history') }}
+        class:active={$pageState == 'adventures'}
+        on:click={() => { handleClick('adventures') }}
         use:shuffle={{ shufflesBeforeOrdering: 1 }}>
         MATCH HISTORY 
     </button>
@@ -206,14 +206,14 @@ style="z-index: 10001">
                 <button
                     class="item"
                     data-augmented-ui="br-clip tl-round tr-round bl-round exe"
-                    class:active={$pageState == 'match-history'}
-                    on:mouseenter={() => {setHover('match-history')}}
+                    class:active={$pageState == 'adventures'}
+                    on:mouseenter={() => {setHover('adventures')}}
                     on:mouseout={() => {setHover('')}}
-                    on:click={() => { handleClick('match-history') }}>
+                    on:click={() => { handleClick('adventures') }}>
                     <span class="font-bold num">04</span>MATCH HISTORY <div style=""
                     class="arrow w-[12px] h-[12px]"><Arrow/></div>
                 </button>
-                {#if hover == 'match-history' || ($pageState == 'match-history' )}
+                {#if hover == 'adventures' || ($pageState == 'adventures' )}
                 <div class="carousel"
                     style="font-size: 15px">
                     {#each Array.from({length: 2}) as _}
@@ -254,10 +254,10 @@ style="z-index: 10001">
         font-family: Inconsolata;
     }
     .text-orange{
-        color: #FF6B00;
+        color: var(--light-primary);
     }
     .text-purple{
-        color: #6E18FF;
+        color: var(--dark-primary);
     }
     .arrow{
         filter: invert(1);
@@ -282,24 +282,24 @@ style="z-index: 10001">
     }
     .item:hover, .item:hover .num{
         /* opacity: 0.5; */
-        color: #FF6B00;
+        color: var(--light-primary);
         transition: 0.3s ease;
     }
     .item:hover .num{
         margin-right: 15px;
     }
     .dark .item:hover, .dark .item:hover .num{
-        color: #6E18FF
+        color: var(--dark-primary)
     }
     .item.active{
         opacity: 1;
-        background: #FF6B00;
+        background: var(--light-primary);
         color: #000;
         transition: 0.3s ease;
     }
     .dark .item.active{
         color: #0e0322;
-        background: #6E18FF;
+        background: var(--dark-primary);
     }
     .modal{
         padding-top: 100px;
@@ -316,7 +316,7 @@ style="z-index: 10001">
         text-align: left;
     }
     .button{
-        background: #FF6B00;
+        background: var(--light-primary);
         height: 35px;
         width: 45px;
         --aug-border-all: 2px;
@@ -326,17 +326,26 @@ style="z-index: 10001">
         --aug-tr: 2px;
         padding-right: 4px;
     }
+    .dark .button{
+        background: var(--dark-primary);
+    }
     .shadow{
-        box-shadow: 5px 0px 14px #FF7B30;
+        box-shadow: 5px 0px 14px var(--light-primary);
         width: 30px;
         height: 30px;
         position: absolute;
         top: 0px;
         transition: 0.3s ease;
     }
+    .dark .shadow{
+        box-shadow: 5px 0px 14px var(--dark-primary);
+    }
     .button-container:hover .shadow{
-        box-shadow: 5px 0px 24px #FF7B30;
+        box-shadow: 5px 0px 24px var(--light-primary);
         transition: 0.3s ease;
+    }
+    .dark.button-container:hover .shadow{
+        box-shadow: 5px 0px 14px var(--dark-primary);
     }
     .num{
         font-size: 16px;

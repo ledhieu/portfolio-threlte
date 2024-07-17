@@ -58,7 +58,13 @@ export function shuffle(node, params){
                 }
             })
             .join('')
+        
         node.innerHTML = currentText.replace('&', '<br class="block lg:hidden">')
+        // let oldNode = node
+        // let newNode = oldNode.cloneNode(false)
+        // newNode.innerHTML = currentText.replace('&', '<br class="block lg:hidden">')
+        // node.parentNode.replaceChild(newNode, oldNode)
+
         _shuffles += 1
         if(_shuffles > maxShuffles){
             cancelAnimationFrame(_raf)

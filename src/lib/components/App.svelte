@@ -40,7 +40,7 @@
     } else if (scrollY < 3000){
       $pageState = 'weapons'
     } else {
-      $pageState = 'match-history'
+      $pageState = 'adventures'
     }
   }
 
@@ -437,7 +437,7 @@ height: 100px">
       
       <CharacterUI/>
     {/if}
-    {#if $loading >= 100 && $pageState == 'match-history'}
+    {#if $loading >= 100 && $pageState == 'adventures'}
       <ProjectsUI/>
     {/if}
     {#if $loading >= 100 && $pageState == 'weapons'}
@@ -450,7 +450,7 @@ height: 100px">
     <!-- Glowing stuffs -->
     {#if $darkMode}
       <div class="pointer-events-none absolute"
-      style="width: 700px; height: 700px; background:#FF6B00;
+      style="width: 700px; height: 700px; background:#111111;
       border-radius: 500px; mix-blend-mode: screen;
       left: -300px; top: -300px;
       opacity: 0.5;
@@ -461,7 +461,7 @@ height: 100px">
 
       </div>
       <div class="pointer-events-none absolute"
-      style="width: 1000px; height: 1000px; background:#6E18FF;
+      style="width: 1000px; height: 1000px; background:var(--dark-primary);
       border-radius: 500px; mix-blend-mode: screen;
       right: -300px; bottom : -300px;
       z-index: 0;

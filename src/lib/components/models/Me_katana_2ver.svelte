@@ -34,8 +34,8 @@ $: {
     if($darkMode){
       gsap.to(darkModeMask.material, {opacity: 1, duration: 1, ease: customEase})
       gsap.to(glowMaterial, { emissiveIntensity: 24, duration: 1, ease: 'power4.inOut'})
-      gsap.to(glowMaterial.color, { r: 0.4, g: 0.13333, b: 1, duration: 1, ease: 'power4.inOut'})
-      gsap.to(glowMaterial.emissive, { r: 0.4, g: 0.13333, b: 1, duration: 1, ease: 'power4.inOut'})
+      gsap.to(glowMaterial.color, { r: 0.1, g: 0.4, b: 1, duration: 1, ease: 'power4.inOut'})
+      gsap.to(glowMaterial.emissive, { r: 0.1, g: 0.4, b: 1, duration: 1, ease: 'power4.inOut'})
     } else {
       gsap.to(darkModeMask.material, {opacity: 0, duration: 0.5, ease: customEase})
       gsap.to(glowMaterial, { emissiveIntensity: 0, duration: 1, ease: 'power4.inOut'})
@@ -108,7 +108,8 @@ teethMaterial, footwearMaterial, kneeMaterial, hoodieMaterial, headMaterial,
 bottomMaterial
 let glowMaterial
 let leftEyeBone, rightEyeSkeleton, leftEyeMesh, rightEyeMesh
-
+const darkModeMaskMaterial = new THREE.MeshStandardMaterial({ color: 0x121212})
+// const whiteHairMaterial = new THREE.MeshStandardMaterial({ color: 0x888888})
 
 onMount(() => {
   gltf.then(gltf => {
@@ -126,6 +127,7 @@ onMount(() => {
     const head = gltf.materials['Wolf3D_Skin.013']
     const bottom = gltf.materials['Wolf3D_Outfit_Bottom.014']
     const glow = gltf.materials.glow
+    
 
     bodyMaterial = body;
     glovesMaterial = gloves;
@@ -361,10 +363,11 @@ onMount(() => {
       <T.SkinnedMesh
         name="Mask3_blinn1_0"
         geometry={gltf.nodes.Mask3_blinn1_0.geometry}
-        material={gltf.materials.blinn1}
+        material={darkModeMaskMaterial}
         skeleton={gltf.nodes.Mask3_blinn1_0.skeleton}
         bind:ref={darkModeMask}
       />
+      <!-- ^ Old: gltf.materials.blinn1 -->
       <T.Group name="Wolf3D_Head007">
         <T.SkinnedMesh
           name="Wolf3D_Head014_1"

@@ -95,7 +95,7 @@
         gsap.to(rightLight.position, { x: 19, y: 1, z: -19, duration: 3.2, delay: 0, ease: 'power4.inOut' })
         gsap.to(pointLight.position, { x: 0, y: 1.6, z: 1.2, duration: 3.2, delay: 0, ease: 'power4.inOut' })
         gsap.to(ref.rotation, { y: Math.PI/15, duration: 4, ease: 'power4.inOut' })
-      } else if($pageState == 'match-history'){
+      } else if($pageState == 'adventures'){
         gsap.to($camera.position, { x: 0, y: 121.3, z: -121.8, duration: 3.6, ease: 'power4.inOut' })  
         //  needs to update projection matrix
         gsap.to($camera, { fov: 10, duration: 3.6, ease: 'power4.inOut', onUpdate: () => {
@@ -141,18 +141,18 @@
     if(leftLight && rightLight && pointLight && scene ){
       if($darkMode){
         // orange2
-        gsap.to(leftLight.color, { r: 0.7912979403281553, g: 0.057805430183792694, b: 0.007499032040460618, duration: 1, ease: 'power4.inOut'})
-        // purple
-        gsap.to(rightLight.color, { r: 0.15292615198613213, g: 0.010329823026364548, b: 0.5457244613615395, duration: 1, ease: 'power4.inOut'})
-        // purple
-        gsap.to(pointLight.color, { r: 0.15292615198613213, g: 0.010329823026364548, b: 0.5457244613615395, duration: 1, ease: 'power4.inOut'})
+        gsap.to(leftLight.color, { r: 11/255, g: 35/255, b: 145/255, duration: 1, ease: 'power4.inOut'})
+        // blue
+        gsap.to(rightLight.color, { r: 11/255, g: 35/255, b: 145/255, duration: 1, ease: 'power4.inOut'})
+        // blue
+        gsap.to(pointLight.color, { r: 5/255, g: 5/255, b: 5/255, duration: 1, ease: 'power4.inOut'})
         gsap.to(pointLight, { intensity: 5, duration: 1, ease: 'power4.inOut'})
         // 
-        gsap.to(groundColor, { r: 0.0018211619011764706, g: 0, b: 0.008568125615105716, duration: 1, ease: 'power4.inOut'})
+        gsap.to(groundColor, { r: 0.25/255, g: 0.33333/255, b: 0.6666/255, duration: 1, ease: 'power4.inOut'})
         // gsap.to(groundColor, { r: 0.7912979403281553, g: 0.057805430183792694, b: 0.007499032040460618, duration: 1, ease: 'power4.inOut'})
         // 
         // gsap.to(gridColor, { r: 0, g: 0, b: 0,  duration: 1, ease: 'power4.inOut'})
-        gsap.to(grid.material.uniforms.uColor1.value, { r: 0.1418211619011764706, g: 0.015, b: 0.148568125615105716,  duration: 1, ease: 'power4.inOut'})
+        gsap.to(grid.material.uniforms.uColor1.value, { r: 15/255, g: 23/255, b: 42/255,  duration: 1, ease: 'power4.inOut'})
       } else {
         // white
         gsap.to(leftLight.color, { r: 1, g: 1, b: 1, duration: 1, ease: 'power4.inOut'})

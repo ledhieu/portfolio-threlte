@@ -3,6 +3,9 @@
     import { getContext } from 'svelte';
     import { gsap } from 'gsap'
     import ClassCard from './ClassCard.svelte';
+    import { goto } from '$app/navigation'
+    import Arrow from './Arrow.svelte'
+    import Button from './Button.svelte';
 
     const pageState = getContext('pageState')
     const BASE_DELAY = 2000;
@@ -117,6 +120,19 @@ filter: blur(${layerblur}px)`}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed scelerisque, est non molestie dignissim, libero diam ornare leo, id rhoncus nulla ipsum non erat. 
         {/if}
       </p>
+
+      <Button
+        class="mt-5"
+        on:click={() => {goto('adventures'); $pageState = 'adventures'}}
+      >
+        <div><span class="font-bold text-white">
+          MY ADVENTURES</span><div style="height: 7px; width: 7px;
+          transform: rotate(-90deg); filter: invert(1)" 
+          class="arrow inline-block pt-4 ml-0 pl-0 mr-2">
+            <Arrow/>
+          </div>
+        </div>
+      </Button>
     </div>
     
   </div>
@@ -160,7 +176,7 @@ class:dark={$darkMode}>
     transition: 3s ease;
   }
   .dark.bg-title{
-    color: #BE47F610;
+    color: #4d47f610;
     transition: 3s ease;
   }
   .titles{
