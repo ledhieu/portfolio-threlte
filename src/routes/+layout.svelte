@@ -12,7 +12,10 @@
     import App from '$lib/components/App.svelte'
     import { enhance } from '$app/forms';
     import Loader from '$lib/components/UI/Loader.svelte'
-    import { inject } from '@vercel/analytics'
+    import { dev } from '$app/environment';
+    import { inject } from '@vercel/analytics';
+    
+    inject({ mode: dev ? 'development' : 'production' });
 
     const { progress, finishedOnce } = useProgress()
     const loading = tweened($progress, {
