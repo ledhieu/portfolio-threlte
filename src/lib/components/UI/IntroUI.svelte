@@ -166,7 +166,7 @@ style="transition: 0.5s ease"
   style={``}>
     <div class="flex flex-col justify-center">
       <Button
-        on:click={() => {goto('character'); $pageState = 'character'}}
+        on:click={() => {goto('/character'); $pageState = 'character'}}
       >
         <div><span class="font-bold text-white">
           ABOUT ME</span><div style="height: 7px; width: 7px;

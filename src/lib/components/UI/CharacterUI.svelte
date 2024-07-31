@@ -123,7 +123,7 @@ filter: blur(${layerblur}px)`}>
 
       <Button
         class="mt-5"
-        on:click={() => {goto('adventures'); $pageState = 'adventures'}}
+        on:click={() => {goto('/adventures'); $pageState = 'adventures'}}
       >
         <div><span class="font-bold text-white">
           MY ADVENTURES</span><div style="height: 7px; width: 7px;
