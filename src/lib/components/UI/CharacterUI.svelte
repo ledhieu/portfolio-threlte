@@ -73,17 +73,17 @@ filter: blur(${layerblur}px)`}>
     pt-10 p-8 lg:p-0
     character-bg">
     <div class="titles mt-auto md:mt-0" style="">
-      <p class="uppercase font-bold mb-3 subtitle">▪ CLASS:</p>
-      <p class="another uppercase title" style="">{$activeClass ? $activeClass.title : 'Class title'}</p>
+      <p class="uppercase font-bold  subtitle">CLASS</p>
+      <p class="akira uppercase title" style="">{$activeClass ? $activeClass.title : 'Class title'}</p>
       <div class="absolute top-0"
       style="font-size: 100px">
         <!-- Ink splash 1 -->
-        <h2 style="font-family: Drips;
+        <!-- <h2 style="font-family: Drips;
         "
         class="uppercase absolute left-0 right-0 m-auto
         ink-1">
         -*+*+,-
-        </h2>
+        </h2> -->
         {#if $activeClass && $activeClass.title.length > 15 && false}
         <!-- Ink splash 2 -->
         <h2 style="font-family: Drips;
@@ -183,8 +183,8 @@ class:dark={$darkMode}>
     padding-right: 0px;
   }
   .title{
-    font-size: 80px; 
-    line-height: 70px
+    font-size: 40px; 
+    line-height: 30px
   }
   .subtitle{
     font-size: 14px;
@@ -209,8 +209,8 @@ class:dark={$darkMode}>
       padding-right: 200px;
     }
     .title{
-      font-size: 130px; 
-      line-height: 110px
+      font-size: 60px; 
+      line-height: 50px
     }
     .subtitle{
       font-size: 20px;

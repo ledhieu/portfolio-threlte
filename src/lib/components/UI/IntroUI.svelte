@@ -127,6 +127,7 @@ style="transition: 0.5s ease"
         }}
         class="uppercase font-bold sub-text"
         style={`font-size: 12px; font-family: Inconsolata;
+        color: white;
         opacity: ${opacity};
         filter: blur(${layerblur}px)`}>
           {!$darkMode ? 'full-stack' : 'graphics design'}
@@ -139,6 +140,7 @@ style="transition: 0.5s ease"
         }}
         class="uppercase font-bold sub-text"
         style={`font-size: 12px; font-family: Inconsolata;
+          color: white;
           opacity: ${opacity};
           filter: blur(${layerblur}px)`}>
         {!$darkMode ? 'development' : 'ux/ui design'}

@@ -39,8 +39,10 @@
       $pageState = 'character'
     } else if (scrollY < 3000){
       $pageState = 'weapons'
+      // runReverse()
     } else {
       $pageState = 'adventures'
+      // runReverse()
     }
   }
 
@@ -180,6 +182,17 @@
     // console.log(sequence)
     // if(sequence)
     //   sequence.play()
+  }
+
+  function runReverse(){
+    if(topLeftLottie){
+      topLeftLottie.setSpeed(-1)
+      topLeftLottie.play()
+    }
+    if(bottomRightLottie){
+      bottomRightLottie.setSpeed(-1)
+      bottomRightLottie.play()
+    }
   }
   let LottiePlayer, topLeftLottie, bottomRightLottie, hudCircleLottie
   

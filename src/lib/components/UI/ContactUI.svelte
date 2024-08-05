@@ -37,7 +37,7 @@
 style={`opacity: ${opacity};
 filter: blur(${layerblur}px)`}>
     <div
-        class="card h-full flex flex-col
+        class="card w-full lg:w-auto h-full flex flex-col
         relative gap-5
         justify-between
         "
@@ -115,7 +115,7 @@ filter: blur(${layerblur}px)`}>
 
 <style>
     .ui-container{
-        padding: 50px;
+        padding: 20px;
         padding-top: 120px;
         overflow-y: scroll;
         height: 100%;   
@@ -176,7 +176,7 @@ filter: blur(${layerblur}px)`}>
 
         transition: 0.3s ease;
         padding: 25px;
-        width: 60%;
+       
         padding-bottom: 25px;
         transition: 0.2s ease;
         backdrop-filter: blur(7px);
@@ -189,12 +189,7 @@ filter: blur(${layerblur}px)`}>
         font-size: 12px;
         font-weight: 300;
     }
-    .info-container{
-        display: none;
-    }
-    .active .info-container{
-        display: flex;
-    }
+    
     .info-container * {
         line-height: 17px;
     }
@@ -239,6 +234,12 @@ filter: blur(${layerblur}px)`}>
         border: 1px solid #ffffff49;
     }
     @media only screen and (min-width: 768px){
+        .info-container{
+            display: none;
+        }
+        .active .info-container{
+            display: flex;
+        }
         .ui-container{
             padding: 150px;
         }
@@ -258,6 +259,7 @@ filter: blur(${layerblur}px)`}>
         }
         .card{
             padding: 40px;
+            width: 60%;
         }
     }
 </style>
