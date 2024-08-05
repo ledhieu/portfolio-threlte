@@ -111,20 +111,23 @@
 <div out:fade={{ duration: 1000 }}
 class="loading-screen fixed w-full h-full" style="z-index: 1000000">
 <div><Loader/></div>
-<div class="absolute w-fit h-fit top-0 left-0 right-0 bottom-0 m-auto">
+
+<div class="absolute w-fit h-fit top-0 left-0 right-0 bottom-0 m-auto pt-[160px]">
+  
   {#if $loading < 100}  
   <p class="akira"
-    style="margin-top: 140px;
+    style="
     font-size: 25px">Loading...</p>
   {:else}
-    <button class="akira view-btn"
+    <button class="akira view-btn py-1"
     on:click={() => {hide = true; app.playVideos(); loadingFinished() }}
-    style="margin-top: 140px;
-    font-size: 25px;
-        padding: 20px;"
+    style="
+    font-size: 25px;"
     data-augmented-ui="tl-clip br-clip tr-round bl-round exe border"
     >VIEW PORTFOLIO →</button>
   {/if}
+  <div class="w-[100px] h-[8px] bg-[#00000020] "></div>
+<div class="w-[150px] mt-1 h-[8px] bg-[#00000020]"></div>
     <!-- <p
     style="margin-top: 200px">
       DOWNLOADING {$loading}%
@@ -195,10 +198,6 @@ use:enhance={({formData, cancel}) => {
   }
   .view-btn{
     background: #ffffff00;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 5px;
-    padding-bottom: 5px;
     --aug-border-all: 1px;
     --aug-border-bg: #ffffff00;
     --aug-tl: 8px;
