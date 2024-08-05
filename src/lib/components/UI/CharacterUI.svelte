@@ -183,8 +183,8 @@ class:dark={$darkMode}>
     padding-right: 0px;
   }
   .title{
-    font-size: 40px; 
-    line-height: 30px
+    font-size: 28px; 
+    line-height: 26px
   }
   .subtitle{
     font-size: 14px;
