@@ -107,7 +107,9 @@ style="left: -40px; top: 10px;">
 
     input:checked + label {
         background-color: var(--dark-primary);
+        background-color: #182430;
         box-shadow: 0px 0px 24px var(--dark-primary);
+        box-shadow: 0px 0px 24px #567899;
         transition: background-color 0.5s ease, box-shadow 0.5s ease;
     }
 

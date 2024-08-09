@@ -5,7 +5,7 @@
     import { getContext } from 'svelte'
     import Youtube from './Youtube.svelte'
     import PhotoSwipe from './PhotoSwipe.svelte'
-    
+    import { clickOutside } from '$lib/components/clickOutside'
 
     export let data;
     let active;
@@ -50,7 +50,12 @@
             history.pushState({}, "", `/${$pageState}/${data.slug.current}`)
             $activeProject = data
         } else if(isMinimizeButton) {
-            dispatch('minimize', data)
+            minimize()
+        }
+    }
+    function minimize(){
+        dispatch('minimize', data)
+        if(active){
             history.pushState({}, "", `/${$pageState}`)
             $activeProject = undefined;
         }

@@ -176,7 +176,7 @@ class:dark={$darkMode}>
     transition: 3s ease;
   }
   .dark.bg-title{
-    color: #4d47f610;
+    color: #4793f610;
     transition: 3s ease;
   }
   .titles{

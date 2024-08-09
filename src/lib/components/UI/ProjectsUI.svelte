@@ -24,7 +24,7 @@ let layerblur = 30;
 let activeCategoryIndex = 0;
 let showCategories = false;
 let mounted = false;
-
+let uiContainer, scrollY;
 
 onMount(() => {
     console.log('activeProject', $activeProject)
@@ -65,10 +65,20 @@ onMount(() => {
     mounted = true;
 })
 
+function handleScroll(){
+    scrollY = uiContainer.scrollTop
+}
+
 </script>
+
 
 <div 
     class="ui-container relative"
+    bind:this={uiContainer}
+    on:scroll={handleScroll}
+    on:click|preventDefault={() => {
+        $activeProject = undefined
+    }}
     class:dark={$darkMode}
     style={`
     opacity: ${opacity};
@@ -135,9 +145,11 @@ onMount(() => {
             </div>
         {/if} -->
 
-        <div class="flex">
+        <div
+            class:elevate={uiContainer ? scrollY > 150 : false} 
+            class="cards-container flex gap-2 lg:gap-10 w-full overflow-x-auto sticky top-[-40px] z-[1] ">
             {#each result.filter(category => category.designSide == $darkMode) as category, i}
-                <button class="card-item uppercase font-bold"
+                <button class="card-item uppercase font-bold text-nowrap"
                     on:click={() => {$activeCategory = category;
                     showCategories = false}}
                 >
@@ -164,9 +176,8 @@ onMount(() => {
 
 <style>
     .ui-container{
-        padding: 40px;
-        padding-left: 40px;
-        padding-top: 120px;
+        padding: 10px;
+        padding-top: 80px;
         overflow-y: scroll;
         height: 100%;   
         z-index: 1;
@@ -199,13 +210,39 @@ onMount(() => {
         --aug-border-bg: #ffffff40;
         backdrop-filter: blur(6px);
     }
+    .cards-container{
+        background: #c4c4c500;
+        padding: 0px;
+        box-shadow: 0px 0px 60px #00000000;
+        transition: 0.5s ease;
+        border: 1px solid #ffffff00;
+        border-radius: 5px;
+    }
+    .cards-container.elevate{
+        background: #c4c4c5;
+        padding: 5px 15px 5px 15px;
+        box-shadow: 0px 0px 60px #00000050;
+        transition: 0.5s ease;
+        border: 1px solid #ffffff80;
+    }
+    .dark .cards-container{
+        background: linear-gradient(-90deg, #17233100 0%, #090b1000 100%);
+        border: 1px solid #00000000;
+    }
+    .dark .cards-container.elevate{
+        background: linear-gradient(-90deg, #172331 0%, #090b10 100%);
+        border: 1px solid #00000000;
+        box-shadow: 0px 0px 60px #000000f0;
+    }
     .card-item{
-        width: 100%;
+        /* width: 100%; */
         text-align: left;
         /* padding-left: 30px; */
         padding-right: 30px;
         padding-top: 5px;
         padding-bottom: 5px;
+        text-wrap: nowrap;
+        width: max-content;
     }
     /* .card-item:first-of-type{
         margin-top: 25px;
@@ -219,8 +256,8 @@ onMount(() => {
         transition: 0.3s ease;
     } */
     .title{
-        font-size: 20px;
-        line-height: 22px;
+        font-size: 8vw;
+        line-height: 7vw;
     }
     .dark .arrow{
         filter: invert(1);
@@ -238,7 +275,7 @@ onMount(() => {
         .ui-container{
             padding: 100px;
             padding-left: 100px;
-            padding-top: 15px;
+            padding-top: 65px;
         }
         .title{
             font-size: 8vw;

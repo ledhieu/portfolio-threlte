@@ -32,19 +32,19 @@
 
   $: mobile = mounted ? (innerWidth < 1024 ? true : false) : false
 
-  $: {
-    if(scrollY < 1000){
-      $pageState = 'intro'
-    } else if(scrollY < 2000){
-      $pageState = 'character'
-    } else if (scrollY < 3000){
-      $pageState = 'weapons'
-      // runReverse()
-    } else {
-      $pageState = 'adventures'
-      // runReverse()
-    }
-  }
+  // $: {
+  //   if(scrollY < 1000){
+  //     $pageState = 'intro'
+  //   } else if(scrollY < 2000){
+  //     $pageState = 'character'
+  //   } else if (scrollY < 3000){
+  //     $pageState = 'weapons'
+  //     // runReverse()
+  //   } else {
+  //     $pageState = 'adventures'
+  //     // runReverse()
+  //   }
+  // }
 
   // const hudGraph = writable({})
   const hudCircle = writable({})
@@ -357,7 +357,7 @@ height: 100px">
         font-size: 12px;
         top: 260px;
         left: 10px;"
-        class:text-black={$darkMode}>
+        class:text-white={$darkMode}>
         PORTFOLIO
       </div>
     </div>
@@ -386,7 +386,7 @@ height: 100px">
         font-size: 12px;
         top: 260px;
         left: -15px;"
-        class:text-black={$darkMode}>
+        class:text-white={$darkMode}>
         LE DUC HIEU
       </div>
     </div>
