@@ -5,14 +5,16 @@
 
     export let portableText;
 
-    $: console.log(portableText)
+    $: console.log('image', portableText)
 
     const builder = imageUrlBuilder(client)
     function urlFor(source) {
-        return builder.image(source)
+        if(!source)
+            return undefined
+        return builder.image(source) ? builder.image(source).url() : undefined
     }
-    console.log(urlFor(portableText.value).url())
+    // console.log(urlFor(portableText.value).url())
 </script>
 
-<img src={urlFor(portableText.value).url()}
+<img src={urlFor(portableText.value)}
     class="py-10 px-20"/>

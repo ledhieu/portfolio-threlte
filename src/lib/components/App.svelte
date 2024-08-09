@@ -96,15 +96,15 @@
     window.onfocus = playVideos
     playVideos()
 
-    grained('#grained', {
-        "animate": true,
-        "patternWidth": 138.73,
-        "patternHeight": 141.73,
-        "grainOpacity": 0.11,
-        "grainDensity": 1,
-        "grainWidth": 1.1,
-        "grainHeight": 1
-      })
+    // grained('#grained', {
+    //   "animate": true,
+    //   "patternWidth": 138.73,
+    //   "patternHeight": 141.73,
+    //   "grainOpacity": 0.11,
+    //   "grainDensity": 1,
+    //   "grainWidth": 1.1,
+    //   "grainHeight": 1
+    // })
   })
   
   $: {
@@ -134,6 +134,7 @@
         && video.readyState > video.HAVE_CURRENT_DATA;
     let playPromise
     // console.log(isPlaying)
+    video.setAttribute("playsinline", true);
     playPromise = video.play();
 
     if (playPromise !== undefined) {
@@ -222,8 +223,8 @@
 <div class="fixed"
 style={`
   z-index: 10000;
-  top: ${ !mobile ? '30px' : '20px'};
-  left: ${ mounted ? (!mobile ? 45 : 27) : 500 }px;
+  top: ${ !mobile ? '20px' : '10px'};
+  left: ${ mounted ? (!mobile ? 20 : 10) : 5000 }px;
   right: ${ mobile ? '10px' : 'auto' }`}>
   <Navbar/>
 </div>
@@ -232,13 +233,12 @@ style={`
   <Toggle/>
  </div>
 
-<div class="fixed left-0 m-auto right-0
+<!-- <div class="fixed left-0 m-auto right-0
 hidden lg:flex gap-3
 text-center w-fit"
 style="z-index: 9999; top: 20px; color: #FF6B00;
 letter-spacing: -1px; 
 font-size: 15px">
-  <!-- LE DUC HIEU -->
   <div class="pointer-events-none line-container relative" 
     style="width: 30px;">
     <div class="line" style="width: 30px"></div>
@@ -250,11 +250,7 @@ font-size: 15px">
     <div class="line "style="width: 30px"></div>
     <div class="tip"></div>
   </div>
-  <!-- <img 
-  class="logo"
-  class:dark={$darkMode}
-  src='/hlogo.svg' style="width: 40px; height: 40px"/> -->
-</div>
+</div> -->
 
 <div class="fixed"
 style={`
@@ -267,7 +263,7 @@ style="background: linear-gradient(180deg, #F2F4F7, #F2F4F700);
 height: 100px">
 
 </div> -->
-<Canvas>
+<Canvas dpr={1}>
   <!-- <Project config={{ state: characterState }} name="Portfolio">
     <Sheet name={'character'} bind:sequence> -->
       <Scene />
@@ -284,10 +280,10 @@ height: 100px">
   </video> -->
   <!-- Note: mute allows autoplay but will make the video pausable to save power -->
   <!-- Note2: the video must have audio for it to be prioritized by the browser -->
-  <video style="display:none" bind:this={hudCircleElement} controls autoplay loop autoresume 
+  <video style="display:none" bind:this={hudCircleElement} playsinline autoplay loop autoresume 
   src="/mp4/hudcirclebackdrop_orange.mp4">
   </video>
-  <video style="display:none" bind:this={scribbleAllElement} controls autoplay loop autoresume
+  <video style="display:none" bind:this={scribbleAllElement} playsinline controls autoplay loop autoresume
   src="/mp4/sequence_all_audio.mp4">
   </video>
   <!-- </video>
@@ -327,7 +323,7 @@ height: 100px">
       bottom: 0px;
       z-index: 1000`}
     >
-      <LottiePlayer
+      <!-- <LottiePlayer
         src={"/lottie/corner.json"}
         autoplay={false}
         bind:this={topLeftLottie}
@@ -340,7 +336,7 @@ height: 100px">
         style={`
           pointer-events: none;
         `}
-      accessors />
+      accessors /> -->
       <!-- Date -->
       <div class="absolute w-max hidden lg:block"
         class:text-black={$darkMode}
@@ -350,18 +346,17 @@ height: 100px">
         left: 360px;
         bottom: 315px">
         <span>■</span>
-        <span use:shuffle>{d.getFullYear().toString().substr(2)}.{d.getMonth() < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1}</span>
+        <span>{d.getFullYear().toString().substr(2)}.{d.getMonth() < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1}</span>
         <span>■</span>
-        <span use:shuffle>{d.getDate()}.{d.getHours()}</span>
+        <span>{d.getDate()}.{d.getHours()}</span>
         <span>■</span>
-        <span use:shuffle>{d.getMinutes()}.{d.getSeconds()}</span>
+        <span>{d.getMinutes()}.{d.getSeconds()}</span>
       </div>
       <div class="absolute hidden lg:block"
         style="transform: rotate(90deg);
         font-size: 12px;
         top: 260px;
-        left: 37px;"
-        use:shuffle
+        left: 10px;"
         class:text-black={$darkMode}>
         PORTFOLIO
       </div>
@@ -370,7 +365,7 @@ height: 100px">
     <div style={`filter: invert(${lottieInvert}%);
     z-index: 1000`}
     class="relative">
-      <LottiePlayer
+      <!-- <LottiePlayer
         src={"/lottie/corner.json"}
         bind:this={bottomRightLottie}
         autoplay={false}
@@ -384,14 +379,13 @@ height: 100px">
           position: absolute;
           pointer-events: none;
         `}
-      accessors />
+      accessors /> -->
       <div class="absolute hidden lg:block"
         style="transform: rotate(-90deg);
         bottom: 0px;
         font-size: 12px;
         top: 260px;
-        left: 25px;"
-        use:shuffle
+        left: -15px;"
         class:text-black={$darkMode}>
         LE DUC HIEU
       </div>
@@ -406,31 +400,30 @@ height: 100px">
     {/if}
 
     <!-- Little text button -->
-    <div class="absolute pill"
-    class:dark={$darkMode}
-    style="bottom: 32px; left: 60px"
-    use:shuffle>
+    <div class="absolute pill bottom-[10px] lg:bottom-[20px] 
+    left-[10px] lg:left-[20px]"
+    class:dark={$darkMode}>
       2930938
     </div>
 
     <!-- Left line -->
     <div class="pointer-events-none absolute line-container top-0 bottom-0 m-auto left-0" 
-    style={`width: ${mobile ? (innerWidth < 512 ? 30 : 60) : 100}px`}>
+    style={`width: ${mobile ? (innerWidth < 512 ? 20 : 40) : 50}px`}>
           <div class="line"></div>
           <div class="tip"></div>
     </div>
     <!-- Right line -->
     <div class="pointer-events-none absolute line-container top-0 bottom-0 m-auto right-0" 
-    style={`width: ${mobile ? (innerWidth < 512 ? 30 : 60) : 100}px; transform: rotate(180deg)`}>
+    style={`width: ${mobile ? (innerWidth < 512 ? 20 : 40) : 50}px; transform: rotate(180deg)`}>
           <div class="line"></div>
           <div class="tip"></div>
     </div>
 
     <!-- QR Code -->
     <div class="pointer-events-none hidden lg:block
-    absolute right-5 top-5 lg:right-12 lg:top-8 flex-col items-center">
+    absolute right-[10px] top-[10px] lg:right-[20px] lg:top-[20px] flex-col items-center">
       <img class="" src="/orns/barcode.svg"
-      style={`filter: invert(${$darkMode ? 1 : 0})};
+      style={`filter: invert(${$darkMode ? 1 : 0});
       width: 100px`}>
       <!-- <span class="text-right" use:shuffle
       style="font-size: 12px">
@@ -550,7 +543,7 @@ height: 100px">
   @media only screen and (min-width: 1024px){
     .toggle-container{
       top: 170px; 
-      right: 0px;
+      right: -20px;
     }
   }
   

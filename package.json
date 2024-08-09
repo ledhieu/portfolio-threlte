@@ -41,6 +41,7 @@
     "lottie-web": "^5.12.2",
     "photoswipe": "^5.4.3",
     "postprocessing": "^6.32.2",
+    "prettier-plugin-svelte": "^3.2.6",
     "realism-effects": "^1.1.2",
     "typed.js": "^2.0.16"
   }

@@ -19,7 +19,7 @@ gsap.registerPlugin(CustomEase);
 export const ref = new Group()
 
 // katana5 is too fast, use 6, actually 6 is too fast, fix later
-const gltf = useGltf('/models/me_katana_2ver.glb')
+const gltf = useGltf('/models/me_katana_2ver_optimized5.glb')
 export const { actions, mixer } = useGltfAnimations(gltf, ref)
 
 const component = forwardEventHandlers()
@@ -55,7 +55,7 @@ $: {
   if($pageState == ''){
     transitionTo('Happy Idle', 0.5)
   } else if ($pageState == 'character'){
-    transitionTo('Idle', 0.5)
+    transitionTo('Fighting Idle', 0.5)
   } else if( $pageState == 'weapons'){
     transitionTo('Torch Idle', 1)
   } else if( $pageState == 'contact') {
@@ -322,12 +322,12 @@ onMount(() => {
         material={gltf.materials['Wolf3D_Outfit_Bottom.014']}
         skeleton={gltf.nodes.Skin_ZSphere1_23009.skeleton}
       />
-      <T.SkinnedMesh
+      <!-- <T.SkinnedMesh
         name="Plane003"
         geometry={gltf.nodes.Plane003.geometry}
         material={gltf.materials.katana}
         skeleton={gltf.nodes.Plane003.skeleton}
-      />
+      /> -->
       <T.Group name="glasses">
         <T.SkinnedMesh
           name="Object_0001"

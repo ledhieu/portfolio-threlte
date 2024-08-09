@@ -74,8 +74,9 @@
                     on:click={() => {
                         handleWeaponCategoryChange(weaponCategory)
                     }}>
-                        <p class="font-bold">{i < 10 ? '0' + i : i}</p>
-                        <p class=" akira title">{weaponCategory.title}</p>
+                        <p class="font-bold">[0{i < 10 ? '0' + i : i}]</p>
+                        <p class="font-[akira] title uppercase font-semibold"
+                        style="font-stretch: narrow">{weaponCategory.title}</p>
                     </button>
             {/each}
         {:else}

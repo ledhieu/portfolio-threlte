@@ -10,7 +10,8 @@
   // import MeWhite from '$lib/components/models/Me_white.svelte'
   // import MeBlack from '$lib/components/models/Me_black.svelte'
   import BlackKatana from './models/Black_katana.svelte';
-  import MeKatana_2ver from './models/Me_katana_2ver.svelte';
+  // import MeKatana_2ver from './models/Me_katana_2ver.svelte';
+  import Me_katana_2ver_optimized5 from './models/Me_katana_2ver_optimized5.svelte'
   import Crystal from './models/Crystal.svelte'
   import * as THREE from 'three'
   import PostProcessingRenderer from './PostProcessingRenderer.svelte';
@@ -47,7 +48,7 @@
         // gsap.to(rightLight.position, { x: 9, y: 1, z: 19, duration: .1, ease: 'power4.inOut' })
         // gsap.to(pointLight.position, { x: 0, y: 5, z: -2, duration: .1, ease: 'power4.inOut' })
       } else if($pageState == '' ){
-        gsap.to($camera.position, { x: 0, y: 1.3, z: -1.8, duration: 4, ease: 'power4.inOut' })
+        gsap.to($camera.position, { x: 0, y: 1.3, z: -1.8, duration: 3, ease: 'power4.inOut' })
         gsap.to($camera, { fov: 50, duration: 4, ease: 'power4.inOut', onUpdate: () => {
           $camera.updateProjectionMatrix()
         } })
@@ -60,17 +61,17 @@
         
         if(innerWidth >= 1024){
           // PC
-          gsap.to($camera, { fov: 20, duration: 4, ease: 'power4.inOut', onUpdate: () => {
+          gsap.to($camera, { fov: 20, duration: 3, ease: 'power4.inOut', onUpdate: () => {
             $camera.updateProjectionMatrix()
           } })
-          gsap.to($camera.position, { x: 2, y: 2, z: 8, duration: 4, ease: 'power4.inOut' })
+          gsap.to($camera.position, { x: 2, y: 2, z: 8, duration: 3, ease: 'power4.inOut' })
           gsap.to(orbitControls.target, { x: 1.4, y: 1, z: 0, duration: 3.6, ease: 'power4.inOut' })
         } else {
           // Mobile
-          gsap.to($camera, { fov: 20, duration: 4, ease: 'power4.inOut', onUpdate: () => {
+          gsap.to($camera, { fov: 20, duration: 3, ease: 'power4.inOut', onUpdate: () => {
             $camera.updateProjectionMatrix()
           } })
-          gsap.to($camera.position, { x: 0, y: 2, z: 12, duration: 4, ease: 'power4.inOut' })
+          gsap.to($camera.position, { x: 0, y: 2, z: 12, duration: 3, ease: 'power4.inOut' })
           // Look down
           gsap.to(orbitControls.target, { x: 0, y: 0.3, z: 0, duration: 3.6, ease: 'power4.inOut' })
         }
@@ -80,11 +81,11 @@
         gsap.to(ref.rotation, { y: Math.PI/15, duration: 4, ease: 'power4.inOut' })
       } else if ($pageState == 'weapons'){
         if(innerWidth >= 1024){
-          gsap.to($camera.position, { x: -0.2889295559274839, y: 1.6991697557237377, z: 2.252411906431398, duration: 2.2, ease: 'power4.inOut' })
-          gsap.to(orbitControls.target, { x: 0.3567704440725213, y: 1.5961697557237375, z: 0.4814119064313902, duration: 2.2, ease: 'power4.inOut' })
+          gsap.to($camera.position, { x: -0.2889295559274839, y: 1.6991697557237377, z: 2.252411906431398, duration: 3, ease: 'power4.inOut' })
+          gsap.to(orbitControls.target, { x: 0.3567704440725213, y: 1.5961697557237375, z: 0.4814119064313902, duration: 3, ease: 'power4.inOut' })
         } else {
-          gsap.to($camera.position, { x: -0.2889295559274839, y: 1.63, z: 2.252411906431398, duration: 3.2, ease: 'power4.inOut' })
-          gsap.to(orbitControls.target, { x: 1.2767704440725213, y: 1.5261697557237375, z: 0.4814119064313902, duration: 2.2, ease: 'power4.inOut' })
+          gsap.to($camera.position, { x: -0.2889295559274839, y: 1.63, z: 2.252411906431398, duration: 3, ease: 'power4.inOut' })
+          gsap.to(orbitControls.target, { x: 1.2767704440725213, y: 1.5261697557237375, z: 0.4814119064313902, duration: 3, ease: 'power4.inOut' })
         }
         
         gsap.to($camera, { fov: 20, duration: 3, ease: 'power4.inOut', onUpdate: () => {
@@ -524,7 +525,8 @@ position={[0, 5, 2]}
   position={[0.17, 1.68, 0.67 ]}/> -->
 
 <Logo/>
-<MeKatana_2ver bind:ref/>
+<!-- <MeKatana_2ver bind:ref/> -->
+ <Me_katana_2ver_optimized5 bind:ref/>
 <!-- <MeBlack/> -->
 
 <!-- <Environment path="/" files="studio_small_09_1k.hdr" isBackground={false}/> -->

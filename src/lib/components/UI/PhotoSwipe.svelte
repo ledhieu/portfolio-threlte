@@ -30,7 +30,13 @@
 
     const builder = imageUrlBuilder(client)
     function urlFor(source) {
-        return builder.image(source)
+        let url;
+        try{
+            url = builder.image(source).url()
+        } catch(e){
+            console.log('error', e)
+        }
+        return url
     }
     // function width(imgUrl){
     //     let arr = imgUrl.split('-')
@@ -43,9 +49,10 @@
 </script>
 <svelte:window bind:innerWidth bind:innerHeight/>
     
-<div class="pswp-gallery grid grid-cols-2 lg:grid-cols-3 gap-3 mt-6" id={'g' + galleryID}>
+<div class="pswp-gallery grid grid-cols-2 lg:grid-cols-3 gap-3 mt-6" 
+    id={'g' + galleryID}>
     {#each images as image}
-    {@const img = urlFor(image.asset).url()}
+    {@const img = urlFor(image)}
     {@const {width, height} = getImageDimensions(img)}
     <a
             href={img}

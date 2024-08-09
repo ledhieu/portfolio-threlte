@@ -64,7 +64,7 @@
 </script>
 
 <div class="relative"
-    class:lg:col-span-3={active}
+    class:lg:col-span-full={active}
     class:col-span-1={active}>
     <button 
         bind:this={cardDOM}
@@ -85,12 +85,12 @@
             <div class="w-full aspect-video object-cover overflow-hidden">
                 <img 
                     bind:this={imageDOM}
-                    src={data.mainImage}
+                    src={data.mainImage ?? ""}
                     class="main-image object-cover w-full h-full">
             </div>
             <!-- Background glow -->
             <img 
-                src={data.mainImage}
+                src={data.mainImage ?? ""}
                 class="w-full absolute aspect-video object-cover"
                 style={`z-index: -10;
                 padding: 30px;
@@ -209,9 +209,9 @@
             {#if !active}
             <div class="inconsolata uppercase">
                 {#if date}
-                    {month[date.getMonth()].substring(0, 3)} {date.getFullYear()}
+                    {month[date.getMonth()]}_{date.getFullYear()}
                 {:else}
-                    WORK IN PROGRESS
+                    WORK_IN_PROGRESS
                 {/if}
             </div>
             {/if}
@@ -249,12 +249,19 @@
 <style>
     .badge{
         background: #FF6B00;
+        background: #ffffff00;
         border-radius: 50px;
         padding: 5px;
         padding-left: 10px;
         padding-right: 10px;
         font-size: 13px;
         color: white;
+        color: #000;
+        border: 1px solid black;
+    }
+    .dark .badge{
+        border: 1px solid #ffffff70;
+        color: #ffffff70;
     }
     .card{
         

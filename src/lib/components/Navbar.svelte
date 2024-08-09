@@ -210,7 +210,7 @@ style="z-index: 10001">
                     on:mouseenter={() => {setHover('adventures')}}
                     on:mouseout={() => {setHover('')}}
                     on:click={() => { handleClick('adventures') }}>
-                    <span class="font-bold num">04</span>MATCH HISTORY <div style=""
+                    <span class="font-bold num">04</span>ADVENTURES <div style=""
                     class="arrow w-[12px] h-[12px]"><Arrow/></div>
                 </button>
                 {#if hover == 'adventures' || ($pageState == 'adventures' )}

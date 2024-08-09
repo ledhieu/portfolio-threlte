@@ -72,39 +72,54 @@ onMount(() => {
     class:dark={$darkMode}
     style={`
     opacity: ${opacity};
-    filter: blur(${layerblur}px)
+    filter: blur(${layerblur * 0}px)
 `}>
     {#await data}
-        <p class="inconsolata">▪ MODE</p>
+        <p class="inconsolata">MODE</p>
         <p class="akira uppercase" style="font-size: 32px">
             loading ...
         </p>
     {:then result}
         <!-- <div class="bg-stripes w-[15px] h-[30px]"></div> -->
-        <p class="inconsolata">▪ MODE</p>
-        <button class="flex items-center gap-5"
-            on:click={() => {showCategories = !showCategories;}}>
-            <span 
-                class="akira uppercase title text-left"
-            >
-                [{$activeCategory ? 
-                $activeCategory.title : 
-                result.filter(category => category.designSide == $darkMode)[0].title}]
-            </span>
-            <!-- <span 
-                class="dropdown-btn block"
-                class:active={showCategories}
-            >
-                <Arrow/>
-            </span> -->
-            <div style="height: 12px; width: 12px"
-            class="arrow"
-            class:show={showCategories}>
-                <Arrow/>
+        <div class="flex flex-col items-stretch w-fit gap-2">
+            
+            <button class="flex items-start gap-5"
+                on:click={() => {showCategories = !showCategories;}}>
+                <span 
+                    class="akira uppercase title text-left"
+                >
+                    {$activeCategory ? 
+                    $activeCategory.title : 
+                    result.filter(category => category.designSide == $darkMode)[0].title}
+                </span>
+                <!-- <span 
+                    class="dropdown-btn block"
+                    class:active={showCategories}
+                >
+                    <Arrow/>
+                </span> -->
+                <!-- <div style="height: 12px; width: 12px"
+                class="arrow"
+                class:show={showCategories}>
+                    <Arrow/>
+                </div> -->
+                <div class="flex flex-col h-full justify-between">
+                    <!-- <p class="inconsolata">[{$activeCategory && $activeCategory.projects ? $activeCategory.projects.length : 0}]</p> -->
+                    <!-- <div style="height: 12px; width: 12px"
+                        class="arrow"
+                        class:show={showCategories}>
+                        <Arrow/>
+                    </div> -->
+                </div>
+            </button>
+            <div class="flex items-center gap-5 relative">
+                <span>{$activeCategory && $activeCategory.projects ? $activeCategory.projects.length : 0}_FEATURED_PROJECTS</span>
+                <div class={`w-full border-b border-solid 
+                ${$darkMode ? "border-[#ffffff50]" : "border-[#00000050]"}`}></div>
             </div>
-        </button>
+        </div>
         
-        {#if showCategories}
+        <!-- {#if showCategories}
             <div class="flex flex-col card items-start absolute mt-5"
             class:dark={$darkMode}
             style="z-index: 10"
@@ -118,9 +133,20 @@ onMount(() => {
                     </button>
                 {/each}
             </div>
-        {/if}
+        {/if} -->
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-10">
+        <div class="flex">
+            {#each result.filter(category => category.designSide == $darkMode) as category, i}
+                <button class="card-item uppercase font-bold"
+                    on:click={() => {$activeCategory = category;
+                    showCategories = false}}
+                >
+                    {category.title} <span class="opacity-[30%]">[{category.projects.length}]</span>
+                </button>
+            {/each}
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-10">
             {#each (
                 $activeCategory ? 
                 $activeCategory.projects : 
@@ -176,22 +202,22 @@ onMount(() => {
     .card-item{
         width: 100%;
         text-align: left;
-        padding-left: 30px;
+        /* padding-left: 30px; */
         padding-right: 30px;
         padding-top: 5px;
         padding-bottom: 5px;
     }
-    .card-item:first-of-type{
+    /* .card-item:first-of-type{
         margin-top: 25px;
     }
     .card-item:last-of-type{
         margin-bottom: 25px;
-    }
-    .card-item:hover{
+    } */
+    /* .card-item:hover{
         background: #ffffff15;
         
         transition: 0.3s ease;
-    }
+    } */
     .title{
         font-size: 20px;
         line-height: 22px;
@@ -210,12 +236,13 @@ onMount(() => {
 
     @media only screen and (min-width: 1024px){
         .ui-container{
-            padding: 170px;
-            padding-left: 170px;
+            padding: 100px;
+            padding-left: 100px;
+            padding-top: 15px;
         }
         .title{
-            font-size: 36px;
-            line-height: 33px;
+            font-size: 8vw;
+            line-height: 6.5vw;
         }
     }
 </style>

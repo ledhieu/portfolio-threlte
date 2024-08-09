@@ -2,6 +2,195 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'formula';
+    src: url('/font/Formula/PPFormula-CondensedExtralight.woff2') format('woff2'),
+        url('/font/Formula/PPFormula-CondensedExtralight.woff') format('woff');
+    font-weight: 200;
+    font-stretch: condensed;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'formula';
+    src: url('/font/Formula/PPFormula-CondensedBlack.woff2') format('woff2'),
+        url('/font/Formula/PPFormula-CondensedBlack.woff') format('woff');
+    font-weight: 900;
+    font-stretch: condensed;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'formula';
+    src: url('/font/Formula/PPFormula-Medium.woff2') format('woff2'),
+        url('/font/Formula/PPFormula-Medium.woff') format('woff');
+    font-stretch: condensed;
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'formula';
+    src: url('/font/Formula/PPFormula-NarrowRegular.woff2') format('woff2'),
+        url('/font/Formula/PPFormula-NarrowRegular.woff') format('woff');
+    font-stretch: narrower;
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'formula';
+    src: url('/font/Formula/PPFormula-ExtendedMedium.woff2') format('woff2'),
+        url('/font/Formula/PPFormula-ExtendedMedium.woff') format('woff');
+    font-stretch: expanded;
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'formula';
+    src: url('/font/Formula/PPFormula-CondensedLightItalic.woff2') format('woff2'),
+        url('/font/Formula/PPFormula-CondensedLightItalic.woff') format('woff');
+    font-weight: 300;
+    font-stretch: condensed;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'formula';
+    src: url('/font/Formula/PPFormula-ExtendedBold.woff2') format('woff2'),
+        url('/font/Formula/PPFormula-ExtendedBold.woff') format('woff');
+    font-stretch: expanded;
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'formula';
+    src: url('/font/Formula/PPFormula-MediumItalic.woff2') format('woff2'),
+        url('/font/Formula/PPFormula-MediumItalic.woff') format('woff');
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'formula';
+    src: url('/font/Formula/PPFormula-Extrabold.woff2') format('woff2'),
+        url('/font/Formula/PPFormula-Extrabold.woff') format('woff');
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'formula';
+    src: url('/font/Formula/PPFormula-Light.woff2') format('woff2'),
+        url('/font/Formula/PPFormula-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'formula';
+    src: url('/font/Formula/PPFormula-SemiCondensedMedium.woff2') format('woff2'),
+        url('/font/Formula/PPFormula-SemiCondensedMedium.woff') format('woff');
+    font-weight: 500;
+    font-stretch: semi-condensed;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'formula';
+    src: url('/font/Formula/PPFormula-SemiCondensedThin.woff2') format('woff2'),
+        url('/font/Formula/PPFormula-SemiCondensedThin.woff') format('woff');
+    font-stretch: semi-condensed;
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'formula';
+    src: url('/font/Formula/PPFormula-SemiCondensedExtralight.woff2') format('woff2'),
+        url('/font/Formula/PPFormula-SemiCondensedExtralight.woff') format('woff');
+    font-weight: 200;
+    font-style: normal;
+    font-stretch: semi-condensed;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'formula';
+    src: url('/font/Formula/PPFormula-NarrowSemibold.woff2') format('woff2'),
+        url('/font/Formula/PPFormula-NarrowSemibold.woff') format('woff');
+    font-stretch: narrower;
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'formula';
+    src: url('/font/Formula/PPFormula-SemiExtendedBold.woff2') format('woff2'),
+        url('/font/Formula/PPFormula-SemiExtendedBold.woff') format('woff');
+    font-weight: bold;
+    font-stretch: semi-expanded;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'formula';
+    src: url('/font/Formula/PPFormula-SemiCondensedExtralightItalic.woff2') format('woff2'),
+        url('/font/Formula/PPFormula-SemiCondensedExtralightItalic.woff') format('woff');
+    font-stretch: semi-condensed;
+    font-weight: 200;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'monument';
+    src: url('/font/Monument/ABCMonumentGroteskMono-Light-Trial.woff2') format('woff2');
+    font-weight: 200;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'monument';
+    src: url('/font/Monument/ABCMonumentGroteskMono-Thin-Trial.woff2') format('woff2');
+    font-weight: 100;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'monument';
+    src: url('/font/Monument/ABCMonumentGroteskMono-Regular-Trial.woff2') format('woff2');
+    font-weight: 300;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'monument';
+    src: url('/font/Monument/ABCMonumentGroteskMono-Medium-Trial.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+}
+
+
+
 body{
     padding: 0;
     margin: 0;
@@ -112,6 +301,7 @@ body{
     font-family: Inconsolata;
     color: #000;
     transition: color 0.3s ease;
+    /* font-weight: 200; */
 }
 .dark * {
     color: #fff;

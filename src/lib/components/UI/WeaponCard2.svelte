@@ -84,7 +84,7 @@ class:active={active}>
                         <button class="flex rounded-md overflow-hidden project-img"
                         on:click={() => {handleProjectClick(project)}}>
                             <img 
-                                src={project.mainImage}
+                                src={project.mainImage ?? ""}
                                 style="
                                 aspect-ratio: 1/1;
                                 object-fit: cover"/>

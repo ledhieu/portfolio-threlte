@@ -66,7 +66,7 @@
 <!-- Character Page -->
 <div class="w-full lg:w-1/2 h-full absolute right-0 flex flex-col justify-center"
 style={`opacity: ${opacity};
-filter: blur(${layerblur}px)`}>
+filter: blur(${layerblur * 0}px)`}>
   <div 
     class:dark={$darkMode}
     class="absolute lg:relative h-fit w-full lg:w-fit bottom-0 left-0
@@ -95,7 +95,7 @@ filter: blur(${layerblur}px)`}>
         {/if}
       </div>
       
-      <div class="flex gap-3 mb-5">
+      <div class="flex gap-3 mb-5 mt-5">
         {#await data then classes}
           {#each classes.filter(c => c.designSide == $darkMode) as klass}
             <ClassCard data={klass}/>

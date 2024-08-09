@@ -55,7 +55,7 @@ style="transition: 0.5s ease"
   <h2 style="font-family: Another;
     "
     id="hieusportfolio"
-    transition:blur={{ amount: 10, duration: 800, delay: BASE_DELAY }}
+    transition:fade={{ amount: 10, duration: 800, delay: BASE_DELAY }}
     class="text-white uppercase absolute left-0 right-0 m-auto
     white-title">
     Hieu's portfolio
@@ -63,7 +63,7 @@ style="transition: 0.5s ease"
   <!-- Ink splash 1 -->
   <h2 style="font-family: Drips;
     "
-    transition:blur={{ amount: 10, duration: 800, delay: BASE_DELAY }}
+    transition:fade={{ amount: 10, duration: 800, delay: BASE_DELAY }}
     class="text-white uppercase absolute left-0 right-0 m-auto
     ink-1">
     -*+*+,-
@@ -71,7 +71,7 @@ style="transition: 0.5s ease"
   <!-- Ink splash 2 -->
   <h2 style="font-family: Drips;
     "
-    transition:blur={{ amount: 10, duration: 800, delay: BASE_DELAY }}
+    transition:fade={{ amount: 10, duration: 800, delay: BASE_DELAY }}
     class="text-white uppercase absolute left-0 right-0 m-auto
     ink-2">
     \{`[`}\
@@ -90,15 +90,15 @@ style="transition: 0.5s ease"
   <h1 style="mix-blend-mode:screen;"
   id="visualside"
   class="absolute uppercase akira orange-title z-[1]"
-  transition:blur={{ amount: 10, duration: 800, delay: BASE_DELAY }}
+  transition:fade={{ amount: 10, duration: 800, delay: BASE_DELAY }}
   >
     <!-- {#if !$darkMode}
     <span in:fade={{duration: 1, delay: DELAY_INTERVAL * 2}}>de</span><span in:fade={{duration: 1, delay: DELAY_INTERVAL * 3}}>si<span style="color: #FF6B00; mix-blend-mode:screen">gn</span></span><span in:fade={{duration: 1, delay: DELAY_INTERVAL * 4}}>side</span>
     {:else} -->
     {#key $darkMode}
     <span use:shuffle={{
-      shufflesBeforeOrderings: innerWidth > 1024 ? 2 : 1,
-      shufflesBetweenOrderings: innerWidth > 1024 ? 2 : 1,
+      shufflesBeforeOrderings: innerWidth > 1224 ? 2 : 0,
+      shufflesBetweenOrderings: innerWidth > 1224 ? 2 : 1,
       from: !$darkMode ? 'visual&side' : 'coding&side',
       spaceMapping: fontSpacing,
       log: true
@@ -121,35 +121,35 @@ style="transition: 0.5s ease"
   >
       {#key $darkMode}
       <p use:shuffle={{
-          shufflesBeforeOrderings: innerWidth > 1024 ? 2 : 1,
-          shufflesBetweenOrderings: innerWidth > 1024 ? 2 : 1,
+          shufflesBeforeOrderings: innerWidth > 1224 ? 2 : 0,
+          shufflesBetweenOrderings: innerWidth > 1224 ? 2 : 1,
           from: $darkMode ? 'graphics design' : 'full-stack'
         }}
         class="uppercase font-bold sub-text"
         style={`font-size: 12px; font-family: Inconsolata;
         color: white;
         opacity: ${opacity};
-        filter: blur(${layerblur}px)`}>
+        filter: blur(${layerblur * 0}px)`}>
           {!$darkMode ? 'full-stack' : 'graphics design'}
       </p>
       <p 
         use:shuffle={{
-          shufflesBeforeOrderings: innerWidth > 1024 ? 2 : 1,
-          shufflesBetweenOrderings: innerWidth > 1024 ? 2 : 1,
+          shufflesBeforeOrderings: innerWidth > 1224 ? 2 : 0,
+          shufflesBetweenOrderings: innerWidth > 1224 ? 2 : 1,
           from: $darkMode ? 'ux/ui design' : 'development'
         }}
         class="uppercase font-bold sub-text"
         style={`font-size: 12px; font-family: Inconsolata;
           color: white;
           opacity: ${opacity};
-          filter: blur(${layerblur}px)`}>
+          filter: blur(${layerblur * 0}px)`}>
         {!$darkMode ? 'development' : 'ux/ui design'}
       </p>
       {/key}
   </div>
 
   <div class="hidden lg:flex m-auto z-[1] relative gap-3"
-  transition:blur={{ amount: 10, duration: 800, delay: BASE_DELAY + 200 }}>
+  transition:fade={{ amount: 10, duration: 800, delay: BASE_DELAY + 200 }}>
     <!-- <div class="bg-stripes h-[40px] w-[10px] ml-auto"></div> -->
     <p class="w-[560px] text-white m-auto
     uppercase text-center"
@@ -164,7 +164,7 @@ style="transition: 0.5s ease"
 
 
   <div class="absolute left-0 right-0 m-auto mt-8"
-  transition:blur={{ amount: 10, duration: 800, delay: BASE_DELAY + 400 }}
+  transition:fade={{ amount: 10, duration: 800, delay: BASE_DELAY + 400 }}
   style={``}>
     <div class="flex flex-col justify-center">
       <Button
