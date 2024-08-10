@@ -9,9 +9,11 @@
   // import Me4 from '$lib/components/models/Me4.svelte'
   // import MeWhite from '$lib/components/models/Me_white.svelte'
   // import MeBlack from '$lib/components/models/Me_black.svelte'
-  import BlackKatana from './models/Black_katana.svelte';
+  // import BlackKatana from './models/Black_katana.svelte';
   // import MeKatana_2ver from './models/Me_katana_2ver.svelte';
-  import Me_katana_2ver_optimized5 from './models/Me_katana_2ver_optimized5.svelte'
+  // import Me_katana_2ver_optimized6 from './models/Me_katana_2ver_optimized6.svelte'
+  import Me_katana_2ver_optimized6 from './models/Me_katana_2ver_optimized6.svelte'
+
   import Crystal from './models/Crystal.svelte'
   import * as THREE from 'three'
   import PostProcessingRenderer from './PostProcessingRenderer.svelte';
@@ -526,7 +528,7 @@ position={[0, 5, 2]}
 
 <Logo/>
 <!-- <MeKatana_2ver bind:ref/> -->
- <Me_katana_2ver_optimized5 bind:ref/>
+ <Me_katana_2ver_optimized6 bind:ref/>
 <!-- <MeBlack/> -->
 
 <!-- <Environment path="/" files="studio_small_09_1k.hdr" isBackground={false}/> -->

@@ -77,7 +77,8 @@ function handleScroll(){
     bind:this={uiContainer}
     on:scroll={handleScroll}
     on:click|preventDefault={() => {
-        $activeProject = undefined
+        $activeProject = undefined;
+        history.pushState({}, "", `/${$pageState}`)
     }}
     class:dark={$darkMode}
     style={`

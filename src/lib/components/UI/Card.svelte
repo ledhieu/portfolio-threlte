@@ -55,7 +55,7 @@
     }
     function minimize(){
         dispatch('minimize', data)
-        if(active){
+        if(active || true){
             history.pushState({}, "", `/${$pageState}`)
             $activeProject = undefined;
         }

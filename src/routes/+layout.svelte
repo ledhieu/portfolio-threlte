@@ -63,6 +63,8 @@
     function onCustomLoaded(){
       $pageState = $page.route.id.split('/')[1].replace('/', '')
       console.log($page)
+
+      // hide = true; app.playVideos(); loadingFinished() 
     }
     function onPopstate(event){
       console.log('popstate', event)
@@ -108,16 +110,18 @@
 <div class="contents"
   class:dark={$darkMode}>
 {#if ($loading < 100 || !finishedOnce) || !hide}
-<div out:fade={{ duration: 1000 }}
+<div out:fade={{ duration: 100 }}
 class="loading-screen fixed w-full h-full" style="z-index: 1000000">
-<div><Loader/></div>
+<!-- <div><Loader/></div> -->
 
 <div class="absolute w-fit h-fit top-0 left-0 right-0 bottom-0 m-auto pt-[160px]">
   
-  {#if $loading < 100}  
-  <p class="akira"
+  <!-- {#if $loading < 101}  
+  <p class="uppercase font-[akira]"
     style="
-    font-size: 25px">Loading...</p>
+    font-size: 25px">Loading...
+    <span class="font-[inconsolata] text-xs">[99]</span>
+  </p>
   {:else}
     <button class="akira view-btn py-1"
     on:click={() => {hide = true; app.playVideos(); loadingFinished() }}
@@ -125,9 +129,56 @@ class="loading-screen fixed w-full h-full" style="z-index: 1000000">
     font-size: 25px;"
     data-augmented-ui="tl-clip br-clip tr-round bl-round exe border"
     >VIEW PORTFOLIO →</button>
-  {/if}
-  <div class="w-[100px] h-[8px] bg-[#00000020] "></div>
-<div class="w-[150px] mt-1 h-[8px] bg-[#00000020]"></div>
+  {/if} -->
+
+  <div class="flex flex-col w-[80vw] lg:w-[50vw]">
+    <div class="flex justify-between w-full items-center">
+      <p class="uppercase font-[akira]"
+        style="
+        font-size: 25px">{$loading < 100 ? 'Loading' : 'Completed'}
+      </p>
+      {#if $loading < 100}
+      <span class="relative mr-auto spinner ml-2"
+      style="">∴</span>
+      {/if}
+      <p>[{Math.round($loading * 100) / 100}%]</p>
+      
+    </div>
+    <div class="loading-bar-container w-full px-[2px] py-[2px] border border-[#00000080]">
+      <div class="loading-bar h-[10px] bg-[#000]"
+      style={`width: ${Math.round($loading * 100) / 100}%`}></div>
+    </div>
+    {#if $loading < 100}
+      <div class="flex justify-between">
+        <p>Downloading...</p>
+        <div class="flex flex-col ghost opacity-0 w-[1px] mr-auto">
+          <p> </p> 
+          <p>Initiating transaction...</p>
+          <p>Connection established.</p>
+        </div>
+        <div class="flex flex-col">
+          <p>Linking...</p> 
+
+          {#if $loading > 60}
+          <p>Initiating...</p>
+          {/if}
+          {#if $loading > 80}
+          <p>Connected.</p> 
+          {/if}
+        </div>
+      </div>
+    {:else}
+      <button class=" view-btn py-1"
+      on:click={() => {hide = true; app.playVideos(); loadingFinished() }}
+      style=""
+      data-augmented-ui="tl-clip br-clip tr-round bl-round exe border"
+      >CLICK HERE TO ENTER PORTFOLIO →</button>
+    {/if}
+    
+  </div>  
+  
+  <!-- <div class="w-[100px] h-[8px] bg-[#00000020] "></div> -->
+<!-- <div class="w-[150px] mt-1 h-[8px] bg-[#00000020]"></div> -->
     <!-- <p
     style="margin-top: 200px">
       DOWNLOADING {$loading}%
@@ -206,5 +257,19 @@ use:enhance={({formData, cancel}) => {
     --aug-bl: 2px;
     transition: 0.2s ease;
     color: #000;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.spinner{
+  animation: rotate 1s linear infinite;
+  /* padding-top: 9.5px; */
+  height: fit-content;
 }
 </style>

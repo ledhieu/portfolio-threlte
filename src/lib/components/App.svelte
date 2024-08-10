@@ -165,9 +165,9 @@
       // $loading += 20
   });
   onMount(() => {
-    window.addEventListener('customLoaded', () => {
-      setTimeout(run, 1000)
-    })
+    // window.addEventListener('customLoaded', () => {
+    //   setTimeout(run, 1000)
+    // })
   })
 
   $: {

@@ -19,7 +19,7 @@ gsap.registerPlugin(CustomEase);
 export const ref = new Group()
 
 // katana5 is too fast, use 6, actually 6 is too fast, fix later
-const gltf = useGltf('/models/me_katana_2ver_optimized5.glb')
+const gltf = useGltf('/models/me_katana_2ver.glb')
 export const { actions, mixer } = useGltfAnimations(gltf, ref)
 
 const component = forwardEventHandlers()
