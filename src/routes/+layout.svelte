@@ -156,7 +156,7 @@ class="loading-screen fixed w-full h-full" style="z-index: 1000000">
           <p>Initiating transaction...</p>
           <p>Connection established.</p>
         </div>
-        <div class="flex flex-col">
+        <div class="flex flex-col opacity-[50%]">
           <p>Linking...</p> 
 
           {#if $loading > 60}

@@ -154,7 +154,7 @@ function handleScroll(){
                     on:click={() => {$activeCategory = category;
                     showCategories = false}}
                 >
-                    {category.title} <span class="opacity-[30%]">[{category.projects.length}]</span>
+                    {category.title} <span class="opacity-[30%]" style="color: inherit">[{category.projects.length}]</span>
                 </button>
             {/each}
         </div>
@@ -214,26 +214,34 @@ function handleScroll(){
     .cards-container{
         background: #c4c4c500;
         padding: 0px;
+        color: #000;
         box-shadow: 0px 0px 60px #00000000;
-        transition: 0.5s ease;
+        transition: 0.3s ease;
         border: 1px solid #ffffff00;
         border-radius: 5px;
     }
     .cards-container.elevate{
         background: #c4c4c5;
+        background: #cecece;
+        color: #000;
         padding: 5px 15px 5px 15px;
-        box-shadow: 0px 0px 60px #00000050;
-        transition: 0.5s ease;
+        box-shadow: 0px 0px 60px #000000a0;
+        transition: 0.3s ease;
         border: 1px solid #ffffff80;
     }
     .dark .cards-container{
         background: linear-gradient(-90deg, #17233100 0%, #090b1000 100%);
         border: 1px solid #00000000;
+        color: #fff;
+        transition: 0.3s ease;
     }
     .dark .cards-container.elevate{
         background: linear-gradient(-90deg, #172331 0%, #090b10 100%);
+        background: linear-gradient(-90deg, #31465e 0%, #272f44 100%);
         border: 1px solid #00000000;
+        color: #fff!important;
         box-shadow: 0px 0px 60px #000000f0;
+        transition: 0.3s ease;
     }
     .card-item{
         /* width: 100%; */
@@ -244,6 +252,7 @@ function handleScroll(){
         padding-bottom: 5px;
         text-wrap: nowrap;
         width: max-content;
+        color: inherit
     }
     /* .card-item:first-of-type{
         margin-top: 25px;
