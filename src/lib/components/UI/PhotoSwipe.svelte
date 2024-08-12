@@ -49,7 +49,7 @@
 </script>
 <svelte:window bind:innerWidth bind:innerHeight/>
     
-<div class="pswp-gallery grid grid-cols-2 lg:grid-cols-3 gap-3 mt-6" 
+<div class="pswp-gallery grid grid-cols-2 lg:grid-cols-3 gap-3" 
     id={'g' + galleryID}>
     {#each images as image}
     {@const img = urlFor(image)}

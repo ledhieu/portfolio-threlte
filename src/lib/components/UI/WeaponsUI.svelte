@@ -45,6 +45,11 @@
     }
   }
 
+  $: {
+    $darkMode;
+    activeCategory = undefined;
+  }
+
   let activeCategory;
 
   function handleWeaponCategoryChange(category){
@@ -52,6 +57,7 @@
   }
 </script>
 
+{#key $darkMode}
 <div 
     class="ui-container relative"
     class:dark={$darkMode}
@@ -74,7 +80,7 @@
                     on:click={() => {
                         handleWeaponCategoryChange(weaponCategory)
                     }}>
-                        <p class="font-bold">[0{i < 10 ? '0' + i : i}]</p>
+                        <p class="font-bold">[{i < 10 ? '0' + i : i}]</p>
                         <p class="font-[akira] title uppercase font-semibold"
                         style="font-stretch: narrow">{weaponCategory.title}</p>
                     </button>
@@ -89,7 +95,7 @@
             <p class="title uppercase font-bold akira mt-3 mb-5">
                 {activeCategory.title}
             </p>
-            <div class="grid grid-cols-1 gap-5">
+            <div class="flex flex-wrap gap-5">
                 {#each activeCategory.weapons as weapon}
                     <WeaponCard data={weapon}/>
                 {/each}
@@ -97,6 +103,7 @@
         {/if}
     {/await}
 </div>
+{/key}
 
 <style>
     .ui-container{

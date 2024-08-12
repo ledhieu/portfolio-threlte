@@ -6,9 +6,10 @@
     import Youtube from './Youtube.svelte'
     import PhotoSwipe from './PhotoSwipe.svelte'
     import { clickOutside } from '$lib/components/clickOutside'
+    import Paragraph from "./Paragraph.svelte";
 
     export let data;
-    let active;
+    let active, interactiveLoaded;
     let cardDOM;
     let titleDOM;
     let imageDOM;
@@ -180,6 +181,22 @@
                 {/each}
             </div>
 
+
+            {#if active && data.url}
+            <div class="hidden lg:block my-5 w-[calc(100vw-40px*2)] lg:w-[calc(100vw-195px*2)] aspect-[9/16] lg:aspect-video
+            rounded-[10px] border border-[#ffffff80] overflow-hidden">
+                {#if interactiveLoaded}
+                    <iframe src={data.url} class="w-full h-full"/>
+                {:else}
+                    <button class="w-full h-full  text-white" 
+                    on:click={() => {interactiveLoaded = true}}>
+                        <p class="uppercase font-bold">Load iframe</p>
+                        <p class="font-light italic">Iframe may not provide the best experience, please feel free to visit the site</p>
+                    </button>
+                {/if}
+            </div>
+            {/if}
+
             {#if active && data.body}
                 <!-- {#each data.body as block}
                     {#if block._type == 'block'}
@@ -195,7 +212,7 @@
                         <img src={block.asset._ref}/>
                     {/if}
                 {/each} -->
-                <div class="portable-text w-full text-left">
+                <div class="portable-text w-full text-left !font-[monument]">
                     <PortableText
                         value={data.body}
                         components={{
@@ -403,7 +420,7 @@
             padding-top: 30px;
         }
         .card.active{
-            padding: 30px;
+            padding: 60px;
             transition: 0.2s ease;
         }
         

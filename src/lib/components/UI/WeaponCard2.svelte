@@ -35,25 +35,43 @@
     }
 </script>
 
-<button class="relative top-container"
+<button class="relative flex flex-col"
 on:click={handleClick}
+class:col-span-full={active}
 class:active={active}>
-    <div data-augmented-ui="all-hex border"
-    class="hex"
-    class:dark={$darkMode}
-    style="">
-        <div class="w-full h-full flex">
-            <img 
-                class="main-image m-auto h-2/3 w-2/3 object-contain"
-                src={data.mainImage ?? ''}
-                style="
-            "/>
-            <div data-augmented-ui="all-hex border"
-            class="inside-hex">
+    <div class="w-min flex flex-col gap-1 justify-start">
+        <div data-augmented-ui="all-hex border"
+        class="hex"
+        class:dark={$darkMode}
+        style="">
+            <div class="w-full h-full flex">
+                <img 
+                    class="main-image m-auto h-2/3 w-2/3 object-contain"
+                    src={data.mainImage ?? ''}
+                    style="
+                "/>
+                <div data-augmented-ui="all-hex border"
+                class="inside-hex">
 
+                </div>
+
+                <div data-augmented-ui="all-hex border"
+                class="progress-hex"
+                class:clip-1={data.familiarity > 2}
+                class:clip-2={data.familiarity >= 5}
+                class:clip-3={data.familiarity >= 6}
+                class:clip-4={data.familiarity >= 7}
+                class:clip-5={data.familiarity >= 8}
+                class:clip-6={data.familiarity >= 9}>
+
+                </div>
             </div>
         </div>
+        {#if !active}
+        <p class="be  uppercase font-bold text-wrap shrink">{data.title}</p>
+        {/if}
     </div>
+    {#if active}
     <div class="card-container"
     style="">
         <div class="card"
@@ -61,6 +79,7 @@ class:active={active}>
         tr-round exe border"
         style="">
             <div class="text-left flex flex-col h-full p-2 gap-2">
+                
                 <p class="akira title">{data.title}</p>
                 {#if data.description}
                     <p class="description"
@@ -77,7 +96,7 @@ class:active={active}>
                         ${i != '4' ? 'tr-clip' : ''} exec`}></div>
                     {/each}
                 </div>
-                {#if active}
+                
                 <p class="font-bold"><span class="akira">Featured in</span> ({data.projects.length < 10 ? '0' + data.projects.length : data.projects.length})</p>
                 <div class="grid grid-cols-4 gap-2 mb-4">
                     {#each data.projects as project}
@@ -91,7 +110,7 @@ class:active={active}>
                         </button>
                     {/each}
                 </div>
-                {/if}
+                
             </div>
             <!-- <div class="grid grid-rows-2"
             style="border-left: 1px solid #ffffff90;
@@ -99,7 +118,8 @@ class:active={active}>
             </div> -->
            
         </div>
-</div>
+    </div>
+{/if}
 </button>
 
 <style>
@@ -114,19 +134,21 @@ class:active={active}>
     }
     .hex{
         --aug-all-width: 60px;
-        --aug-border-all: 1px;
-        --aug-border-bg: #fff;
+        --aug-border-all: 3px;
+        --aug-border-bg: #ffffff20;
         background: #CCCDCE;
         background: #B7B7B9;
+        background: #ffffff00;
         transition: 0.5s ease;
-        margin-bottom: 125px;
-        margin-left: calc(100% - 30px);
-        position: absolute;
+        /* margin-bottom: 125px; */
+        /* margin-left: calc(100% - 30px); */
+        /* position: absolute; */
         z-index: 1;
         
     }
     .dark.hex{
-        background: #18043B;
+        background: #1e2d40;
+        background: #ffffff00;
         transition: 0.5s ease;
     }
     .inside-hex{
@@ -135,14 +157,32 @@ class:active={active}>
         --aug-border-bg: #ffffff00;
         left: 0; right: 0; top: 0; bottom: 0;
         margin:auto;
-        background: #ffffff30;
+        background: #ffffff20;
+        transition: 0.5s ease;
+        position: absolute;
+    }
+    .inside-hex{
+        --aug-all-width: 50px;
+        --aug-border-all: 0.5px;
+        --aug-border-bg: #ffffff00;
+        left: 0; right: 0; top: 0; bottom: 0;
+        margin:auto;
+        background: #ffffff20;
         transition: 0.5s ease;
         position: absolute;
     }
     .dark .inside-hex{
-        --aug-border-bg: #fffffff0;
+        /* --aug-border-bg: #fffffff0;
         background: #ffffff00;
-        transition: 0.5s ease;
+        transition: 0.5s ease; */
+    }
+    .progress-hex{
+        position: absolute;
+        left: 0; right: 0; top: 0; bottom: 0;
+        margin: auto;
+        --aug-all-width: 50px;
+        --aug-border-all: 3px;
+        --aug-border-bg: #ffffff;
     }
     .card{
         
@@ -210,6 +250,24 @@ class:active={active}>
         position: relative;
         margin-top: 5px;
     }
+    .clip-1{
+        clip-path: polygon(50% 0%, 100% 0, 100% 25%, 50% 50%);
+    }
+    .clip-2{
+        clip-path: polygon(50% 0%, 100% 0, 100% 75%, 50% 50%);
+    }
+    .clip-3{
+        clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%);
+    }
+    .clip-4{
+        clip-path: polygon(50% 0, 100% 0, 100% 69%, 100% 100%, 0 100%, 0 75%, 50% 50%);
+    }
+    .clip-5{
+        clip-path: polygon(54% 0, 100% 0, 100% 69%, 100% 100%, 0 100%, 0 25%, 50% 50%);
+    }
+    .clip-6{
+        clip-path: polygon(54% 0, 100% 0, 100% 100%, 0 100%, 0 0, 15% 0, 54% 54%);
+    }
     @media only screen and (min-width: 768px){
         .hex{
             --aug-all-width: 110px;
@@ -218,6 +276,9 @@ class:active={active}>
         }
         .inside-hex{
             --aug-all-width: 90px;
+        }
+        .progress-hex{
+            --aug-all-width: 110px;
         }
         .top-container{
             height: auto;

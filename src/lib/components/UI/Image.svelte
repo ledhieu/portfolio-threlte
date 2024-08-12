@@ -17,4 +17,4 @@
 </script>
 
 <img src={urlFor(portableText.value)}
-    class="py-10 px-20"/>
+    class="py-5 px-20"/>
