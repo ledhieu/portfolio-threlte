@@ -212,7 +212,8 @@
                         <img src={block.asset._ref}/>
                     {/if}
                 {/each} -->
-                <div class="portable-text w-full text-left !font-[monument]">
+                <div class="portable-text w-full text-left"
+                style="line-height: 100%">
                     <PortableText
                         value={data.body}
                         components={{
