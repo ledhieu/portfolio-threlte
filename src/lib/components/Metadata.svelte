@@ -27,7 +27,7 @@
     <meta property='og:title' content={title} />
     <meta property='og:type' content='site' />
     <meta property='og:url' content={url} />
-    <meta property='og:image' content={'/1.png'} />
+    <meta property='og:image' content={url + '/1.png'} />
     <meta property='og:site_name' content={title} />
     <meta property='og:description' content={description} />
 
