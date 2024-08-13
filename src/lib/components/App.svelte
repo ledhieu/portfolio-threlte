@@ -263,7 +263,9 @@ style="background: linear-gradient(180deg, #F2F4F7, #F2F4F700);
 height: 100px">
 
 </div> -->
-<Canvas dpr={1}>
+<Canvas dpr={1} rendererParameters={{powerPreference: 'high-performance'
+  
+}}>
   <!-- <Project config={{ state: characterState }} name="Portfolio">
     <Sheet name={'character'} bind:sequence> -->
       <Scene />
