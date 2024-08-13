@@ -14,6 +14,7 @@
     import Loader from '$lib/components/UI/Loader.svelte'
     import { dev } from '$app/environment';
     import { inject } from '@vercel/analytics';
+    import Metadata from "../lib/components/Metadata.svelte";
     
     inject({ mode: dev ? 'development' : 'production' });
 
@@ -96,6 +97,7 @@
 
 <svelte:head>
   <link rel="stylesheet" type="text/css" href="https://unpkg.com/augmented-ui@2/augmented-ui.min.css">
+  <Metadata/>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-0TB0591YF1"></script>
   <script>

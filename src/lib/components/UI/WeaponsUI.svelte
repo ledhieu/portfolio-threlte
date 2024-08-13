@@ -107,7 +107,7 @@
 
 <style>
     .ui-container{
-        padding: 60px;
+        padding: 40px;
         padding-top: 120px;
         overflow-y: scroll;
         height: 100%;   

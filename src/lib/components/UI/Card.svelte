@@ -83,7 +83,7 @@
         >   
         {#if active}
             <button on:click|stopPropagation={() => {handleClick(true)}}
-                class="text-white text-left mb-4 mt-4 lg:mt-0 lg:mb-10">
+                class="text-xs ml-3 text-white text-left mb-4 mt-4 lg:mt-0 lg:mb-10">
                 <p>{"<"} MINIMIZE</p>
             </button>
         {/if}
@@ -190,7 +190,7 @@
                 {:else}
                     <button class="w-full h-full  text-white" 
                     on:click={() => {interactiveLoaded = true}}>
-                        <p class="uppercase font-bold">Load iframe</p>
+                        <p class="uppercase font-bold">Click to load iframe</p>
                         <p class="font-light italic">Iframe may not provide the best experience, please feel free to visit the site</p>
                     </button>
                 {/if}
@@ -361,18 +361,22 @@
         transition: 0.2s ease;
     }
     .url-btn{
-        background: #000000f0;
-        color: #ffffffd0;
+        background: #ffffff50;
+        --aug-border-bg: #ffffffb0;
+        /* color: #ffffffd0; */
     }
     .url-btn:hover{
-        background: #000000ff;
-        color: #ffffffff
+        background: #ffffff90;
+        --aug-border-bg: #ffffffff;
+        /* color: #ffffffff */
     }
     .dark .url-btn{
-        background: #ffffff20;
+        background: #6c82af40 ;
+        --aug-border-bg: #ffffff30;
     }
     .dark .url-btn:hover{
-        background: #ffffff50;
+        background: #6c82aff0 ;
+        --aug-border-bg: #ffffff70;
     }
 
     :global(.portable-text *){

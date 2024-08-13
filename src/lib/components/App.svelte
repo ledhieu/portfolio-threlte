@@ -531,7 +531,7 @@ height: 100px">
   .toggle-container{
     top: 170px; 
     z-index: 1001;
-    right: -20px;
+    right: -35px;
   }
   .logo{
     transition: 0.2s ease;

@@ -68,7 +68,7 @@ class:active={active}>
             </div>
         </div>
         {#if !active}
-        <p class="be  uppercase font-bold text-wrap shrink">{data.title}</p>
+        <p class="be  uppercase font-bold text-wrap shrink text-sm">{data.title}</p>
         {/if}
     </div>
     {#if active}
@@ -180,7 +180,7 @@ class:active={active}>
         position: absolute;
         left: 0; right: 0; top: 0; bottom: 0;
         margin: auto;
-        --aug-all-width: 50px;
+        --aug-all-width: 60px;
         --aug-border-all: 3px;
         --aug-border-bg: #ffffff;
     }
