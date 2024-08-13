@@ -1,7 +1,7 @@
 <script>
     const title = "Hieu's portfolio"
     const url = 'https://leduchieu.com'
-    const description = "A showcase of my projects and skills"
+    const description = "As a recent graduate, I believe an invested portfolio featuring my projects is one of the best ways to share my developer journey showcase what I have to offer."
     const author = 'Le Duc Hieu'
 </script>
 
