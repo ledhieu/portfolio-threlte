@@ -307,7 +307,7 @@ style="z-index: 10001">
         background: linear-gradient(90deg, #000000f0 30%, #000000a0)
     }
     .dark.modal{
-        background: linear-gradient(90deg, #0e0322f0 30%, #0e032250)
+        background: linear-gradient(90deg, #030d22f0 30%, #030c2250)
     }
     .modal .item{
         font-family: Akira; text-transform: uppercase;
