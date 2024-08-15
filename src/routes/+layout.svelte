@@ -116,7 +116,7 @@
 class="loading-screen fixed w-full h-full" style="z-index: 1000000">
 <!-- <div><Loader/></div> -->
 
-<div class="absolute w-fit h-fit top-0 left-0 right-0 bottom-0 m-auto pt-[160px]">
+<div class="absolute w-fit h-fit top-0 left-0 right-0 bottom-0 m-auto">
   
   <!-- {#if $loading < 101}  
   <p class="uppercase font-[akira]"
@@ -170,11 +170,16 @@ class="loading-screen fixed w-full h-full" style="z-index: 1000000">
         </div>
       </div>
     {:else}
+      
       <button class=" view-btn py-1"
       on:click={() => {hide = true; app.playVideos(); loadingFinished() }}
       style=""
       data-augmented-ui="tl-clip br-clip tr-round bl-round exe border"
       >CLICK HERE TO ENTER PORTFOLIO →</button>
+      <div class="flex flex-col ghost opacity-0 w-[1px] mr-auto">
+        <p> </p> 
+        <p>Initiating transaction...</p>
+      </div>
     {/if}
     
   </div>  
@@ -227,6 +232,8 @@ use:enhance={({formData, cancel}) => {
   .loading-screen{
     background: #DCDCDC;
     background: linear-gradient(135deg, #DADBDC, #B6B7B7);
+    background: linear-gradient(135deg, #ffffff, #cbcbcb);
+
   }
   .progress{
     width: 300px;
