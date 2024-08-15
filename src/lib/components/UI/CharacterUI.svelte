@@ -1,11 +1,13 @@
 <script>
     import { blur, fly, slide } from 'svelte/transition'
-    import { getContext } from 'svelte';
+    import { getContext, onMount, onDestroy } from 'svelte';
     import { gsap } from 'gsap'
     import ClassCard from './ClassCard.svelte';
     import { goto } from '$app/navigation'
     import Arrow from './Arrow.svelte'
     import Button from './Button.svelte';
+    import { throttle } from 'lodash'
+
 
     const pageState = getContext('pageState')
     const BASE_DELAY = 2000;
@@ -16,6 +18,7 @@
     let time = {time: 0}
     let opacity = 0;
     let layerblur = 30;
+    let onScroll = () => {}, throttledScroll = () => {}
 
     let data = fetch('/api/character', {
         method: 'GET',
@@ -61,6 +64,28 @@
         }})
       }
     }
+
+    onMount(() => {
+      onScroll = (e) => {
+        e.stopPropagation()
+        console.log('scroll', e)
+        if(e.deltaY > 0){ // scrolldown
+          goto('/weapons'); 
+          $pageState = 'weapons'
+        } else if(e.deltaY < 0){
+          goto('/'); 
+          $pageState = ''
+        }
+      }
+      throttledScroll = throttle(onScroll, 2000)
+      setTimeout(() => {
+        document.addEventListener('wheel', throttledScroll)
+      }, 2000)
+
+      return () => {
+        document.removeEventListener('wheel', throttledScroll)
+      }
+    })
 </script>
 
 <!-- Character Page -->

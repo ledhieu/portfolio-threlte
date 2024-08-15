@@ -7,7 +7,9 @@
 	  import { flip } from 'svelte/animate';
     import fontSpacing from '$lib/fontspacing.json'
     import { gsap } from 'gsap'
+    import { goto } from '$app/navigation'
     import WeaponCard from "./WeaponCard2.svelte";
+    import { throttle, debounce } from 'lodash'
 
     const pageState = getContext('pageState')
     const BASE_DELAY = 600;
@@ -18,6 +20,7 @@
     let time = {time: 0}
     let opacity = 0;
     let layerblur = 30;
+    let uiContainer
 
     let data = fetch('/api/weapons', {
         method: 'GET',
@@ -55,12 +58,41 @@
   function handleWeaponCategoryChange(category){
     activeCategory = category
   }
+
+
+  // handle scroll up/down event
+  let onScroll = () => {}, throttledScroll = () => {}
+  onMount(() => {
+    let scrollTop
+    onScroll = (e) => {
+        e.stopPropagation()
+        console.log('scroll', e, uiContainer.scrollTop, scrollTop)
+        if(e.deltaY > 0){ // scrolldown
+            return
+        } else if(e.deltaY < -2 && uiContainer.scrollTop == 0){
+            goto('/character'); 
+            $pageState = 'character'
+        }
+        // scrollTop = uiContainer ? uiContainer.scrollTop : undefined
+    }
+    throttledScroll = throttle((e) => {
+        onScroll(e)
+    }, 2000)
+    setTimeout(() => {
+        document.addEventListener('wheel', throttledScroll)
+    }, 2000)
+
+    return () => {
+    document.removeEventListener('wheel', throttledScroll)
+    }
+})
 </script>
 
 {#key $darkMode}
 <div 
     class="ui-container relative"
     class:dark={$darkMode}
+    bind:this={uiContainer}
     style={`
     opacity: ${opacity};
     filter: blur(${layerblur}px)

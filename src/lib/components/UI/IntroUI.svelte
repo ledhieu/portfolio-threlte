@@ -9,7 +9,8 @@
   import { gsap } from 'gsap'
   import Arrow from './Arrow.svelte'
   import { goto } from '$app/navigation'
-    import Button from "./Button.svelte";
+  import Button from "./Button.svelte";
+  import { throttle } from 'lodash'
 
   const pageState = getContext('pageState')
   const BASE_DELAY = 2000;
@@ -21,6 +22,7 @@
   let opacity = 0;
   let layerblur = 30;
   let innerHeight, innerWidth = 1025;
+  let onScroll = () => {}, throttledScroll = () => {}
 
 
   $: {
@@ -41,6 +43,24 @@
     }
   }
 
+  onMount(() => {
+    onScroll = (e) => {
+      e.stopPropagation()
+      console.log('scroll', e)
+      if(e.deltaY > 0){ // scrolldown
+        goto('/character'); 
+        $pageState = 'character'
+      }
+    }
+    throttledScroll = throttle(onScroll, 2000)
+    setTimeout(() => {
+      document.addEventListener('wheel', throttledScroll)
+    }, 1000)
+
+    return () => {
+        document.removeEventListener('wheel', throttledScroll)
+      }
+  })
 
 </script>
 

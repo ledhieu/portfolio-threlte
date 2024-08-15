@@ -38,6 +38,7 @@
     "augmented-ui": "^2.0.0",
     "fullpage.js": "^4.0.20",
     "gsap": "^3.12.2",
+    "lodash": "^4.17.21",
     "lottie-web": "^5.12.2",
     "photoswipe": "^5.4.3",
     "postprocessing": "^6.32.2",
