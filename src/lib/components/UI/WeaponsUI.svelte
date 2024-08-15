@@ -62,16 +62,34 @@
 
   // handle scroll up/down event
   let onScroll = () => {}, throttledScroll = () => {}
+  let nextPageFlag = false, prevPageFlag = false;
   onMount(() => {
     let scrollTop
     onScroll = (e) => {
         e.stopPropagation()
         console.log('scroll', e, uiContainer.scrollTop, scrollTop)
         if(e.deltaY > 0){ // scrolldown
-            return
-        } else if(e.deltaY < -2 && uiContainer.scrollTop == 0){
-            goto('/character'); 
-            $pageState = 'character'
+            prevPageFlag = false;
+            if(uiContainer.scrollTop >= uiContainer.scrollHeight - uiContainer.clientHeight){
+                if(nextPageFlag){
+                    goto('/adventures'); 
+                    $pageState = 'adventures'
+                } else {
+                    nextPageFlag = true
+                }
+                console.log('next ready', nextPageFlag)
+            }
+        } else{
+            nextPageFlag = false;
+            if(uiContainer.scrollTop <= 0){
+                if(prevPageFlag){
+                    goto('/character'); 
+                    $pageState = 'character'
+                } else {
+                    prevPageFlag = true
+                }
+                console.log('prev ready', prevPageFlag)
+            }
         }
         // scrollTop = uiContainer ? uiContainer.scrollTop : undefined
     }

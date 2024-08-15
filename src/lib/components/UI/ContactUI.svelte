@@ -59,9 +59,9 @@ filter: blur(${layerblur}px)`}>
             <div>
                 <div class="akira"
                 style="font-size: 50px; line-height: 50px">
-                    Contact me
+                    LET'S CHAT
                 </div>
-                <a class="link" href="mailto:jason.dhieu@gmail.com">jason.dhieu@gmail.com</a><span>, or send me a message here</span>
+                Contact me at <a class="link" href="mailto:jason.dhieu@gmail.com">jason.dhieu@gmail.com</a><span> for any work or inquiries, or send me a message here</span>
             </div>
             <form class="flex flex-col info-container flex-1
                 gap-8 md:gap-8
