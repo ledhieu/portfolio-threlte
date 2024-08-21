@@ -47,7 +47,7 @@
     onScroll = (e) => {
       e.stopPropagation()
       console.log('scroll', e)
-      if(e.deltaY > 0){ // scrolldown
+      if(e.deltaY > 80){ // scrolldown
         goto('/character'); 
         $pageState = 'character'
       }
