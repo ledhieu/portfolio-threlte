@@ -25,6 +25,9 @@
     $:  loading.set(!finishedOnce ? $progress * 100 : 100)
     $: {
       console.log('progress', $progress, $finishedOnce)
+      if($progress == 1){
+        hide = true; app.playVideos(); loadingFinished()
+      }
     }
     let hide = false;
     let app;
@@ -111,7 +114,7 @@
 
 <div class="contents"
   class:dark={$darkMode}>
-{#if ($loading < 100 || !finishedOnce) || !hide}
+{#if ($loading < 100 || !finishedOnce)}
 <div out:fade={{ duration: 100 }}
 class="loading-screen fixed w-full h-full" style="z-index: 1000000">
 <!-- <div><Loader/></div> -->
@@ -133,6 +136,7 @@ class="loading-screen fixed w-full h-full" style="z-index: 1000000">
     >VIEW PORTFOLIO →</button>
   {/if} -->
 
+  
   <div class="flex flex-col w-[80vw] lg:w-[50vw]">
     <div class="flex justify-between w-full items-center">
       <p class="uppercase font-[akira]"
@@ -171,7 +175,7 @@ class="loading-screen fixed w-full h-full" style="z-index: 1000000">
       </div>
     {:else}
       
-      <button class=" view-btn py-1"
+      <!-- <button class=" view-btn py-1"
       on:click={() => {hide = true; app.playVideos(); loadingFinished() }}
       style=""
       data-augmented-ui="tl-clip br-clip tr-round bl-round exe border"
@@ -179,7 +183,7 @@ class="loading-screen fixed w-full h-full" style="z-index: 1000000">
       <div class="flex flex-col ghost opacity-0 w-[1px] mr-auto">
         <p> </p> 
         <p>Initiating transaction...</p>
-      </div>
+      </div> -->
     {/if}
     
   </div>  

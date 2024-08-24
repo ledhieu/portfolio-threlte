@@ -283,9 +283,11 @@ height: 100px">
   <!-- Note: mute allows autoplay but will make the video pausable to save power -->
   <!-- Note2: the video must have audio for it to be prioritized by the browser -->
   <video style="display:none" bind:this={hudCircleElement} playsinline autoplay loop autoresume 
+  muted="muted"
   src="/mp4/hudcirclebackdrop_orange.mp4">
   </video>
-  <video style="display:none" bind:this={scribbleAllElement} playsinline controls autoplay loop autoresume
+  <video muted="muted"
+  style="display:none" bind:this={scribbleAllElement} playsinline controls autoplay loop autoresume
   src="/mp4/sequence_all_audio.mp4">
   </video>
   <!-- </video>
@@ -393,7 +395,7 @@ height: 100px">
       </div>
     </div>
       {#if $loading >= 100 && $pageState == 'intro'}
-        <video muted loop bind:this={hudCircleLottie}
+        <video muted="muted" loop bind:this={hudCircleLottie}
         style="mix-blend-mode: screen; width: 100%; height: 100%;
         pointer-events: none;">
           <source src="/mp4/HUD Circle 15.mp4"/>
