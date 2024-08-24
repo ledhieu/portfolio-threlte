@@ -68,9 +68,11 @@
     onScroll = (e) => {
         e.stopPropagation()
         console.log('scroll', e, uiContainer.scrollTop, scrollTop)
+        if(!uiContainer)
+            return
         if(e.deltaY > 0){ // scrolldown
             prevPageFlag = false;
-            if(uiContainer.scrollTop >= uiContainer.scrollHeight - uiContainer.clientHeight){
+            if(uiContainer.scrollTop >= uiContainer.scrollHeight - uiContainer.clientHeight - 20){
                 if(nextPageFlag){
                     goto('/adventures'); 
                     $pageState = 'adventures'
@@ -95,10 +97,10 @@
     }
     throttledScroll = throttle((e) => {
         onScroll(e)
-    }, 2000)
+    }, 500)
     setTimeout(() => {
         document.addEventListener('wheel', throttledScroll)
-    }, 2000)
+    }, 500)
 
     return () => {
     document.removeEventListener('wheel', throttledScroll)

@@ -106,10 +106,10 @@ onMount(() => {
     }
     throttledScroll = throttle((e) => {
         onScroll(e)
-    }, 2000)
+    }, 500)
     setTimeout(() => {
         document.addEventListener('wheel', throttledScroll)
-    }, 2000)
+    }, 500)
 
     return () => {
     document.removeEventListener('wheel', throttledScroll)
