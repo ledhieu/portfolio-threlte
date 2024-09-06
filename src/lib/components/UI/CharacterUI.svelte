@@ -66,25 +66,25 @@
     }
 
     onMount(() => {
-      onScroll = (e) => {
-        e.stopPropagation()
-        console.log('scroll', e)
-        if(e.deltaY > 0){ // scrolldown
-          goto('/weapons'); 
-          $pageState = 'weapons'
-        } else if(e.deltaY < 0){
-          goto('/'); 
-          $pageState = ''
-        }
-      }
-      throttledScroll = throttle(onScroll, 2000)
-      setTimeout(() => {
-        document.addEventListener('wheel', throttledScroll)
-      }, 2000)
+      // onScroll = (e) => {
+      //   e.stopPropagation()
+      //   console.log('scroll', e)
+      //   if(e.deltaY > 0){ // scrolldown
+      //     goto('/weapons'); 
+      //     $pageState = 'weapons'
+      //   } else if(e.deltaY < 0){
+      //     goto('/'); 
+      //     $pageState = ''
+      //   }
+      // }
+      // throttledScroll = throttle(onScroll, 2000)
+      // setTimeout(() => {
+      //   document.addEventListener('wheel', throttledScroll)
+      // }, 2000)
 
-      return () => {
-        document.removeEventListener('wheel', throttledScroll)
-      }
+      // return () => {
+      //   document.removeEventListener('wheel', throttledScroll)
+      // }
     })
 </script>
 

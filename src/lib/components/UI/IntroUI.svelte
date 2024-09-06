@@ -44,22 +44,22 @@
   }
 
   onMount(() => {
-    onScroll = (e) => {
-      e.stopPropagation()
-      console.log('scroll', e)
-      if(e.deltaY > 0){ // scrolldown
-        goto('/character'); 
-        $pageState = 'character'
-      }
-    }
-    throttledScroll = throttle(onScroll, 2000)
-    setTimeout(() => {
-      document.addEventListener('wheel', throttledScroll)
-    }, 1000)
+    // onScroll = (e) => {
+    //   e.stopPropagation()
+    //   console.log('scroll', e)
+    //   if(e.deltaY > 0){ // scrolldown
+    //     goto('/character'); 
+    //     $pageState = 'character'
+    //   }
+    // }
+    // throttledScroll = throttle(onScroll, 2000)
+    // setTimeout(() => {
+    //   document.addEventListener('wheel', throttledScroll)
+    // }, 1000)
 
-    return () => {
-        document.removeEventListener('wheel', throttledScroll)
-      }
+    // return () => {
+    //     document.removeEventListener('wheel', throttledScroll)
+    //   }
   })
 
 </script>

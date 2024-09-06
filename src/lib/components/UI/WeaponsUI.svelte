@@ -64,47 +64,47 @@
   let onScroll = () => {}, throttledScroll = () => {}
   let nextPageFlag = false, prevPageFlag = false;
   onMount(() => {
-    let scrollTop
-    onScroll = (e) => {
-        e.stopPropagation()
-        console.log('scroll', e, uiContainer.scrollTop, scrollTop)
-        if(!uiContainer)
-            return
-        if(e.deltaY > 0){ // scrolldown
-            prevPageFlag = false;
-            if(uiContainer.scrollTop >= uiContainer.scrollHeight - uiContainer.clientHeight - 20){
-                if(nextPageFlag){
-                    goto('/adventures'); 
-                    $pageState = 'adventures'
-                } else {
-                    nextPageFlag = true
-                }
-                console.log('next ready', nextPageFlag)
-            }
-        } else{
-            nextPageFlag = false;
-            if(uiContainer.scrollTop <= 0){
-                if(prevPageFlag){
-                    goto('/character'); 
-                    $pageState = 'character'
-                } else {
-                    prevPageFlag = true
-                }
-                console.log('prev ready', prevPageFlag)
-            }
-        }
-        // scrollTop = uiContainer ? uiContainer.scrollTop : undefined
-    }
-    throttledScroll = throttle((e) => {
-        onScroll(e)
-    }, 500)
-    setTimeout(() => {
-        document.addEventListener('wheel', throttledScroll)
-    }, 500)
+    // let scrollTop
+    // onScroll = (e) => {
+    //     e.stopPropagation()
+    //     console.log('scroll', e, uiContainer.scrollTop, scrollTop)
+    //     if(!uiContainer)
+    //         return
+    //     if(e.deltaY > 0){ // scrolldown
+    //         prevPageFlag = false;
+    //         if(uiContainer.scrollTop >= uiContainer.scrollHeight - uiContainer.clientHeight - 20){
+    //             if(nextPageFlag){
+    //                 goto('/adventures'); 
+    //                 $pageState = 'adventures'
+    //             } else {
+    //                 nextPageFlag = true
+    //             }
+    //             console.log('next ready', nextPageFlag)
+    //         }
+    //     } else{
+    //         nextPageFlag = false;
+    //         if(uiContainer.scrollTop <= 0){
+    //             if(prevPageFlag){
+    //                 goto('/character'); 
+    //                 $pageState = 'character'
+    //             } else {
+    //                 prevPageFlag = true
+    //             }
+    //             console.log('prev ready', prevPageFlag)
+    //         }
+    //     }
+    //     // scrollTop = uiContainer ? uiContainer.scrollTop : undefined
+    // }
+    // throttledScroll = throttle((e) => {
+    //     onScroll(e)
+    // }, 500)
+    // setTimeout(() => {
+    //     document.addEventListener('wheel', throttledScroll)
+    // }, 500)
 
-    return () => {
-    document.removeEventListener('wheel', throttledScroll)
-    }
+    // return () => {
+    // document.removeEventListener('wheel', throttledScroll)
+    // }
 })
 </script>
 
